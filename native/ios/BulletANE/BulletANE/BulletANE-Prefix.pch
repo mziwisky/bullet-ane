@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'BulletANE' target in the 'BulletANE' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif

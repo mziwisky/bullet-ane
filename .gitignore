@@ -1,0 +1,5 @@
+/native/bullet-itself/*
+!/native/bullet-itself/fetchSourceAndCompileLibs.bash
+bin-debug
+bin
+/as3/aneBulletTester/ane

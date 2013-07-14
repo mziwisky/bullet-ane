@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Bullet Physics Lib ANE Build Scripts" default="package">
+
+    <property name="ane.id" value="com.vizar3d.ane.bullet"/>
+    <property name="ane.file" value="Bullet.ane"/>
+	<property name="anedest.dir" value="as3/aneBulletTester/ane"/>
+    
+    <property name="anelib.file" value="aneBulletLib.swc"/>
+	<property name="anelib.dir" value="as3/aneBulletLib/bin"/>
+
+	<property name="anedefault.file" value="aneBulletDefault.swc"/>
+	<property name="anedefault.dir" value="as3/aneBulletDefault/bin"/>
+    
+    <property name="ioslib.file" value="libBulletANE.a"/>
+    <property name="ios.ext.init" value="BulletExtensionInitializer"/>
+	<property name="ioslib.dir" value="/Users/mziwisky/Library/Developer/Xcode/DerivedData/bullet-ane-egtxlqijdpznglagawjjhjbmkdxd/Build/Products/Release-iphoneos"/>
+	<property name="iossimlib.dir" value="/Users/mziwisky/Library/Developer/Xcode/DerivedData/bullet-ane-egtxlqijdpznglagawjjhjbmkdxd/Build/Products/Release-iphonesimulator"/>
+
+	<property name="airsdk.dir" value="/Applications/Adobe Flash Builder 4.7/sdks/4.6.0AIR3.7"/>
+    <property name="iossdk.dir" value="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk"/>
+    <property name="build.dir" value="/tmp/aneBuild"/>
+    
+    
+	<target name="all" depends="package" description="Full build of extension"/>
+    
+    <target name="package" description="Build full ANE">
+        <mkdir dir="${build.dir}"/>
+        <delete includeemptydirs="true">
+            <fileset dir="${build.dir}" includes="**/*"/>
+        </delete>
+        
+        <mkdir dir="${build.dir}/ios"/>
+        <mkdir dir="${build.dir}/iossim"/>
+        <mkdir dir="${build.dir}/default"/>
+        
+        <copy todir="${build.dir}" verbose="true">
+            <fileset file="${anelib.dir}/${anelib.file}"/>
+        </copy>
+        <unzip src="${anelib.dir}/${anelib.file}" dest="${build.dir}/unzipped"/>
+        <copy todir="${build.dir}/ios" verbose="true">
+            <fileset file="${ioslib.dir}/${ioslib.file}"/>
+            <fileset file="${build.dir}/unzipped/*.swf"/>
+		</copy>
+		<copy todir="${build.dir}/iossim" verbose="true">
+            <fileset file="${iossimlib.dir}/${ioslib.file}"/>
+            <fileset file="${build.dir}/unzipped/*.swf"/>
+		</copy>
+		<unzip src="${anedefault.dir}/${anedefault.file}" dest="${build.dir}/unzipped"/>
+		<copy todir="${build.dir}/default" verbose="true">
+			<fileset file="${build.dir}/unzipped/*.swf"/>
+		</copy>
+        
+        <echoxml file="${build.dir}/extension.xml" namespacePolicy="elementsOnly">
+            <extension xmlns="http://ns.adobe.com/air/extension/3.7">
+                <id>${ane.id}</id>
+                <versionNumber>0.0.1</versionNumber>
+                <platforms>
+                    <platform name="iPhone-ARM">
+                        <applicationDeployment>
+                            <nativeLibrary>${ioslib.file}</nativeLibrary>
+                            <initializer>${ios.ext.init}</initializer>
+                        </applicationDeployment>
+					</platform>
+					<platform name="iPhone-x86">
+						<applicationDeployment>
+							<nativeLibrary>${ioslib.file}</nativeLibrary>
+							<initializer>${ios.ext.init}</initializer>
+						</applicationDeployment>
+					</platform>
+					<platform name="default">
+						<applicationDeployment/>
+					</platform>
+                </platforms>
+            </extension>
+        </echoxml>
+		<!-- NOTE: use <platform name="MacOS-x86"> for AIR sim on mac! -->
+        
+        <echoxml file="${build.dir}/iosplatform.xml" namespacePolicy="elementsOnly">
+            <platform xmlns="http://ns.adobe.com/air/extension/3.7">
+                <sdkVersion>5.0.0</sdkVersion>
+                <linkerOptions>
+                    <option>-ios_version_min 5.0</option>
+<!--					<option>-lc++</option> -->
+                </linkerOptions>
+            </platform>
+        </echoxml>
+		
+        <exec executable="${airsdk.dir}/bin/adt" dir="${build.dir}" failonerror="true">
+            <arg line="-package -target ane ${ane.file} extension.xml -swc ${anelib.file}"/>
+			<arg line="-platform iPhone-ARM -C ios . -platformoptions iosplatform.xml"/>
+			<arg line="-platform iPhone-x86 -C iossim . -platformoptions iosplatform.xml"/>
+			<arg line="-platform default -C default ."/>
+<!--			<arg line="-platform Android-ARM -C android ."/> -->
+        </exec>
+        <copy todir="${anedest.dir}" verbose="true">
+            <fileset file="${build.dir}/${ane.file}"/>
+        </copy>
+    </target>
+
+</project>
