@@ -15,7 +15,9 @@ package
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 //			addChild(new AneTest());
 //			addChild(new AwayPhysTest());
-			addChild(new AneCompoundShapeTest());
+//			addChild(new AneCompoundShapeTest());
+//			addChild(new AneBangStuffTogetherTest());
+			addChild(new AwayBangStuffTogetherTest());
 		}
 	}
 }

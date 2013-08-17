@@ -1,9 +1,10 @@
 package com.vizar3d.ane.bullet.dynamics
 {
-	import com.vizar3d.ane.bullet.BulletMath;
-	import com.vizar3d.ane.bullet.collision.CollisionObject;
+	import com.vizar3d.ane.bullet.collision.dispatch.CollisionObject;
 	import com.vizar3d.ane.bullet.collision.shapes.CollisionShape;
+	import com.vizar3d.ane.bullet.dynamics.constraintsolver.TypedConstraint;
 	
+	import flash.geom.Matrix3D;
 	import flash.geom.Vector3D;
 	
 	import away3d.containers.ObjectContainer3D;
@@ -13,16 +14,23 @@ package com.vizar3d.ane.bullet.dynamics
 		private var _mass: Number;
 		private const _linearFactor: Vector3D = new Vector3D(1, 1, 1);
 		private const _angularFactor: Vector3D = new Vector3D(1, 1, 1);
+		private const _constraintRefs: Vector.<TypedConstraint> = new Vector.<TypedConstraint>();
 		
 		public function RigidBody(shape:CollisionShape, skin:ObjectContainer3D, mass:Number) {
 			
-			super(shape, skin, extContext.call("createRigidBody", shape.pointer, BulletMath.transformA3DtoBullet(skin.transform), mass) as uint);
+			super(shape, skin, extContext.call("createRigidBody", shape.pointer, /*BulletMath.transformA3DtoBullet(skin.transform),*/ mass) as uint);
 			_mass = mass;
 		}
 		
 		internal function updateSkinTransform(): void {
 			if (skin) {
-				skin.transform = worldTransform;
+				if (nestedMeshes) {
+					var xform: Matrix3D = worldTransform;
+					xform.append(skin.parent.inverseSceneTransform);
+					skin.transform = xform;
+				} else {
+					skin.transform = worldTransform;
+				}
 			}
 		}
 		
@@ -33,7 +41,6 @@ package com.vizar3d.ane.bullet.dynamics
 		public function set mass(val:Number): void {
 			extContext.call("RigidBody::setMass", pointer, val);
 			_mass = val;
-			// TODO: notify discreteDynamicsWorld if I've gone from static to non-static or vice-versa (use a Signal)
 		}
 		
 		public function get linearFactor(): Vector3D {
@@ -54,20 +61,71 @@ package com.vizar3d.ane.bullet.dynamics
 			_angularFactor.copyFrom(val);
 		}
 		
-		public function applyCentralImpulse(impulse:Vector3D) : void {
+		public function applyCentralImpulse(impulse:Vector3D): void {
 			const scaled: Vector3D = impulse.clone();
 			scaled.scaleBy(_scaling);
 			extContext.call("RigidBody::applyCentralImpulse", pointer, scaled);
-//			const vec : Vector3D = BulletMath.vectorComponentMultiply(impulse, _linearFactor);
-//			vec.scaleBy(1/mass);
-//			m_linearVelocity.v3d = vec.add(m_linearVelocity.v3d);
-//			activate();
 		}
 		
 		public function get linearVelocity(): Vector3D {
 			const vel: Vector3D = extContext.call("RigidBody::getLinearVelocity", pointer) as Vector3D;
 			vel.scaleBy(1/_scaling);
 			return vel;
+		}
+		
+		public function set linearVelocity(val:Vector3D): void {
+			const linvel: Vector3D = val.clone();
+			linvel.scaleBy(_scaling);
+			extContext.call("RigidBody::setLinearVelocity", pointer, linvel);
+		}
+		
+		public function get angularVelocity(): Vector3D {
+			const vel: Vector3D = extContext.call("RigidBody::getAngularVelocity", pointer) as Vector3D;
+			vel.scaleBy(1/_scaling);
+			return vel;
+		}
+		
+		public function set angularVelocity(val:Vector3D): void {
+			const angvel: Vector3D = val.clone();
+			angvel.scaleBy(_scaling);
+			extContext.call("RigidBody::setAngularVelocity", pointer, angvel);
+		}
+		
+		public function applyCentralForce(force:Vector3D): void {
+			extContext.call("RigidBody::applyCentralForce", pointer, force);
+		}
+		
+		public function applyTorque(torque:Vector3D): void {
+			extContext.call("RigidBody::applyTorque", pointer, torque);
+		}
+		
+		public function applyTorqueImpulse(timpulse:Vector3D): void {
+			extContext.call("RigidBody::applyTorqueImpulse", pointer, timpulse);
+		}
+		
+		public function addConstraintRef(constraint:TypedConstraint): void {
+			extContext.call("RigidBody::addConstraintRef", pointer, constraint);
+			if (_constraintRefs.indexOf(constraint) == -1) {
+				_constraintRefs.push(constraint);
+			}
+		}
+		
+		public function removeConstraintRef(constraint:TypedConstraint): void {
+			extContext.call("RigidBody::removeConstraintRef", pointer, constraint);
+			var index:int = _constraintRefs.indexOf(constraint);
+			if (index > -1) {
+				_constraintRefs.splice(index, 1);
+			}
+		}
+		
+		public function getConstraintRef(index:int): TypedConstraint {
+//			extContext.call("RigidBody::getConstraintRef", pointer, index);
+			return _constraintRefs.length > index ? _constraintRefs[index] : null;
+		}
+		
+		public function getNumConstraintRefs(): int {
+//			return extContext.call("RigidBody::getNumConstraintRefs", pointer) as int;
+			return _constraintRefs.length;
 		}
 	}
 }

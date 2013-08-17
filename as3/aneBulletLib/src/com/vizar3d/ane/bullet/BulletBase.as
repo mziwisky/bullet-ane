@@ -12,6 +12,7 @@ package com.vizar3d.ane.bullet
 		protected static var _scaling : Number = 0.01;
 		private static var _extContext: ExtensionContext;
 		public var pointer: uint;
+		protected static var nestedMeshes: Boolean;
 		
 		protected function get extContext(): ExtensionContext {
 			if (!_extContext) {

@@ -9,6 +9,7 @@
 #import "FlashRuntimeExtensions.h"
 #include "btBulletDynamicsCommon.h"
 #include "BulletCollision/CollisionDispatch/btGhostObject.h"
+#include "util.h"
 
 // Create DynamicsWorld
 extern "C" FREObject createDiscreteDynamicsWorldWithDbvt(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
@@ -137,3 +138,44 @@ extern "C" FREObject DiscreteDynamicsWorldstepSimulation(FREContext ctx, void *f
     return NULL;
 }
 
+extern "C" FREObject DiscreteDynamicsWorldaddConstraint(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    FREObject as3_world = argv[0];
+    FREObject as3_constraint = argv[1];
+    FREObject as3_disableCollisions = argv[2];
+    btDiscreteDynamicsWorld* dynamicsWorld;
+    btTypedConstraint* constraint;
+    uint32_t disableCollisions;
+    
+    FREGetObjectAsUint32(as3_world, (uint32_t*)&dynamicsWorld);
+    FREGetObjectAsUint32(as3_constraint, (uint32_t*)&constraint);
+    FREGetObjectAsBool(as3_disableCollisions, &disableCollisions);
+    
+    dynamicsWorld->addConstraint(constraint, disableCollisions);
+    return NULL;
+}
+
+extern "C" FREObject DiscreteDynamicsWorldremoveConstraint(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    FREObject as3_world = argv[0];
+    FREObject as3_constraint = argv[1];
+    btDiscreteDynamicsWorld* dynamicsWorld;
+    btTypedConstraint* constraint;
+    
+    FREGetObjectAsUint32(as3_world, (uint32_t*)&dynamicsWorld);
+    FREGetObjectAsUint32(as3_constraint, (uint32_t*)&constraint);
+    
+    dynamicsWorld->removeConstraint(constraint);
+    return NULL;
+}
+
+extern "C" FREObject DiscreteDynamicsWorldsetGravity(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    FREObject as3_world = argv[0];
+    FREObject as3_grav = argv[1];
+    btDiscreteDynamicsWorld* dynamicsWorld;
+    
+    FREGetObjectAsUint32(as3_world, (uint32_t*)&dynamicsWorld);
+    dynamicsWorld->setGravity(vec3DToBtVector(as3_grav));
+    return NULL;
+}

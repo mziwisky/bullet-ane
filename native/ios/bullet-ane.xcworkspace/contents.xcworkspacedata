@@ -4,4 +4,13 @@
    <FileRef
       location = "group:BulletANE/BulletANE.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:../bullet-itself/bullet-read-only/build/xcode4ios/BulletCollision.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:../bullet-itself/bullet-read-only/build/xcode4ios/BulletDynamics.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:../bullet-itself/bullet-read-only/build/xcode4ios/LinearMath.xcodeproj">
+   </FileRef>
 </Workspace>

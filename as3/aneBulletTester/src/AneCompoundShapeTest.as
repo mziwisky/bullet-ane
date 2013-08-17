@@ -101,7 +101,8 @@ package {
 			for (var i : int; i < 10; i++ ) {
 				mesh = createChairMesh(material);
 				_view.scene.addChild(mesh);
-				body = new RigidBody(chairShape, mesh, 1);
+				body = new RigidBody(chairShape, mesh, 0);
+				if (1) body.mass = 1;
 //				body.friction = .9;
 				body.position = new Vector3D(0, 500 + 1000 * i, 0);
 				physicsWorld.addRigidBody(body);
@@ -196,5 +197,3 @@ package {
 		}
 	}
 }
-import away3d.materials.lightpickers.StaticLightPicker;
-

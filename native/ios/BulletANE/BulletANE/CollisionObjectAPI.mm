@@ -48,5 +48,45 @@ extern "C" FREObject CollisionObjectsetWorldTransform(FREContext ctx, void *func
     return NULL;
 }
 
+extern "C" FREObject CollisionObjectgetCollisionFlags(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    FREObject as3_obj = argv[0];
+    btCollisionObject* obj;
+    
+    FREGetObjectAsUint32(as3_obj, (uint32_t*)&obj);
+    
+    FREObject flags;
+    FRENewObjectFromUint32(obj->getCollisionFlags(), &flags);
+    return flags;
+}
+
+extern "C" FREObject CollisionObjectsetCollisionFlags(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    FREObject as3_obj = argv[0];
+    FREObject as3_flags = argv[1];
+    btCollisionObject* obj;
+    uint32_t flags;
+    
+    FREGetObjectAsUint32(as3_obj, (uint32_t*)&obj);
+    FREGetObjectAsUint32(as3_flags, &flags);
+    
+    obj->setCollisionFlags(flags);
+    return NULL;
+}
+
+extern "C" FREObject CollisionObjectactivate(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    FREObject as3_obj = argv[0];
+    FREObject as3_forceit = argv[1];
+    btCollisionObject* obj;
+    uint32_t forceit;
+    
+    FREGetObjectAsUint32(as3_obj, (uint32_t*)&obj);
+    FREGetObjectAsBool(as3_forceit, &forceit);
+    
+    obj->activate(forceit);
+    return NULL;
+}
+
 
 // TODO: collision callbacks!

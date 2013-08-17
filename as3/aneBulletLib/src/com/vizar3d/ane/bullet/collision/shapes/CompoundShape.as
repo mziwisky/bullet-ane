@@ -15,8 +15,9 @@ package com.vizar3d.ane.bullet.collision.shapes
 		}
 		
 		public function addChildShape(shape:CollisionShape, localTransform:Matrix3D): void {
-			extContext.call("CompoundShape::addChildShape", pointer, shape.pointer, BulletMath.transformA3DtoBullet(localTransform));
+			extContext.call("CompoundShape::addChildShape", pointer, shape.pointer, BulletMath.scaleTransformA3DtoBullet(localTransform));
 			_children.push(shape);
+			// TODO: just realized i accept using the same shape over and over. so... shucks.
 			_childTransforms.push(localTransform.clone());
 		}
 		

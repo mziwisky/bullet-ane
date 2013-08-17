@@ -290,7 +290,8 @@
 		]]></InfoAdditions>
         <requestedDisplayResolution>high</requestedDisplayResolution>
     </iPhone>
-    <extensions>
+    
+<extensions>
         <extensionID>com.vizar3d.ane.bullet</extensionID>
     </extensions>
 </application>

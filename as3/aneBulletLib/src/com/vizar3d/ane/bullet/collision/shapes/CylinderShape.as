@@ -2,9 +2,9 @@ package com.vizar3d.ane.bullet.collision.shapes
 {
 	public class CylinderShape extends CollisionShape
 	{
-		public function CylinderShape(radius:Number=50, height:Number=100)
+		public function CylinderShape(radius_xz:Number=50, height_y:Number=100)
 		{
-			pointer = extContext.call("createCylinderShape", radius*2*_scaling, height*_scaling, radius*2*_scaling) as uint;
+			pointer = extContext.call("createCylinderShape", radius_xz*2*_scaling, height_y*_scaling, radius_xz*2*_scaling) as uint;
 		}
 	}
 }

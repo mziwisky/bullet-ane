@@ -7,7 +7,13 @@
 //
 
 #import "FlashRuntimeExtensions.h"
+
 #define DECLARE_FREFUNC(name) FREObject name (FREContext, void*, uint32_t, FREObject[])
+
+#define ADD_FREFUNC(num, handle, ptr) \
+    func[num].name = (const uint8_t*) handle; \
+    func[num].functionData = NULL; \
+    func[num].function = &ptr
 
 // === DiscreteDynamicsWorld ===
 DECLARE_FREFUNC(createDiscreteDynamicsWorldWithDbvt);
@@ -17,6 +23,9 @@ DECLARE_FREFUNC(DiscreteDynamicsWorldremoveCollisionObject);
 DECLARE_FREFUNC(DiscreteDynamicsWorldaddRigidBody);
 DECLARE_FREFUNC(DiscreteDynamicsWorldremoveRigidBody);
 DECLARE_FREFUNC(DiscreteDynamicsWorldstepSimulation);
+DECLARE_FREFUNC(DiscreteDynamicsWorldaddConstraint);
+DECLARE_FREFUNC(DiscreteDynamicsWorldremoveConstraint);
+DECLARE_FREFUNC(DiscreteDynamicsWorldsetGravity);
 
 // === StaticPlaneShape ===
 DECLARE_FREFUNC(createStaticPlaneShape);
@@ -45,13 +54,32 @@ DECLARE_FREFUNC(CompoundShaperemoveChildShape);
 DECLARE_FREFUNC(createCollisionObject);
 DECLARE_FREFUNC(CollisionObjectgetWorldTransform);
 DECLARE_FREFUNC(CollisionObjectsetWorldTransform);
+DECLARE_FREFUNC(CollisionObjectgetCollisionFlags);
+DECLARE_FREFUNC(CollisionObjectsetCollisionFlags);
+DECLARE_FREFUNC(CollisionObjectactivate);
 
-// === RigicBody ===
+// === RigidBody ===
 DECLARE_FREFUNC(createRigidBody);
 DECLARE_FREFUNC(RigidBodyapplyCentralImpulse);
 DECLARE_FREFUNC(RigidBodysetLinearFactor);
 DECLARE_FREFUNC(RigidBodysetAngularFactor);
 DECLARE_FREFUNC(RigidBodygetLinearVelocity);
+DECLARE_FREFUNC(RigidBodysetLinearVelocity);
+DECLARE_FREFUNC(RigidBodysetMass);
+DECLARE_FREFUNC(RigidBodyapplyCentralForce);
+DECLARE_FREFUNC(RigidBodyapplyTorque);
+DECLARE_FREFUNC(RigidBodysetAngularVelocity);
+DECLARE_FREFUNC(RigidBodygetAngularVelocity);
+DECLARE_FREFUNC(RigidBodyapplyTorqueImpulse);
+DECLARE_FREFUNC(RigidBodyaddConstraintRef);
+DECLARE_FREFUNC(RigidBodyremoveConstraintRef);
+DECLARE_FREFUNC(RigidBodygetConstraintRef);
+DECLARE_FREFUNC(RigidBodygetNumConstraintRefs);
+
+// === Generic6DofConstraint
+DECLARE_FREFUNC(createGeneric6DofConstraint);
+DECLARE_FREFUNC(Generic6DofConstraintsetLinearLimits);
+DECLARE_FREFUNC(Generic6DofConstraintsetAngularLimits);
 
 
 // This initializes a CONTEXT of the ANE.  It is called by the runtime when the AS3 side
@@ -60,105 +88,54 @@ void BulletExtContextInitializer(void *extData, const uint8_t *ctxType, FREConte
 {
     FRENamedFunction *func;
     
-    *numFunctionsToSet = 24;
+    *numFunctionsToSet = 44;
     
     func = (FRENamedFunction*) malloc(sizeof(FRENamedFunction) * *numFunctionsToSet);
     
-    func[0].name = (const uint8_t*) "createDiscreteDynamicsWorldWithDbvt";
-    func[0].functionData = NULL;
-    func[0].function = &createDiscreteDynamicsWorldWithDbvt;
-    
-    func[1].name = (const uint8_t*) "disposeDynamicsWorld";
-    func[1].functionData = NULL;
-    func[1].function = &disposeDynamicsWorld;
-    
-    func[2].name = (const uint8_t*) "DiscreteDynamicsWorld::addCollisionObject";
-    func[2].functionData = NULL;
-    func[2].function = &DiscreteDynamicsWorldaddCollisionObject;
-    
-    func[3].name = (const uint8_t*) "DiscreteDynamicsWorld::removeCollisionObject";
-    func[3].functionData = NULL;
-    func[3].function = &DiscreteDynamicsWorldremoveCollisionObject;
-    
-    func[4].name = (const uint8_t*) "DiscreteDynamicsWorld::addRigidBody";
-    func[4].functionData = NULL;
-    func[4].function = &DiscreteDynamicsWorldaddRigidBody;
-    
-    func[5].name = (const uint8_t*) "DiscreteDynamicsWorld::removeRigidBody";
-    func[5].functionData = NULL;
-    func[5].function = &DiscreteDynamicsWorldremoveRigidBody;
-    
-    func[6].name = (const uint8_t*) "DiscreteDynamicsWorld::stepSimulation";
-    func[6].functionData = NULL;
-    func[6].function = &DiscreteDynamicsWorldstepSimulation;
-    
-    func[7].name = (const uint8_t*) "createStaticPlaneShape";
-    func[7].functionData = NULL;
-    func[7].function = &createStaticPlaneShape;
-    
-    func[8].name = (const uint8_t*) "createBoxShape";
-    func[8].functionData = NULL;
-    func[8].function = &createBoxShape;
-    
-    func[9].name = (const uint8_t*) "createSphereShape";
-    func[9].functionData = NULL;
-    func[9].function = &createSphereShape;
-    
-    func[10].name = (const uint8_t*) "createCollisionObject";
-    func[10].functionData = NULL;
-    func[10].function = &createCollisionObject;
-    
-    func[11].name = (const uint8_t*) "createRigidBody";
-    func[11].functionData = NULL;
-    func[11].function = &createRigidBody;
-    
-    func[12].name = (const uint8_t*) "CollisionObject::getWorldTransform";
-    func[12].functionData = NULL;
-    func[12].function = &CollisionObjectgetWorldTransform;
-    
-    func[13].name = (const uint8_t*) "CollisionObject::setWorldTransform";
-    func[13].functionData = NULL;
-    func[13].function = &CollisionObjectsetWorldTransform;
-    
-    func[14].name = (const uint8_t*) "createCylinderShape";
-    func[14].functionData = NULL;
-    func[14].function = &createCylinderShape;
-    
-    func[15].name = (const uint8_t*) "createConeShape";
-    func[15].functionData = NULL;
-    func[15].function = &createConeShape;
-    
-    func[16].name = (const uint8_t*) "createCapsuleShape";
-    func[16].functionData = NULL;
-    func[16].function = &createCapsuleShape;
-    
-    func[17].name = (const uint8_t*) "createCompoundShape";
-    func[17].functionData = NULL;
-    func[17].function = &createCompoundShape;
-    
-    func[18].name = (const uint8_t*) "CompoundShape::addChildShape";
-    func[18].functionData = NULL;
-    func[18].function = &CompoundShapeaddChildShape;
-    
-    func[19].name = (const uint8_t*) "CompoundShape::removeChildShape";
-    func[19].functionData = NULL;
-    func[19].function = &CompoundShaperemoveChildShape;
-    
-    func[20].name = (const uint8_t*) "RigidBody::applyCentralImpulse";
-    func[20].functionData = NULL;
-    func[20].function = &RigidBodyapplyCentralImpulse;
-    
-    func[21].name = (const uint8_t*) "RigidBody::setLinearFactor";
-    func[21].functionData = NULL;
-    func[21].function = &RigidBodysetLinearFactor;
-    
-    func[22].name = (const uint8_t*) "RigidBody::setAngularFactor";
-    func[22].functionData = NULL;
-    func[22].function = &RigidBodysetAngularFactor;
-    
-    func[23].name = (const uint8_t*) "RigidBody::getLinearVelocity";
-    func[23].functionData = NULL;
-    func[23].function = &RigidBodygetLinearVelocity;
+    ADD_FREFUNC(0, "createDiscreteDynamicsWorldWithDbvt", createDiscreteDynamicsWorldWithDbvt);
+    ADD_FREFUNC(1, "disposeDynamicsWorld", disposeDynamicsWorld);
+    ADD_FREFUNC(2, "DiscreteDynamicsWorld::addCollisionObject", DiscreteDynamicsWorldaddCollisionObject);
+    ADD_FREFUNC(3, "DiscreteDynamicsWorld::removeCollisionObject", DiscreteDynamicsWorldremoveCollisionObject);
+    ADD_FREFUNC(4, "DiscreteDynamicsWorld::addRigidBody", DiscreteDynamicsWorldaddRigidBody);
+    ADD_FREFUNC(5, "DiscreteDynamicsWorld::removeRigidBody", DiscreteDynamicsWorldremoveRigidBody);
+    ADD_FREFUNC(6, "DiscreteDynamicsWorld::stepSimulation", DiscreteDynamicsWorldstepSimulation);
+    ADD_FREFUNC(7, "createStaticPlaneShape", createStaticPlaneShape);
+    ADD_FREFUNC(8, "createBoxShape", createBoxShape);
+    ADD_FREFUNC(9, "createSphereShape", createSphereShape);
+    ADD_FREFUNC(10, "createCollisionObject", createCollisionObject);
+    ADD_FREFUNC(11, "createRigidBody", createRigidBody);
+    ADD_FREFUNC(12, "CollisionObject::getWorldTransform", CollisionObjectgetWorldTransform);
+    ADD_FREFUNC(13, "CollisionObject::setWorldTransform", CollisionObjectsetWorldTransform);
+    ADD_FREFUNC(14, "createCylinderShape", createCylinderShape);
+    ADD_FREFUNC(15, "createConeShape", createConeShape);
+    ADD_FREFUNC(16, "createCapsuleShape", createCapsuleShape);
+    ADD_FREFUNC(17, "createCompoundShape", createCompoundShape);
+    ADD_FREFUNC(18, "CompoundShape::addChildShape", CompoundShapeaddChildShape);
+    ADD_FREFUNC(19, "CompoundShape::removeChildShape", CompoundShaperemoveChildShape);
+    ADD_FREFUNC(20, "RigidBody::applyCentralImpulse", RigidBodyapplyCentralImpulse);
+    ADD_FREFUNC(21, "RigidBody::setLinearFactor", RigidBodysetLinearFactor);
+    ADD_FREFUNC(22, "RigidBody::setAngularFactor", RigidBodysetAngularFactor);
+    ADD_FREFUNC(23, "RigidBody::getLinearVelocity", RigidBodygetLinearVelocity);
+    ADD_FREFUNC(24, "RigidBody::setMass", RigidBodysetMass);
+    ADD_FREFUNC(25, "CollisionObject::getCollisionFlags", CollisionObjectgetCollisionFlags);
+    ADD_FREFUNC(26, "CollisionObject::setCollisionFlags", CollisionObjectsetCollisionFlags);
+    ADD_FREFUNC(27, "RigidBody::applyCentralForce", RigidBodyapplyCentralForce);
+    ADD_FREFUNC(28, "RigidBody::setLinearVelocity", RigidBodysetLinearVelocity);
+    ADD_FREFUNC(29, "CollisionObject::activate", CollisionObjectactivate);
+    ADD_FREFUNC(30, "RigidBody::applyTorque", RigidBodyapplyTorque);
+    ADD_FREFUNC(31, "DiscreteDynamicsWorld::addConstraint", DiscreteDynamicsWorldaddConstraint);
+    ADD_FREFUNC(32, "DiscreteDynamicsWorld::removeConstraint", DiscreteDynamicsWorldremoveConstraint);
+    ADD_FREFUNC(33, "createGeneric6DofConstraint", createGeneric6DofConstraint);
+    ADD_FREFUNC(34, "Generic6DofConstraint::setLinearLimits", Generic6DofConstraintsetLinearLimits);
+    ADD_FREFUNC(35, "Generic6DofConstraint::setAngularLimits", Generic6DofConstraintsetAngularLimits);
+    ADD_FREFUNC(36, "DiscreteDynamicsWorld::setGravity", DiscreteDynamicsWorldsetGravity);
+    ADD_FREFUNC(37, "RigidBody::setAngularVelocity", RigidBodysetAngularVelocity);
+    ADD_FREFUNC(38, "RigidBody::getAngularVelocity", RigidBodygetAngularVelocity);
+    ADD_FREFUNC(39, "RigidBody::applyTorqueImpulse", RigidBodyapplyTorqueImpulse);
+    ADD_FREFUNC(40, "RigidBody::addConstraintRef", RigidBodyaddConstraintRef);
+    ADD_FREFUNC(41, "RigidBody::removeConstraintRef", RigidBodyremoveConstraintRef);
+    ADD_FREFUNC(42, "RigidBody::getConstraintRef", RigidBodygetConstraintRef);
+    ADD_FREFUNC(43, "RigidBody::getNumConstraintRefs", RigidBodygetNumConstraintRefs);
     
     *functionsToSet = func;
 }

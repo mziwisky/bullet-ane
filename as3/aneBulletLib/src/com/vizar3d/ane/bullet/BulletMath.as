@@ -5,19 +5,20 @@ package com.vizar3d.ane.bullet
 
 	public class BulletMath extends BulletBase
 	{
-		public static function transformA3DtoBullet(a3dTrans:Matrix3D): Matrix3D {
+		public static function scaleTransformA3DtoBullet(a3dTrans:Matrix3D): Matrix3D {
 			return scaleMatrixPosition(a3dTrans, _scaling);
 		}
 		
-		public static function transformBulletToA3D(btTrans:Matrix3D): Matrix3D {
+		public static function scaleTransformBulletToA3D(btTrans:Matrix3D): Matrix3D {
 			return scaleMatrixPosition(btTrans, 1/_scaling);
 		}
 		
 		private static function scaleMatrixPosition(mat:Matrix3D, scale:Number): Matrix3D {
+			const newMat: Matrix3D = mat.clone();
 			const pos: Vector3D = mat.position;
 			pos.scaleBy(scale);
-			mat.position = pos;
-			return mat;
+			newMat.position = pos;
+			return newMat;
 		}
 		
 		public static function vectorComponentMultiply(v1:Vector3D, v2:Vector3D):Vector3D {
