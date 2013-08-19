@@ -41,13 +41,13 @@ package com.vizar3d.ane.bullet.collision.dispatch
 		
 		public function get worldTransform(): Matrix3D {
 			const btTrans: Matrix3D = extContext.call("CollisionObject::getWorldTransform", pointer) as Matrix3D;
-			return BulletMath.scaleTransformBulletToA3D(btTrans);
+			return BulletMath.scaleTransformBulletToA3D(btTrans, btTrans);
 		}
 		
 		public function set worldTransform(val:Matrix3D): void {
 			if (skin) {
 				var xform: Matrix3D = val.clone();
-				if (nestedMeshes) {
+				if (nestedMeshes && skin.parent) {
 					xform.append(skin.parent.inverseSceneTransform);
 				}
 				skin.transform = xform;

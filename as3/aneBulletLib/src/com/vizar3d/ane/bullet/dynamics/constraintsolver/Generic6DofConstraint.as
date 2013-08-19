@@ -19,8 +19,8 @@ package com.vizar3d.ane.bullet.dynamics.constraintsolver
 			transA.recompose(new <Vector3D>[framePosInA, frameRotInA, scaling]);
 			transB.recompose(new <Vector3D>[framePosInB, frameRotInB, scaling]);
 			
-			transA = BulletMath.scaleTransformA3DtoBullet(transA);
-			transB = BulletMath.scaleTransformA3DtoBullet(transB);
+			BulletMath.scaleTransformA3DtoBullet(transA, transA);
+			BulletMath.scaleTransformA3DtoBullet(transB, transB);
 			
 			pointer = extContext.call("createGeneric6DofConstraint", rbA.pointer, rbB.pointer,
 				transA, transB, useLinearReferenceFrameA) as uint;

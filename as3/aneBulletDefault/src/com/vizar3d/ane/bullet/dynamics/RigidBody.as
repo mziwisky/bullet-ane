@@ -1,5 +1,6 @@
 package com.vizar3d.ane.bullet.dynamics
 {
+	import com.vizar3d.ane.bullet.awp;
 	import com.vizar3d.ane.bullet.collision.dispatch.CollisionObject;
 	import com.vizar3d.ane.bullet.collision.shapes.CollisionShape;
 	import com.vizar3d.ane.bullet.dynamics.constraintsolver.TypedConstraint;
@@ -8,85 +9,93 @@ package com.vizar3d.ane.bullet.dynamics
 	
 	import away3d.containers.ObjectContainer3D;
 	
+	use namespace awp;
+	
 	public class RigidBody extends CollisionObject
 	{
-		public function RigidBody(shape:CollisionShape, skin:ObjectContainer3D, mass:Number) {
-			super(shape, skin, 0); noSupport();
-		}
+		awp var awpBody: NestableAWPRigidBody;
+		private const _constraintRefs: Vector.<TypedConstraint> = new Vector.<TypedConstraint>();
 		
-		internal function updateSkinTransform(nestedMesh:Boolean=false): void {
-			noSupport();
+		public function RigidBody(shape:CollisionShape, skin:ObjectContainer3D, mass:Number) {
+			awpBody = new NestableAWPRigidBody(shape.awpShape, skin, mass, nestedMeshes);
+			super(shape, skin, awpBody.pointer);
 		}
 		
 		public function get mass(): Number {
-			noSupport(); return null;
+			return awpBody.mass;
 		}
 		
 		public function set mass(val:Number): void {
-			noSupport();
+			awpBody.mass = val;
 		}
 		
 		public function get linearFactor(): Vector3D {
-			noSupport(); return null;
+			return awpBody.linearFactor;
 		}
 		
 		public function set linearFactor(val:Vector3D): void {
-			noSupport();
+			awpBody.linearFactor = val;
 		}
 		
 		public function get angularFactor(): Vector3D {
-			noSupport(); return null;
+			return awpBody.angularFactor;
 		}
 		
 		public function set angularFactor(val:Vector3D): void {
-			noSupport();
+			awpBody.angularFactor = val;
 		}
 		
 		public function applyCentralImpulse(impulse:Vector3D): void {
-			noSupport();
+			awpBody.applyCentralImpulse(impulse);
 		}
 		
 		public function get linearVelocity(): Vector3D {
-			noSupport(); return null;
+			return awpBody.linearVelocity;
 		}
 		
 		public function set linearVelocity(val:Vector3D): void {
-			noSupport();
+			awpBody.linearVelocity = val;
 		}
 		
 		public function get angularVelocity(): Vector3D {
-			noSupport(); return null;
+			return awpBody.angularVelocity;
 		}
 		
 		public function set angularVelocity(val:Vector3D): void {
-			noSupport();
+			awpBody.angularVelocity = val;
 		}
 		
 		public function applyCentralForce(force:Vector3D): void {
-			noSupport();
+			awpBody.applyCentralForce(force);
 		}
 		
 		public function applyTorque(torque:Vector3D): void {
-			noSupport();
+			awpBody.applyTorque(torque);
 		}
 		
 		public function applyTorqueImpulse(timpulse:Vector3D): void {
-			noSupport();
+			awpBody.applyTorqueImpulse(timpulse);
 		}
 		
 		public function addConstraintRef(constraint:TypedConstraint): void {
-			noSupport();
+			if (_constraintRefs.indexOf(constraint) == -1) {
+				_constraintRefs.push(constraint);
+			}
 		}
 		
 		public function removeConstraintRef(constraint:TypedConstraint): void {
-			noSupport();		}
+			var index:int = _constraintRefs.indexOf(constraint);
+			if (index > -1) {
+				_constraintRefs.splice(index, 1);
+			}
+		}
 		
 		public function getConstraintRef(index:int): TypedConstraint {
-			noSupport(); return null;
+			return _constraintRefs.length > index ? _constraintRefs[index] : null;
 		}
 		
 		public function getNumConstraintRefs(): int {
-			noSupport(); return null;
+			return _constraintRefs.length;
 		}
 	}
 }

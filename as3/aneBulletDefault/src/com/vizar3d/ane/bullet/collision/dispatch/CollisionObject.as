@@ -1,12 +1,15 @@
 package com.vizar3d.ane.bullet.collision.dispatch
 {
 	import com.vizar3d.ane.bullet.BulletBase;
+	import com.vizar3d.ane.bullet.awp;
 	import com.vizar3d.ane.bullet.collision.shapes.CollisionShape;
 	
 	import flash.geom.Matrix3D;
 	import flash.geom.Vector3D;
 	
 	import away3d.containers.ObjectContainer3D;
+	
+	use namespace awp;
 	
 	public class CollisionObject extends BulletBase
 	{
@@ -18,36 +21,42 @@ package com.vizar3d.ane.bullet.collision.dispatch
 		public static const DISABLE_VISUALIZE_OBJECT: int = 32;
 		public static const DISABLE_SPU_COLLISION_PROCESSING: int = 64;
 		
+		awp var awpObject: NestableAWPCollisionObject;
+		
 		public function CollisionObject(shape:CollisionShape, skin:ObjectContainer3D, pointer:uint=0) {
-			noSupport();
+			awpObject = new NestableAWPCollisionObject(shape.awpShape, skin, pointer, nestedMeshes);
+		}
+		
+		public function get skin(): ObjectContainer3D {
+			return awpObject.skin;
 		}
 		
 		public function get worldTransform(): Matrix3D {
-			noSupport(); return null;
+			return awpObject.worldTransform.transform;
 		}
 		
 		public function set worldTransform(val:Matrix3D): void {
-			noSupport();
+			awpObject.worldTransform.transform = val;
 		}
 		
 		public function get position(): Vector3D {
-			noSupport(); return null;
+			return awpObject.position;
 		}
 		
 		public function set position(val:Vector3D): void {
-			noSupport();
+			awpObject.position = val;
 		}
 		
 		public function get collisionFlags(): int {
-			noSupport(); return null;
+			return awpObject.collisionFlags;
 		}
 		
 		public function set collisionFlags(flags:int): void {
-			noSupport();
+			awpObject.collisionFlags = flags;
 		}
 		
 		public function activate(forceActivation:Boolean=false): void {
-			noSupport();
+			awpObject.activate(forceActivation);
 		}
 	}
 }
