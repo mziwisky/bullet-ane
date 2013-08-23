@@ -13,8 +13,8 @@
     
     <property name="ioslib.file" value="libBulletANE.a"/>
     <property name="ios.ext.init" value="BulletExtensionInitializer"/>
-	<property name="ioslib.dir" value="/Users/mziwisky/Library/Developer/Xcode/DerivedData/bullet-ane-egtxlqijdpznglagawjjhjbmkdxd/Build/Products/Release-iphoneos"/>
-	<property name="iossimlib.dir" value="/Users/mziwisky/Library/Developer/Xcode/DerivedData/bullet-ane-egtxlqijdpznglagawjjhjbmkdxd/Build/Products/Release-iphonesimulator"/>
+	<property name="ioslib.dir" value="native/ios/Build/Products/Release-iphoneos"/>
+	<property name="iossimlib.dir" value="native/ios/Build/Products/Release-iphonesimulator"/>
 
 	<property name="airsdk.dir" value="/Applications/Adobe Flash Builder 4.7/sdks/4.6.0AIR3.7"/>
     <property name="iossdk.dir" value="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk"/>

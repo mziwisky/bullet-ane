@@ -1,5 +1,6 @@
-/native/bullet-itself/*
-!/native/bullet-itself/fetchSourceAndCompileLibs.bash
+native/bullet-itself/*
+!native/bullet-itself/fetchSourceAndCompileLibs.bash
 bin-debug
 bin
-/as3/aneBulletTester/ane
+as3/aneBulletTester/ane
+native/ios/Build
