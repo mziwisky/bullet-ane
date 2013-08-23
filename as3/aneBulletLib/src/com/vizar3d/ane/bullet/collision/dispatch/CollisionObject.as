@@ -76,5 +76,37 @@ package com.vizar3d.ane.bullet.collision.dispatch
 		public function activate(forceActivation:Boolean=false): void {
 			extContext.call("CollisionObject::activate", pointer, forceActivation);
 		}
+		
+		public function get friction(): Number {
+			return extContext.call("CollisionObject::getFriction", pointer) as Number;
+		}
+		
+		public function set friction(val:Number): void {
+			extContext.call("CollisionObject::setFriction", pointer, val);
+		}
+		
+		public function get rollingFriction(): Number {
+			return extContext.call("CollisionObject::getRollingFriction", pointer) as Number;
+		}
+		
+		public function set rollingFriction(val:Number): void {
+			extContext.call("CollisionObject::setRollingFriction", pointer, val);
+		}
+		
+		public function get restitution(): Number {
+			return extContext.call("CollisionObject::getRestitution", pointer) as Number;
+		}
+		
+		public function set restitution(val:Number): void {
+			extContext.call("CollisionObject::setRestitution", pointer, val);
+		}
+		
+		public function get hitFraction(): Number {
+			return extContext.call("CollisionObject::getHitFraction", pointer) as Number;
+		}
+		
+		public function set hitFraction(val:Number): void {
+			extContext.call("CollisionObject::setHitFraction", pointer, val);
+		}
 	}
 }

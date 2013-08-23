@@ -57,6 +57,17 @@ DECLARE_FREFUNC(CollisionObjectsetWorldTransform);
 DECLARE_FREFUNC(CollisionObjectgetCollisionFlags);
 DECLARE_FREFUNC(CollisionObjectsetCollisionFlags);
 DECLARE_FREFUNC(CollisionObjectactivate);
+DECLARE_FREFUNC(CollisionObjectgetRestitution);
+DECLARE_FREFUNC(CollisionObjectsetRestitution);
+DECLARE_FREFUNC(CollisionObjectgetFriction);
+DECLARE_FREFUNC(CollisionObjectsetFriction);
+DECLARE_FREFUNC(CollisionObjectgetRollingFriction);
+DECLARE_FREFUNC(CollisionObjectsetRollingFriction);
+DECLARE_FREFUNC(CollisionObjectgetHitFraction);
+DECLARE_FREFUNC(CollisionObjectsetHitFraction);
+DECLARE_FREFUNC(CollisionObjectgetActivationState);
+DECLARE_FREFUNC(CollisionObjectsetActivationState);
+DECLARE_FREFUNC(CollisionObjectforceActivationState);
 
 // === RigidBody ===
 DECLARE_FREFUNC(createRigidBody);
@@ -88,7 +99,7 @@ void BulletExtContextInitializer(void *extData, const uint8_t *ctxType, FREConte
 {
     FRENamedFunction *func;
     
-    *numFunctionsToSet = 44;
+    *numFunctionsToSet = 55;
     
     func = (FRENamedFunction*) malloc(sizeof(FRENamedFunction) * *numFunctionsToSet);
     
@@ -136,6 +147,17 @@ void BulletExtContextInitializer(void *extData, const uint8_t *ctxType, FREConte
     ADD_FREFUNC(41, "RigidBody::removeConstraintRef", RigidBodyremoveConstraintRef);
     ADD_FREFUNC(42, "RigidBody::getConstraintRef", RigidBodygetConstraintRef);
     ADD_FREFUNC(43, "RigidBody::getNumConstraintRefs", RigidBodygetNumConstraintRefs);
+    ADD_FREFUNC(44, "CollisionObject::getRestitution", CollisionObjectgetRestitution);
+    ADD_FREFUNC(45, "CollisionObject::setRestitution", CollisionObjectsetRestitution);
+    ADD_FREFUNC(46, "CollisionObject::getFriction", CollisionObjectgetFriction);
+    ADD_FREFUNC(47, "CollisionObject::setFriction", CollisionObjectsetFriction);
+    ADD_FREFUNC(48, "CollisionObject::getRollingFriction", CollisionObjectgetRollingFriction);
+    ADD_FREFUNC(49, "CollisionObject::setRollingFriction", CollisionObjectsetRollingFriction);
+    ADD_FREFUNC(50, "CollisionObject::getHitFraction", CollisionObjectgetHitFraction);
+    ADD_FREFUNC(51, "CollisionObject::setHitFraction", CollisionObjectsetHitFraction);
+    ADD_FREFUNC(52, "CollisionObject::getActivationState", CollisionObjectgetActivationState);
+    ADD_FREFUNC(53, "CollisionObject::setActivationState", CollisionObjectsetActivationState);
+    ADD_FREFUNC(54, "CollisionObject::forceActivationState", CollisionObjectforceActivationState);
     
     *functionsToSet = func;
 }

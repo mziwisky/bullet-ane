@@ -58,5 +58,37 @@ package com.vizar3d.ane.bullet.collision.dispatch
 		public function activate(forceActivation:Boolean=false): void {
 			awpObject.activate(forceActivation);
 		}
+		
+		public function get friction(): Number {
+			return awpObject.friction;
+		}
+		
+		public function set friction(val:Number): void {
+			awpObject.friction = val;
+		}
+		
+		public function get rollingFriction(): Number {
+			return awpObject.rollingFriction;
+		}
+		
+		public function set rollingFriction(val:Number): void {
+			awpObject.rollingFriction = val;
+		}
+		
+		public function get restitution(): Number {
+			return awpObject.restitution;
+		}
+		
+		public function set restitution(val:Number): void {
+			awpObject.restitution = val;
+		}
+		
+		public function get hitFraction(): Number {
+			return awpObject.hitFraction;
+		}
+		
+		public function set hitFraction(val:Number): void {
+			awpObject.hitFraction = val;
+		}
 	}
 }
