@@ -28,16 +28,16 @@ package com.vizar3d.ane.bullet.dynamics
 		
 		// TODO: dispose
 		
-		public function addCollisionObject(obj:CollisionObject): void {
-			awpDDWorld.addCollisionObject(obj.awpObject);
+		public function addCollisionObject(obj:CollisionObject, group:int=1, mask:int=-1): void {
+			awpDDWorld.addCollisionObject(obj.awpObject, group, mask);
 		}
 		
 		public function removeCollisionObject(obj:CollisionObject): void {
 			awpDDWorld.removeCollisionObject(obj.awpObject);
 		}
 		
-		public function addRigidBody(body:RigidBody): void {
-			awpDDWorld.addRigidBody(body.awpBody);
+		public function addRigidBody(body:RigidBody, group:int=1, mask:int=-1): void {
+			awpDDWorld.addRigidBodyWithGroup(body.awpBody, group, mask);
 		}
 		
 		public function removeRigidBody(body:RigidBody): void {

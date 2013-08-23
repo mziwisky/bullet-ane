@@ -21,19 +21,19 @@ package com.vizar3d.ane.bullet.dynamics
 		
 		// TODO: dispose
 		
-		public function addCollisionObject(obj:CollisionObject): void {
-			extContext.call("DiscreteDynamicsWorld::addCollisionObject", pointer, obj.pointer);
+		public function addCollisionObject(obj:CollisionObject, group:int=1, mask:int=-1): void {
+			extContext.call("DiscreteDynamicsWorld::addCollisionObject", pointer, obj.pointer, group, mask);
 		}
 		
 		public function removeCollisionObject(obj:CollisionObject): void {
 			extContext.call("DiscreteDynamicsWorld::removeCollisionObject", pointer, obj.pointer);
 		}
 		
-		public function addRigidBody(body:RigidBody): void {
+		public function addRigidBody(body:RigidBody, group:int=1, mask:int=-1): void {
 			if (rigidBodies.indexOf(body) != -1) {
 				return;
 			}
-			extContext.call("DiscreteDynamicsWorld::addRigidBody", pointer, body.pointer);
+			extContext.call("DiscreteDynamicsWorld::addRigidBody", pointer, body.pointer, group, mask);
 			rigidBodies.push(body);
 			if (!(body.collisionFlags & (CollisionObject.STATIC_OBJECT | CollisionObject.KINEMATIC_OBJECT))) {
 				nonstaticRigidBodies.push(body);

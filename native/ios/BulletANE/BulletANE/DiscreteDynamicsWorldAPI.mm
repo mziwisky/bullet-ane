@@ -54,14 +54,15 @@ extern "C" FREObject DiscreteDynamicsWorldaddCollisionObject(FREContext ctx, voi
     FREObject as3_group = argv[2];
     FREObject as3_mask = argv[3];
     btDiscreteDynamicsWorld* dynamicsWorld;
-    uint32_t objPtr, group, mask;
+    btCollisionObject* object;
+    int group, mask;
     
     FREGetObjectAsUint32(as3_world, (uint32_t*)&dynamicsWorld);
-    FREGetObjectAsUint32(as3_object, &objPtr);
-    FREGetObjectAsUint32(as3_group, &group);
-    FREGetObjectAsUint32(as3_mask, &mask);
+    FREGetObjectAsUint32(as3_object, (uint32_t*)&object);
+    FREGetObjectAsInt32(as3_group, &group);
+    FREGetObjectAsInt32(as3_mask, &mask);
     
-    dynamicsWorld->addCollisionObject((btCollisionObject*)objPtr, group, mask);
+    dynamicsWorld->addCollisionObject(object, group, mask);
     return NULL;
 }
 
@@ -70,27 +71,31 @@ extern "C" FREObject DiscreteDynamicsWorldremoveCollisionObject(FREContext ctx, 
     FREObject as3_world = argv[0];
     FREObject as3_object = argv[1];
     btDiscreteDynamicsWorld* dynamicsWorld;
-    uint32_t objPtr;
+    btCollisionObject* object;
     
     FREGetObjectAsUint32(as3_world, (uint32_t*)&dynamicsWorld);
-    FREGetObjectAsUint32(as3_object, &objPtr);
+    FREGetObjectAsUint32(as3_object, (uint32_t*)&object);
     
-    dynamicsWorld->removeCollisionObject((btCollisionObject*)objPtr);
+    dynamicsWorld->removeCollisionObject(object);
     return NULL;
 }
-
 
 extern "C" FREObject DiscreteDynamicsWorldaddRigidBody(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
 {
     FREObject as3_world = argv[0];
     FREObject as3_body = argv[1];
+    FREObject as3_group = argv[2];
+    FREObject as3_mask = argv[3];
     btDiscreteDynamicsWorld* dynamicsWorld;
     btRigidBody* body;
+    int group, mask;
     
     FREGetObjectAsUint32(as3_world, (uint32_t*)&dynamicsWorld);
     FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
+    FREGetObjectAsInt32(as3_group, &group);
+    FREGetObjectAsInt32(as3_mask, &mask);
     
-    dynamicsWorld->addRigidBody(body);
+    dynamicsWorld->addRigidBody(body, group, mask);
     return NULL;
 }
 
