@@ -11,8 +11,8 @@ package com.vizar3d.ane.bullet.collision.dispatch
 	{
 		private var nested: Boolean;
 		
-		public function NestableAWPCollisionObject(shape:AWPCollisionShape, skin:ObjectContainer3D, pointer:uint, nested:Boolean): void {
-			super(shape, skin, pointer);
+		public function NestableAWPCollisionObject(shape:AWPCollisionShape, skin:ObjectContainer3D, nested:Boolean): void {
+			super(shape, skin, 0);
 			this.nested = nested;
 		}
 		

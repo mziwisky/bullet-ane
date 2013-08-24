@@ -24,7 +24,7 @@ package com.vizar3d.ane.bullet.dynamics
 		
 		internal function updateSkinTransform(): void {
 			if (skin) {
-				if (nestedMeshes) {
+				if (nestedMeshes && skin.parent) {
 					var xform: Matrix3D = worldTransform;
 					xform.append(skin.parent.inverseSceneTransform);
 					skin.transform = xform;

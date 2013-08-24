@@ -18,7 +18,7 @@ package com.vizar3d.ane.bullet.dynamics
 		
 		public function RigidBody(shape:CollisionShape, skin:ObjectContainer3D, mass:Number) {
 			awpBody = new NestableAWPRigidBody(shape.awpShape, skin, mass, nestedMeshes);
-			super(shape, skin, awpBody.pointer);
+			super(shape, skin, awpBody);
 		}
 		
 		public function get mass(): Number {
