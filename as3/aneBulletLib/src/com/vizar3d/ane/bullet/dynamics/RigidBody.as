@@ -104,14 +104,14 @@ package com.vizar3d.ane.bullet.dynamics
 		}
 		
 		public function addConstraintRef(constraint:TypedConstraint): void {
-			extContext.call("RigidBody::addConstraintRef", pointer, constraint);
+			extContext.call("RigidBody::addConstraintRef", pointer, constraint.pointer);
 			if (_constraintRefs.indexOf(constraint) == -1) {
 				_constraintRefs.push(constraint);
 			}
 		}
 		
 		public function removeConstraintRef(constraint:TypedConstraint): void {
-			extContext.call("RigidBody::removeConstraintRef", pointer, constraint);
+			extContext.call("RigidBody::removeConstraintRef", pointer, constraint.pointer);
 			var index:int = _constraintRefs.indexOf(constraint);
 			if (index > -1) {
 				_constraintRefs.splice(index, 1);
