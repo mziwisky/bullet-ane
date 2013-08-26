@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Bullet Physics Lib ANE Build Scripts" default="package">
 
-    <property name="ane.id" value="com.vizar3d.ane.bullet"/>
+    <property name="ane.id" value="ane.bulletphysics"/>
     <property name="ane.file" value="Bullet.ane"/>
 	<property name="anedest.dir" value="as3/aneBulletTester/ane"/>
     
