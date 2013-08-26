@@ -68,6 +68,8 @@ DECLARE_FREFUNC(CollisionObjectsetHitFraction);
 DECLARE_FREFUNC(CollisionObjectgetActivationState);
 DECLARE_FREFUNC(CollisionObjectsetActivationState);
 DECLARE_FREFUNC(CollisionObjectforceActivationState);
+DECLARE_FREFUNC(CollisionObjectgetCollisionFilterGroup);
+DECLARE_FREFUNC(CollisionObjectgetCollisionFilterMask);
 
 // === RigidBody ===
 DECLARE_FREFUNC(createRigidBody);
@@ -99,7 +101,7 @@ void BulletExtContextInitializer(void *extData, const uint8_t *ctxType, FREConte
 {
     FRENamedFunction *func;
     
-    *numFunctionsToSet = 55;
+    *numFunctionsToSet = 57;
     
     func = (FRENamedFunction*) malloc(sizeof(FRENamedFunction) * *numFunctionsToSet);
     
@@ -158,6 +160,8 @@ void BulletExtContextInitializer(void *extData, const uint8_t *ctxType, FREConte
     ADD_FREFUNC(52, "CollisionObject::getActivationState", CollisionObjectgetActivationState);
     ADD_FREFUNC(53, "CollisionObject::setActivationState", CollisionObjectsetActivationState);
     ADD_FREFUNC(54, "CollisionObject::forceActivationState", CollisionObjectforceActivationState);
+    ADD_FREFUNC(55, "CollisionObject::getCollisionFilterGroup", CollisionObjectgetCollisionFilterGroup);
+    ADD_FREFUNC(56, "CollisionObject::getCollisionFilterMask", CollisionObjectgetCollisionFilterMask);
     
     *functionsToSet = func;
 }

@@ -149,6 +149,30 @@ extern "C" FREObject CollisionObjectforceActivationState(FREContext ctx, void *f
     return setIntConst(argv, &btCollisionObject::forceActivationState);
 }
 
+extern "C" FREObject CollisionObjectgetCollisionFilterGroup(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    FREObject as3_obj = argv[0];
+    btCollisionObject* obj;
+    
+    FREGetObjectAsUint32(as3_obj, (uint32_t*)&obj);
+    short group = obj->getBroadphaseHandle()->m_collisionFilterGroup;
+    FREObject as3_group;
+    FRENewObjectFromInt32((int32_t)group, &as3_group);
+    return as3_group;
+}
+
+extern "C" FREObject CollisionObjectgetCollisionFilterMask(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    FREObject as3_obj = argv[0];
+    btCollisionObject* obj;
+    
+    FREGetObjectAsUint32(as3_obj, (uint32_t*)&obj);
+    short mask = obj->getBroadphaseHandle()->m_collisionFilterMask;
+    FREObject as3_mask;
+    FRENewObjectFromInt32((int32_t)mask, &as3_mask);
+    return as3_mask;
+}
+
 extern "C" FREObject CollisionObjectgetWorldTransform(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
 {
     FREObject as3_obj = argv[0];

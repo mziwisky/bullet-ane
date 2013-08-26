@@ -14,14 +14,6 @@ package com.vizar3d.ane.bullet.collision.dispatch
 	
 	public class CollisionObject extends BulletBase
 	{
-		public static const STATIC_OBJECT: int = 1;
-		public static const KINEMATIC_OBJECT: int = 2;
-		public static const NO_CONTACT_RESPONSE: int = 4;
-		public static const CUSTOM_MATERIAL_CALLBACK: int = 8;
-		public static const CHARACTER_OBJECT: int = 16;
-		public static const DISABLE_VISUALIZE_OBJECT: int = 32;
-		public static const DISABLE_SPU_COLLISION_PROCESSING: int = 64;
-		
 		// Must ensure that the wrapped object is of the correct type (either AWPCollisionObject
 		// or AWPRigidBody), but ALSO must subclass each of those AWP classes to override
 		// the updateTransform() method to support nested meshes.  So I explicitly wrap only
@@ -29,6 +21,9 @@ package com.vizar3d.ane.bullet.collision.dispatch
 		// I don't love this solution, but it's all I can think of.
 		awp var awpObject: NestableAWPCollisionObject;
 		awp var awpRigidBody: NestableAWPRigidBody;
+		
+		awp var collisionFilterGroup: int;
+		awp var collisionFilterMask: int;
 		
 		public function CollisionObject(shape:CollisionShape, skin:ObjectContainer3D, subRigidBody:NestableAWPRigidBody=null) {
 			if (subRigidBody) {
@@ -100,6 +95,14 @@ package com.vizar3d.ane.bullet.collision.dispatch
 		
 		public function set hitFraction(val:Number): void {
 			awpRigidBody ? awpRigidBody.hitFraction = val : awpObject.hitFraction = val;
+		}
+		
+		public function get collisionFilterGroup(): int {
+			return awp::collisionFilterGroup;
+		}
+		
+		public function get collisionFilterMask(): int {
+			return awp::collisionFilterMask;
 		}
 	}
 }

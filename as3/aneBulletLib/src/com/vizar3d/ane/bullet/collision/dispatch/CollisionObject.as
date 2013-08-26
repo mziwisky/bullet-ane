@@ -11,14 +11,6 @@ package com.vizar3d.ane.bullet.collision.dispatch
 	
 	public class CollisionObject extends BulletBase
 	{
-		public static const STATIC_OBJECT: int = 1;
-		public static const KINEMATIC_OBJECT: int = 2;
-		public static const NO_CONTACT_RESPONSE: int = 4;
-		public static const CUSTOM_MATERIAL_CALLBACK: int = 8;
-		public static const CHARACTER_OBJECT: int = 16;
-		public static const DISABLE_VISUALIZE_OBJECT: int = 32;
-		public static const DISABLE_SPU_COLLISION_PROCESSING: int = 64;
-		
 		private var _skin: ObjectContainer3D;
 		
 		public function CollisionObject(shape:CollisionShape, skin:ObjectContainer3D, pointer:uint=0) {
@@ -107,6 +99,14 @@ package com.vizar3d.ane.bullet.collision.dispatch
 		
 		public function set hitFraction(val:Number): void {
 			extContext.call("CollisionObject::setHitFraction", pointer, val);
+		}
+		
+		public function get collisionFilterGroup(): int {
+			return extContext.call("CollisionObject::getCollisionFilterGroup", pointer) as int;
+		}
+		
+		public function get collisionFilterMask(): int {
+			return extContext.call("CollisionObject::getCollisionFilterMask", pointer) as int;
 		}
 	}
 }

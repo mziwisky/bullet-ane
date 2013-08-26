@@ -30,6 +30,8 @@ package com.vizar3d.ane.bullet.dynamics
 		
 		public function addCollisionObject(obj:CollisionObject, group:int=1, mask:int=-1): void {
 			awpDDWorld.addCollisionObject(obj.awpObject, group, mask);
+			obj.awp::collisionFilterGroup = group;
+			obj.awp::collisionFilterMask = mask;
 		}
 		
 		public function removeCollisionObject(obj:CollisionObject): void {
@@ -38,6 +40,8 @@ package com.vizar3d.ane.bullet.dynamics
 		
 		public function addRigidBody(body:RigidBody, group:int=1, mask:int=-1): void {
 			awpDDWorld.addRigidBodyWithGroup(body.awpBody, group, mask);
+			body.awp::collisionFilterGroup = group;
+			body.awp::collisionFilterMask = mask;
 		}
 		
 		public function removeRigidBody(body:RigidBody): void {

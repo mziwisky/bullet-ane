@@ -1,6 +1,7 @@
 package com.vizar3d.ane.bullet.dynamics
 {
 	import com.vizar3d.ane.bullet.BulletBase;
+	import com.vizar3d.ane.bullet.collision.CollisionFlags;
 	import com.vizar3d.ane.bullet.collision.dispatch.CollisionObject;
 	import com.vizar3d.ane.bullet.dynamics.constraintsolver.TypedConstraint;
 	
@@ -35,7 +36,7 @@ package com.vizar3d.ane.bullet.dynamics
 			}
 			extContext.call("DiscreteDynamicsWorld::addRigidBody", pointer, body.pointer, group, mask);
 			rigidBodies.push(body);
-			if (!(body.collisionFlags & (CollisionObject.STATIC_OBJECT | CollisionObject.KINEMATIC_OBJECT))) {
+			if (!(body.collisionFlags & (CollisionFlags.STATIC_OBJECT | CollisionFlags.KINEMATIC_OBJECT))) {
 				nonstaticRigidBodies.push(body);
 			}
 		}
