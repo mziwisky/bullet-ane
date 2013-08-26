@@ -24,6 +24,7 @@ package ane.bulletphysics.dynamics
 			}
 			awpDDWorld.scaling = 1.0/scaling;
 			nestedMeshes = expectNestedMeshes;
+			_scaling = scaling;
 		}
 		
 		// TODO: dispose

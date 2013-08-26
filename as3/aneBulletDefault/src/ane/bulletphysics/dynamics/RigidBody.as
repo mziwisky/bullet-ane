@@ -1,13 +1,17 @@
 package ane.bulletphysics.dynamics
 {
+	import flash.geom.Matrix;
+	import flash.geom.Matrix3D;
+	import flash.geom.Vector3D;
+	
 	import ane.bulletphysics.awp;
 	import ane.bulletphysics.collision.dispatch.CollisionObject;
 	import ane.bulletphysics.collision.shapes.CollisionShape;
 	import ane.bulletphysics.dynamics.constraintsolver.TypedConstraint;
 	
-	import flash.geom.Vector3D;
-	
 	import away3d.containers.ObjectContainer3D;
+	
+	import awayphysics.math.AWPMatrix3x3;
 	
 	use namespace awp;
 	
@@ -16,9 +20,10 @@ package ane.bulletphysics.dynamics
 		awp var awpBody: NestableAWPRigidBody;
 		private const _constraintRefs: Vector.<TypedConstraint> = new Vector.<TypedConstraint>();
 		
-		public function RigidBody(shape:CollisionShape, skin:ObjectContainer3D, mass:Number) {
+		public function RigidBody(shape:CollisionShape, skin:ObjectContainer3D, mass:Number, inertia:Vector3D=null) {
 			awpBody = new NestableAWPRigidBody(shape.awpShape, skin, mass, nestedMeshes);
 			super(shape, skin, awpBody);
+			if (inertia) setMassProps(mass, inertia);
 		}
 		
 		public function get mass(): Number {
@@ -27,6 +32,46 @@ package ane.bulletphysics.dynamics
 		
 		public function set mass(val:Number): void {
 			awpBody.mass = val;
+		}
+		
+		public function setMassProps(mass:Number, inertia:Vector3D=null): void {
+			awpBody.mass = mass;
+			if (inertia) {
+				inertia = inertia.clone();
+				inertia.scaleBy(_scaling);
+				awpBody.invInertiaLocal = new Vector3D(
+					inertia.x ? 1.0 / inertia.x : 0.0,
+					inertia.y ? 1.0 / inertia.y : 0.0,
+					inertia.z ? 1.0 / inertia.z : 0.0);
+				// manually replicate updateInertialTransform(), in a very hacky brittle way :/
+				// Note that the constant 260 below is subject to change.  If you update AwayPhysics, you'd do well
+				// to confirm that this is still the correct pointer offset.
+				// Note also that the following mess is not well tested, and may very well be wrong.  Sorry about that.
+				var invInertiaTensorWorld: AWPMatrix3x3 = new AWPMatrix3x3(awpBody.pointer + 260);
+				// Native method: m_invInertiaTensorWorld = m_worldTransform.getBasis().scaled(m_invInertiaLocal) * m_worldTransform.getBasis().transpose();
+				var worldTransBasis: Matrix3D = awpBody.worldTransform.basis.m3d.clone();
+				var worldTransBasisTranspose: Matrix3D = worldTransBasis.clone();
+				worldTransBasisTranspose.transpose();
+				var scaler: Matrix3D = new Matrix3D(new <Number>[
+					awpBody.invInertiaLocal.x, 0, 0, 0,
+					0, awpBody.invInertiaLocal.y, 0, 0,
+					0, 0, awpBody.invInertiaLocal.z, 0,
+					0, 0, 0, 1]);
+				var invInert: Matrix3D = worldTransBasis;
+				invInert.prepend(scaler);
+				invInert.prepend(worldTransBasisTranspose);
+				invInertiaTensorWorld.m3d = invInert;
+			}
+		}
+		
+		public function get inertia(): Vector3D {
+			var invInert: Vector3D = awpBody.invInertiaLocal;
+			var inert: Vector3D = new Vector3D(
+				invInert.x ? 1.0 / invInert.x : 0.0,
+				invInert.y ? 1.0 / invInert.y : 0.0,
+				invInert.z ? 1.0 / invInert.z : 0.0);
+			inert.scaleBy(1.0 / _scaling);
+			return inert;
 		}
 		
 		public function get linearFactor(): Vector3D {

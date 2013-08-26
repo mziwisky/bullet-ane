@@ -1,11 +1,12 @@
 package ane.bulletphysics.dynamics
 {
+	import flash.geom.Matrix3D;
+	import flash.geom.Vector3D;
+	
+	import ane.bulletphysics.BulletMath;
 	import ane.bulletphysics.collision.dispatch.CollisionObject;
 	import ane.bulletphysics.collision.shapes.CollisionShape;
 	import ane.bulletphysics.dynamics.constraintsolver.TypedConstraint;
-	
-	import flash.geom.Matrix3D;
-	import flash.geom.Vector3D;
 	
 	import away3d.containers.ObjectContainer3D;
 	
@@ -16,9 +17,12 @@ package ane.bulletphysics.dynamics
 		private const _angularFactor: Vector3D = new Vector3D(1, 1, 1);
 		private const _constraintRefs: Vector.<TypedConstraint> = new Vector.<TypedConstraint>();
 		
-		public function RigidBody(shape:CollisionShape, skin:ObjectContainer3D, mass:Number) {
-			
-			super(shape, skin, extContext.call("createRigidBody", shape.pointer, /*BulletMath.transformA3DtoBullet(skin.transform),*/ mass) as uint);
+		public function RigidBody(shape:CollisionShape, skin:ObjectContainer3D, mass:Number, inertia:Vector3D=null) {
+			if (inertia) {
+				inertia = inertia.clone();
+				inertia.scaleBy(_scaling);
+			}
+			super(shape, skin, extContext.call("createRigidBody", shape.pointer, mass, inertia) as uint);
 			_mass = mass;
 		}
 		
@@ -39,8 +43,26 @@ package ane.bulletphysics.dynamics
 		}
 		
 		public function set mass(val:Number): void {
-			extContext.call("RigidBody::setMass", pointer, val);
-			_mass = val;
+			setMassProps(val);
+		}
+		
+		public function setMassProps(mass:Number, inertia:Vector3D=null): void {
+			if (inertia) {
+				inertia = inertia.clone();
+				inertia.scaleBy(_scaling);
+			}
+			extContext.call("RigidBody::setMassProps", pointer, mass, inertia);
+			_mass = mass;
+		}
+		
+		public function get inertia(): Vector3D {
+			var invInert: Vector3D = extContext.call("RigidBody::getInvInertiaDiagLocal", pointer) as Vector3D;
+			var inert: Vector3D = new Vector3D(
+				invInert.x ? 1.0 / invInert.x : 0.0,
+				invInert.y ? 1.0 / invInert.y : 0.0,
+				invInert.z ? 1.0 / invInert.z : 0.0);
+			inert.scaleBy(1.0 / _scaling);
+			return inert;
 		}
 		
 		public function get linearFactor(): Vector3D {

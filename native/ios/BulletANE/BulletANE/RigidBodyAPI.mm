@@ -13,8 +13,8 @@
 extern "C" FREObject createRigidBody(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
 {
     FREObject as3_shape = argv[0];
-//    FREObject as3_skinTransform = argv[1];
     FREObject as3_mass = argv[1];
+    FREObject as3_inertia = argv[2];
     btCollisionShape* shape;
     double mass;
     
@@ -24,11 +24,12 @@ extern "C" FREObject createRigidBody(FREContext ctx, void *funcData, uint32_t ar
     bool isDynamic = (mass != 0.0f);
     
     btVector3 localInertia(0,0,0);
-    if (isDynamic)
+    if (as3_inertia)
+        localInertia = vec3DToBtVector(as3_inertia);
+    else if (isDynamic)
         shape->calculateLocalInertia((btScalar)mass, localInertia);
     
 //    btMotionState* a3dMotionState = new Away3DMotionState(as3_skin);
-//    btMotionState* defaultMS = new btDefaultMotionState(mat3DToBtTransform(as3_skinTransform));
     btMotionState* defaultMS = new btDefaultMotionState();
     btRigidBody::btRigidBodyConstructionInfo rbInfo((btScalar)mass, defaultMS, shape, localInertia);
     btRigidBody* body = new btRigidBody(rbInfo);
@@ -114,24 +115,38 @@ extern "C" FREObject RigidBodysetAngularVelocity(FREContext ctx, void *funcData,
     return NULL;
 }
 
-extern "C" FREObject RigidBodysetMass(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+extern "C" FREObject RigidBodysetMassProps(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
 {
     FREObject as3_body = argv[0];
     FREObject as3_mass = argv[1];
+    FREObject as3_intertia = argv[2];
     btRigidBody* body;
     double mass;
     
     FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
     FREGetObjectAsDouble(as3_mass, &mass);
     btVector3 inertia;
-    if (mass == 0.0) {
+    if (as3_intertia) {
+        inertia = vec3DToBtVector(as3_intertia);
+    } else if (mass == 0.0) {
         inertia = btVector3(0,0,0);
     } else {
         body->getCollisionShape()->calculateLocalInertia(btScalar(mass), inertia);
     }
     body->setMassProps(btScalar(mass), inertia);
+    body->updateInertiaTensor();
     return NULL;
 }
+
+extern "C" FREObject RigidBodygetInvInertiaDiagLocal(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    FREObject as3_body = argv[0];
+    btRigidBody* body;
+    
+    FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
+    return btVectorToVec3D(body->getInvInertiaDiagLocal());
+}
+
 
 extern "C" FREObject RigidBodyapplyCentralForce(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
 {

@@ -78,7 +78,7 @@ DECLARE_FREFUNC(RigidBodysetLinearFactor);
 DECLARE_FREFUNC(RigidBodysetAngularFactor);
 DECLARE_FREFUNC(RigidBodygetLinearVelocity);
 DECLARE_FREFUNC(RigidBodysetLinearVelocity);
-DECLARE_FREFUNC(RigidBodysetMass);
+DECLARE_FREFUNC(RigidBodysetMassProps);
 DECLARE_FREFUNC(RigidBodyapplyCentralForce);
 DECLARE_FREFUNC(RigidBodyapplyTorque);
 DECLARE_FREFUNC(RigidBodysetAngularVelocity);
@@ -88,6 +88,7 @@ DECLARE_FREFUNC(RigidBodyaddConstraintRef);
 DECLARE_FREFUNC(RigidBodyremoveConstraintRef);
 DECLARE_FREFUNC(RigidBodygetConstraintRef);
 DECLARE_FREFUNC(RigidBodygetNumConstraintRefs);
+DECLARE_FREFUNC(RigidBodygetInvInertiaDiagLocal);
 
 // === Generic6DofConstraint
 DECLARE_FREFUNC(createGeneric6DofConstraint);
@@ -101,7 +102,7 @@ void BulletExtContextInitializer(void *extData, const uint8_t *ctxType, FREConte
 {
     FRENamedFunction *func;
     
-    *numFunctionsToSet = 57;
+    *numFunctionsToSet = 58;
     
     func = (FRENamedFunction*) malloc(sizeof(FRENamedFunction) * *numFunctionsToSet);
     
@@ -129,7 +130,7 @@ void BulletExtContextInitializer(void *extData, const uint8_t *ctxType, FREConte
     ADD_FREFUNC(21, "RigidBody::setLinearFactor", RigidBodysetLinearFactor);
     ADD_FREFUNC(22, "RigidBody::setAngularFactor", RigidBodysetAngularFactor);
     ADD_FREFUNC(23, "RigidBody::getLinearVelocity", RigidBodygetLinearVelocity);
-    ADD_FREFUNC(24, "RigidBody::setMass", RigidBodysetMass);
+    ADD_FREFUNC(24, "RigidBody::setMassProps", RigidBodysetMassProps);
     ADD_FREFUNC(25, "CollisionObject::getCollisionFlags", CollisionObjectgetCollisionFlags);
     ADD_FREFUNC(26, "CollisionObject::setCollisionFlags", CollisionObjectsetCollisionFlags);
     ADD_FREFUNC(27, "RigidBody::applyCentralForce", RigidBodyapplyCentralForce);
@@ -162,6 +163,7 @@ void BulletExtContextInitializer(void *extData, const uint8_t *ctxType, FREConte
     ADD_FREFUNC(54, "CollisionObject::forceActivationState", CollisionObjectforceActivationState);
     ADD_FREFUNC(55, "CollisionObject::getCollisionFilterGroup", CollisionObjectgetCollisionFilterGroup);
     ADD_FREFUNC(56, "CollisionObject::getCollisionFilterMask", CollisionObjectgetCollisionFilterMask);
+    ADD_FREFUNC(57, "RigidBody::getInvInertiaDiagLocal", RigidBodygetInvInertiaDiagLocal);
     
     *functionsToSet = func;
 }
