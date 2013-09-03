@@ -1,11 +1,11 @@
 package ane.bulletphysics.collision.dispatch
 {
+	import flash.geom.Matrix3D;
+	import flash.geom.Vector3D;
+	
 	import ane.bulletphysics.BulletBase;
 	import ane.bulletphysics.BulletMath;
 	import ane.bulletphysics.collision.shapes.CollisionShape;
-	
-	import flash.geom.Matrix3D;
-	import flash.geom.Vector3D;
 	
 	import away3d.containers.ObjectContainer3D;
 	
@@ -107,6 +107,14 @@ package ane.bulletphysics.collision.dispatch
 		
 		public function get collisionFilterMask(): int {
 			return extContext.call("CollisionObject::getCollisionFilterMask", pointer) as int;
+		}
+		
+		public function set ccdSweptSphereRadius(val:Number): void {
+			extContext.call("CollisionObject::setCcdSweptSphereRadius", pointer);
+		}
+		
+		public function set ccdMotionThreshold(val:Number): void {
+			extContext.call("CollisionObject::setCcdMotionThreshold", pointer);
 		}
 	}
 }

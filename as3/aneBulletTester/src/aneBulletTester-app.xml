@@ -292,6 +292,6 @@
     </iPhone>
     
 <extensions>
-        <extensionID>com.vizar3d.ane.bullet</extensionID>
+    <extensionID>ane.bulletphysics</extensionID>
     </extensions>
 </application>

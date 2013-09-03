@@ -39,6 +39,33 @@ extern "C" FREObject createRigidBody(FREContext ctx, void *funcData, uint32_t ar
     return ptr;
 }
 
+FREObject setScalar(FREObject argv[], void (btRigidBody::*setter)(btScalar))
+{
+    FREObject as3_body = argv[0];
+    FREObject as3_val = argv[1];
+    btRigidBody* body;
+    double val;
+    
+    FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
+    FREGetObjectAsDouble(as3_val, &val);
+    
+    (body->*setter)(btScalar(val));
+    return NULL;
+}
+
+FREObject getScalarConst(FREObject as3_obj, btScalar (btRigidBody::*getter)(void) const)
+{
+    btRigidBody* body;
+    FREObject as3_val;
+    btScalar val;
+    
+    FREGetObjectAsUint32(as3_obj, (uint32_t*)&body);
+    val = (body->*getter)();
+    
+    FRENewObjectFromDouble(double(val), &as3_val);
+    return as3_val;
+}
+
 extern "C" FREObject RigidBodyapplyCentralImpulse(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
 {
     FREObject as3_body = argv[0];
@@ -234,6 +261,63 @@ extern "C" FREObject RigidBodygetNumConstraintRefs(FREContext ctx, void *funcDat
     FREObject as3num;
     FRENewObjectFromUint32(num, &as3num);
     return as3num;
+}
+
+extern "C" FREObject RigidBodygetGravity(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    FREObject as3_body = argv[0];
+    btRigidBody* body;
+    
+    FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
+    
+    return btVectorToVec3D(body->getGravity());
+}
+
+extern "C" FREObject RigidBodysetGravity(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    FREObject as3_body = argv[0];
+    FREObject as3_grav = argv[1];
+    btRigidBody* body;
+    
+    FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
+    body->setGravity(vec3DToBtVector(as3_grav));
+    return NULL;
+}
+
+extern "C" FREObject RigidBodygetLinearDamping(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    return getScalarConst(argv[0], &btRigidBody::getLinearDamping);
+}
+
+extern "C" FREObject RigidBodysetLinearDamping(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    FREObject as3_body = argv[0];
+    FREObject as3_damping = argv[1];
+    btRigidBody* body;
+    double damping;
+    
+    FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
+    FREGetObjectAsDouble(as3_damping, &damping);
+    body->setDamping(btScalar(damping), body->getAngularDamping());
+    return NULL;
+}
+
+extern "C" FREObject RigidBodygetAngularDamping(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    return getScalarConst(argv[0], &btRigidBody::getAngularDamping);
+}
+
+extern "C" FREObject RigidBodysetAngularDamping(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    FREObject as3_body = argv[0];
+    FREObject as3_damping = argv[1];
+    btRigidBody* body;
+    double damping;
+    
+    FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
+    FREGetObjectAsDouble(as3_damping, &damping);
+    body->setDamping(body->getLinearDamping(), btScalar(damping));
+    return NULL;
 }
 
 

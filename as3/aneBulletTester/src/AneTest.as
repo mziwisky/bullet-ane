@@ -1,23 +1,22 @@
 package
 {
-	import com.vizar3d.ane.bullet.collision.shapes.BoxShape;
-	import com.vizar3d.ane.bullet.collision.shapes.ConeShape;
-	import com.vizar3d.ane.bullet.collision.shapes.CylinderShape;
-	import com.vizar3d.ane.bullet.collision.shapes.SphereShape;
-	import com.vizar3d.ane.bullet.collision.shapes.StaticPlaneShape;
-	import com.vizar3d.ane.bullet.dynamics.DiscreteDynamicsWorld;
-	import com.vizar3d.ane.bullet.dynamics.RigidBody;
-	
 	import flash.display.Sprite;
-	import flash.display.StageAlign;
-	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.geom.Vector3D;
 	import flash.utils.getTimer;
 	
+	import ane.bulletphysics.collision.shapes.BoxShape;
+	import ane.bulletphysics.collision.shapes.ConeShape;
+	import ane.bulletphysics.collision.shapes.CylinderShape;
+	import ane.bulletphysics.collision.shapes.SphereShape;
+	import ane.bulletphysics.collision.shapes.StaticPlaneShape;
+	import ane.bulletphysics.dynamics.DiscreteDynamicsWorld;
+	import ane.bulletphysics.dynamics.RigidBody;
+	
 	import away3d.containers.View3D;
 	import away3d.debug.AwayStats;
 	import away3d.entities.Mesh;
+	import away3d.events.MouseEvent3D;
 	import away3d.lights.PointLight;
 	import away3d.materials.ColorMaterial;
 	import away3d.materials.lightpickers.StaticLightPicker;
@@ -25,6 +24,9 @@ package
 	import away3d.primitives.CubeGeometry;
 	import away3d.primitives.CylinderGeometry;
 	import away3d.primitives.PlaneGeometry;
+	import away3d.primitives.SphereGeometry;
+	
+	import awayphysics.dynamics.AWPRigidBody;
 	
 	public class AneTest extends Sprite
 	{
@@ -73,7 +75,7 @@ package
 			material.lightPicker = lightPicker;
 			var mesh:Mesh=new Mesh(new PlaneGeometry(50000, 50000),material);
 			mesh.mouseEnabled = true;
-//			mesh.addEventListener(MouseEvent3D.MOUSE_UP, onMouseUp);
+			mesh.addEventListener(MouseEvent3D.MOUSE_UP, onMouseUp);
 			_view.scene.addChild(mesh);
 			
 			// create ground shape and rigidbody
@@ -112,32 +114,32 @@ package
 						mesh = new Mesh(new CubeGeometry(200, 200, 200),material);
 						_view.scene.addChild(mesh);
 						body = new RigidBody(boxShape, mesh, 1);
-//						body.friction = .9;
-//						body.ccdSweptSphereRadius = 0.5;
-//						body.ccdMotionThreshold = 1;
+						body.friction = .9;
+						body.ccdSweptSphereRadius = 0.5;
+						body.ccdMotionThreshold = 1;
 						body.position = new Vector3D(-1000 + i * 200, 100 + k * 200+1300, j * 200);
 						_physicsWorld.addRigidBody(body);
 						
 						bod = body;
 						m = mesh;
 						
-//						// create cylinders
+						// create cylinders
 						mesh = new Mesh(new CylinderGeometry(100, 100, 200),material);
 						_view.scene.addChild(mesh);
 						body = new RigidBody(cylinderShape, mesh, 1);
-//						body.friction = .9;
-//						body.ccdSweptSphereRadius = 0.5;
-//						body.ccdMotionThreshold = 1;
+						body.friction = .9;
+						body.ccdSweptSphereRadius = 0.5;
+						body.ccdMotionThreshold = 1;
 						body.position = new Vector3D(1000 + i * 200, 100 + k * 200, j * 200);
 						_physicsWorld.addRigidBody(body);
-//						
-//						// create the Cones
+						
+						// create the Cones
 						mesh = new Mesh(new ConeGeometry(100, 200),material);
 						_view.scene.addChild(mesh);
 						body = new RigidBody(coneShape, mesh, 1);
-//						body.friction = .9;
-//						body.ccdSweptSphereRadius = 0.5;
-//						body.ccdMotionThreshold = 1;
+						body.friction = .9;
+						body.ccdSweptSphereRadius = 0.5;
+						body.ccdMotionThreshold = 1;
 						body.position = new Vector3D(i * 200, 100 + k * 230, j * 200);
 						_physicsWorld.addRigidBody(body);
 					}
@@ -156,17 +158,37 @@ package
 			_view.height = stage.stageHeight;
 		}
 		
+		private function onMouseUp(event : MouseEvent3D) : void {
+			var pos : Vector3D = _view.camera.position;
+			var mpos : Vector3D = new Vector3D(event.localPosition.x, event.localPosition.y, event.localPosition.z);
+			
+			var impulse : Vector3D = mpos.subtract(pos);
+			impulse.normalize();
+			impulse.scaleBy(2000);
+			
+			// shoot a sphere
+			var material : ColorMaterial = new ColorMaterial(0xb35b11);
+			material.lightPicker = lightPicker;
+			
+			var sphere : Mesh = new Mesh(new SphereGeometry(100),material);
+			_view.scene.addChild(sphere);
+			
+			var body : RigidBody = new RigidBody(_sphereShape, sphere, 2);
+			body.position = pos;
+			body.ccdSweptSphereRadius = 0.5;
+			body.ccdMotionThreshold = 1;
+			_physicsWorld.addRigidBody(body);
+			
+			body.applyCentralImpulse(impulse);
+		}
+		
 		private var bod:RigidBody;
 		private var m:Mesh;
 		private var ticks: uint;
 		
 		private function handleEnterFrame(e : Event) : void {
 			const newTick: uint = getTimer();
-//			if (bod) {
-				trace(bod.position);
-//			}
 			const step: Number = Number(newTick - ticks) / 1000.0;
-			trace("step: " + step);
 			_physicsWorld.stepSimulation(step, 2, _timeStep);
 			ticks = newTick;
 			

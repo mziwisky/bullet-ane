@@ -149,6 +149,16 @@ extern "C" FREObject CollisionObjectforceActivationState(FREContext ctx, void *f
     return setIntConst(argv, &btCollisionObject::forceActivationState);
 }
 
+extern "C" FREObject CollisionObjectsetCcdSweptSphereRadius(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    return setScalar(argv, &btCollisionObject::setCcdSweptSphereRadius);
+}
+
+extern "C" FREObject CollisionObjectsetCcdMotionThreshold(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    return setScalar(argv, &btCollisionObject::setCcdMotionThreshold);
+}
+
 extern "C" FREObject CollisionObjectgetCollisionFilterGroup(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
 {
     FREObject as3_obj = argv[0];

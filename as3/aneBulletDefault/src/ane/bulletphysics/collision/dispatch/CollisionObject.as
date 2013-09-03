@@ -104,5 +104,13 @@ package ane.bulletphysics.collision.dispatch
 		public function get collisionFilterMask(): int {
 			return awp::collisionFilterMask;
 		}
+		
+		public function set ccdSweptSphereRadius(val:Number): void {
+			awpRigidBody ? awpRigidBody.ccdSweptSphereRadius = val : awpObject.ccdSweptSphereRadius = val;
+		}
+		
+		public function set ccdMotionThreshold(val:Number): void {
+			awpRigidBody ? awpRigidBody.ccdMotionThreshold = val : awpObject.ccdMotionThreshold = val;
+		}
 	}
 }

@@ -75,7 +75,7 @@ package {
 			material.lightPicker = lightPicker;
 			var mesh:Mesh=new Mesh(new PlaneGeometry(50000, 50000),material);
 			mesh.mouseEnabled = true;
-//			mesh.addEventListener(MouseEvent3D.MOUSE_UP, onMouseUp);
+			mesh.addEventListener(MouseEvent3D.MOUSE_UP, onMouseUp);
 			_view.scene.addChild(mesh);
 			
 			// create ground shape and rigidbody
@@ -114,34 +114,34 @@ package {
 						mesh = new Mesh(new CubeGeometry(200, 200, 200),material);
 						_view.scene.addChild(mesh);
 						body = new AWPRigidBody(boxShape, mesh, 1);
-//						body.friction = .9;
-//						body.ccdSweptSphereRadius = 0.5;
-//						body.ccdMotionThreshold = 1;
+						body.friction = .9;
+						body.ccdSweptSphereRadius = 0.5;
+						body.ccdMotionThreshold = 1;
 						body.position = new Vector3D(-1000 + i * 200, 100 + k * 200+1300, j * 200);
 						_physicsWorld.addRigidBody(body);
 						
 						bod = body;
 						m = mesh;
 						
-//						// create cylinders
-//						mesh = new Mesh(new CylinderGeometry(100, 100, 200),material);
-//						_view.scene.addChild(mesh);
-//						body = new AWPRigidBody(cylinderShape, mesh, 1);
-//						body.friction = .9;
-//						body.ccdSweptSphereRadius = 0.5;
-//						body.ccdMotionThreshold = 1;
-//						body.position = new Vector3D(1000 + i * 200, 100 + k * 200, j * 200);
-//						_physicsWorld.addRigidBody(body);
-//						
-//						// create the Cones
-//						mesh = new Mesh(new ConeGeometry(100, 200),material);
-//						_view.scene.addChild(mesh);
-//						body = new AWPRigidBody(coneShape, mesh, 1);
-//						body.friction = .9;
-//						body.ccdSweptSphereRadius = 0.5;
-//						body.ccdMotionThreshold = 1;
-//						body.position = new Vector3D(i * 200, 100 + k * 230, j * 200);
-//						_physicsWorld.addRigidBody(body);
+						// create cylinders
+						mesh = new Mesh(new CylinderGeometry(100, 100, 200),material);
+						_view.scene.addChild(mesh);
+						body = new AWPRigidBody(cylinderShape, mesh, 1);
+						body.friction = .9;
+						body.ccdSweptSphereRadius = 0.5;
+						body.ccdMotionThreshold = 1;
+						body.position = new Vector3D(1000 + i * 200, 100 + k * 200, j * 200);
+						_physicsWorld.addRigidBody(body);
+						
+						// create the Cones
+						mesh = new Mesh(new ConeGeometry(100, 200),material);
+						_view.scene.addChild(mesh);
+						body = new AWPRigidBody(coneShape, mesh, 1);
+						body.friction = .9;
+						body.ccdSweptSphereRadius = 0.5;
+						body.ccdMotionThreshold = 1;
+						body.position = new Vector3D(i * 200, 100 + k * 230, j * 200);
+						_physicsWorld.addRigidBody(body);
 					}
 				}
 			}
@@ -158,29 +158,29 @@ package {
 			_view.height = stage.stageHeight;
 		}
 		
-//		private function onMouseUp(event : MouseEvent3D) : void {
-//			var pos : Vector3D = _view.camera.position;
-//			var mpos : Vector3D = new Vector3D(event.localPosition.x, event.localPosition.y, event.localPosition.z);
-//			
-//			var impulse : Vector3D = mpos.subtract(pos);
-//			impulse.normalize();
-//			impulse.scaleBy(2000);
-//			
-//			// shoot a sphere
-//			var material : ColorMaterial = new ColorMaterial(0xb35b11);
-//			material.lightPicker = lightPicker;
-//			
-//			var sphere : Mesh = new Mesh(new SphereGeometry(100),material);
-//			_view.scene.addChild(sphere);
-//			
-//			var body : AWPRigidBody = new AWPRigidBody(_sphereShape, sphere, 2);
-//			body.position = pos;
-//			body.ccdSweptSphereRadius = 0.5;
-//			body.ccdMotionThreshold = 1;
-//			_physicsWorld.addRigidBody(body);
-//			
-//			body.applyCentralImpulse(impulse);
-//		}
+		private function onMouseUp(event : MouseEvent3D) : void {
+			var pos : Vector3D = _view.camera.position;
+			var mpos : Vector3D = new Vector3D(event.localPosition.x, event.localPosition.y, event.localPosition.z);
+			
+			var impulse : Vector3D = mpos.subtract(pos);
+			impulse.normalize();
+			impulse.scaleBy(2000);
+			
+			// shoot a sphere
+			var material : ColorMaterial = new ColorMaterial(0xb35b11);
+			material.lightPicker = lightPicker;
+			
+			var sphere : Mesh = new Mesh(new SphereGeometry(100),material);
+			_view.scene.addChild(sphere);
+			
+			var body : AWPRigidBody = new AWPRigidBody(_sphereShape, sphere, 2);
+			body.position = pos;
+			body.ccdSweptSphereRadius = 0.5;
+			body.ccdMotionThreshold = 1;
+			_physicsWorld.addRigidBody(body);
+			
+			body.applyCentralImpulse(impulse);
+		}
 		
 		private var bod:AWPRigidBody;
 		private var m:Mesh;
@@ -188,12 +188,7 @@ package {
 		
 		private function handleEnterFrame(e : Event) : void {
 			const newTick: uint = getTimer();
-			if (bod) {
-				trace(bod.position);
-				m.position = bod.position;
-			}
 			const step: Number = Number(newTick - ticks) / 1000.0;
-			trace("step: " + step);
 			_physicsWorld.step(step, 2, _timeStep);
 			ticks = newTick;
 			

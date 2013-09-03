@@ -70,6 +70,8 @@ DECLARE_FREFUNC(CollisionObjectsetActivationState);
 DECLARE_FREFUNC(CollisionObjectforceActivationState);
 DECLARE_FREFUNC(CollisionObjectgetCollisionFilterGroup);
 DECLARE_FREFUNC(CollisionObjectgetCollisionFilterMask);
+DECLARE_FREFUNC(CollisionObjectsetCcdSweptSphereRadius);
+DECLARE_FREFUNC(CollisionObjectsetCcdMotionThreshold);
 
 // === RigidBody ===
 DECLARE_FREFUNC(createRigidBody);
@@ -89,6 +91,12 @@ DECLARE_FREFUNC(RigidBodyremoveConstraintRef);
 DECLARE_FREFUNC(RigidBodygetConstraintRef);
 DECLARE_FREFUNC(RigidBodygetNumConstraintRefs);
 DECLARE_FREFUNC(RigidBodygetInvInertiaDiagLocal);
+DECLARE_FREFUNC(RigidBodygetGravity);
+DECLARE_FREFUNC(RigidBodysetGravity);
+DECLARE_FREFUNC(RigidBodygetLinearDamping);
+DECLARE_FREFUNC(RigidBodysetLinearDamping);
+DECLARE_FREFUNC(RigidBodygetAngularDamping);
+DECLARE_FREFUNC(RigidBodysetAngularDamping);
 
 // === Generic6DofConstraint
 DECLARE_FREFUNC(createGeneric6DofConstraint);
@@ -102,7 +110,7 @@ void BulletExtContextInitializer(void *extData, const uint8_t *ctxType, FREConte
 {
     FRENamedFunction *func;
     
-    *numFunctionsToSet = 58;
+    *numFunctionsToSet = 66;
     
     func = (FRENamedFunction*) malloc(sizeof(FRENamedFunction) * *numFunctionsToSet);
     
@@ -164,6 +172,14 @@ void BulletExtContextInitializer(void *extData, const uint8_t *ctxType, FREConte
     ADD_FREFUNC(55, "CollisionObject::getCollisionFilterGroup", CollisionObjectgetCollisionFilterGroup);
     ADD_FREFUNC(56, "CollisionObject::getCollisionFilterMask", CollisionObjectgetCollisionFilterMask);
     ADD_FREFUNC(57, "RigidBody::getInvInertiaDiagLocal", RigidBodygetInvInertiaDiagLocal);
+    ADD_FREFUNC(58, "CollisionObject::setCcdSweptSphereRadius", CollisionObjectsetCcdSweptSphereRadius);
+    ADD_FREFUNC(59, "CollisionObject::setCcdMotionThreshold", CollisionObjectsetCcdMotionThreshold);
+    ADD_FREFUNC(60, "RigidBody::getGravity", RigidBodygetGravity);
+    ADD_FREFUNC(61, "RigidBody::setGravity", RigidBodysetGravity);
+    ADD_FREFUNC(62, "RigidBody::getLinearDamping", RigidBodygetLinearDamping);
+    ADD_FREFUNC(63, "RigidBody::setLinearDamping", RigidBodysetLinearDamping);
+    ADD_FREFUNC(64, "RigidBody::getAngularDamping", RigidBodygetAngularDamping);
+    ADD_FREFUNC(65, "RigidBody::setAngularDamping", RigidBodysetAngularDamping);
     
     *functionsToSet = func;
 }

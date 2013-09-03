@@ -142,5 +142,29 @@ package ane.bulletphysics.dynamics
 		public function getNumConstraintRefs(): int {
 			return _constraintRefs.length;
 		}
+		
+		public function get gravity(): Vector3D {
+			return awpBody.gravity;
+		}
+		
+		public function set gravity(val:Vector3D): void {
+			awpBody.gravity = val;
+		}
+		
+		public function get linearDamping(): Number {
+			return awpBody.linearDamping;
+		}
+		
+		public function set linearDamping(val:Number):void {
+			awpBody.linearDamping = val;
+		}
+		
+		public function get angularDamping(): Number {
+			return awpBody.angularDamping;
+		}
+		
+		public function set angularDamping(val:Number):void {
+			awpBody.angularDamping = val;
+		}
 	}
 }

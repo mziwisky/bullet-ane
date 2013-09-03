@@ -149,5 +149,29 @@ package ane.bulletphysics.dynamics
 //			return extContext.call("RigidBody::getNumConstraintRefs", pointer) as int;
 			return _constraintRefs.length;
 		}
+		
+		public function get gravity(): Vector3D {
+			return extContext.call("RigidBody::getGravity", pointer) as Vector3D;
+		}
+		
+		public function set gravity(val:Vector3D): void {
+			extContext.call("RigidBody::setGravity", pointer, val);
+		}
+		
+		public function get linearDamping(): Number {
+			return extContext.call("RigidBody::getLinearDamping", pointer) as Number;
+		}
+		
+		public function set linearDamping(val:Number):void {
+			extContext.call("RigidBody::setLinearDamping", pointer, val);
+		}
+		
+		public function get angularDamping(): Number {
+			return extContext.call("RigidBody::getAngularDamping", pointer) as Number;
+		}
+		
+		public function set angularDamping(val:Number):void {
+			extContext.call("RigidBody::setAngularDamping", pointer, val);
+		}
 	}
 }

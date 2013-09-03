@@ -37,7 +37,7 @@ package
 	
 	public class AwayBangStuffTogetherTest extends Sprite
 	{
-		[Embed(source="/Users/mziwisky/models/turbosquid_2013-06-22/Dining Table/mike/table/table.awd",mimeType="application/octet-stream")]
+//		[Embed(source="/Users/mziwisky/models/turbosquid_2013-06-22/Dining Table/mike/table/table.awd",mimeType="application/octet-stream")]
 		private var TableAWD:Class;
 		
 //		[Embed(source="/Users/mziwisky/models/turbosquid_2013-06-22/Dining Table/mike/chair/chair.awd",mimeType="application/octet-stream")]
