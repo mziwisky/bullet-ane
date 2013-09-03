@@ -66,80 +66,89 @@ FREObject getScalarConst(FREObject as3_obj, btScalar (btRigidBody::*getter)(void
     return as3_val;
 }
 
-extern "C" FREObject RigidBodyapplyCentralImpulse(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+FREObject setVector3(FREObject argv[], void (btRigidBody::*setter)(const btVector3&))
 {
     FREObject as3_body = argv[0];
-    FREObject as3_impulse = argv[1];
+    FREObject as3_val = argv[1];
     btRigidBody* body;
     
     FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
-    body->applyCentralImpulse(vec3DToBtVector(as3_impulse));
+    
+    (body->*setter)(vec3DToBtVector(as3_val));
     return NULL;
+}
+
+FREObject getVector3(FREObject as3_obj, const btVector3& (btRigidBody::*getter)(void) const)
+{
+    btRigidBody* body;
+    
+    FREGetObjectAsUint32(as3_obj, (uint32_t*)&body);
+    return btVectorToVec3D((body->*getter)());
+}
+
+extern "C" FREObject RigidBodyapplyCentralImpulse(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    return setVector3(argv, &btRigidBody::applyCentralImpulse);
 }
 
 extern "C" FREObject RigidBodysetLinearFactor(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
 {
-    FREObject as3_body = argv[0];
-    FREObject as3_factor = argv[1];
-    btRigidBody* body;
-    
-    FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
-    body->setLinearFactor(vec3DToBtVector(as3_factor));
-    return NULL;
+    return setVector3(argv, &btRigidBody::setLinearFactor);
 }
 
 extern "C" FREObject RigidBodysetAngularFactor(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
 {
-    FREObject as3_body = argv[0];
-    FREObject as3_factor = argv[1];
-    btRigidBody* body;
-    
-    FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
-    body->setAngularFactor(vec3DToBtVector(as3_factor));
-    return NULL;
+    return setVector3(argv, &btRigidBody::setAngularFactor);
 }
 
 extern "C" FREObject RigidBodygetLinearVelocity(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
 {
-    FREObject as3_body = argv[0];
-    btRigidBody* body;
-    
-    FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
-    
-    return btVectorToVec3D(body->getLinearVelocity());
+    return getVector3(argv[0], &btRigidBody::getLinearVelocity);
 }
 
 extern "C" FREObject RigidBodysetLinearVelocity(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
 {
-    FREObject as3_body = argv[0];
-    FREObject as3_linvel = argv[1];
-    btRigidBody* body;
-    
-    FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
-    body->setLinearVelocity(vec3DToBtVector(as3_linvel));
-    return NULL;
+    return setVector3(argv, &btRigidBody::setLinearVelocity);
 }
 
 extern "C" FREObject RigidBodygetAngularVelocity(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
 {
-    FREObject as3_body = argv[0];
-    btRigidBody* body;
-    
-    FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
-    
-    return btVectorToVec3D(body->getAngularVelocity());
+    return getVector3(argv[0], &btRigidBody::getAngularVelocity);
 }
-
 
 extern "C" FREObject RigidBodysetAngularVelocity(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
 {
-    FREObject as3_body = argv[0];
-    FREObject as3_linvel = argv[1];
-    btRigidBody* body;
-    
-    FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
-    body->setAngularVelocity(vec3DToBtVector(as3_linvel));
-    return NULL;
+    return setVector3(argv, &btRigidBody::setAngularVelocity);
+}
+
+extern "C" FREObject RigidBodygetInvInertiaDiagLocal(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    return getVector3(argv[0], &btRigidBody::getInvInertiaDiagLocal);
+}
+
+extern "C" FREObject RigidBodyapplyCentralForce(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    return setVector3(argv, &btRigidBody::applyCentralForce);
+}
+
+extern "C" FREObject RigidBodyapplyTorque(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    return setVector3(argv, &btRigidBody::applyTorque);
+}
+
+extern "C" FREObject RigidBodyapplyTorqueImpulse(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    return setVector3(argv, &btRigidBody::applyTorqueImpulse);
+}
+
+extern "C" FREObject RigidBodygetGravity(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    return getVector3(argv[0], &btRigidBody::getGravity);
+}
+
+extern "C" FREObject RigidBodysetGravity(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    return setVector3(argv, &btRigidBody::setGravity);
 }
 
 extern "C" FREObject RigidBodysetMassProps(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
@@ -162,49 +171,6 @@ extern "C" FREObject RigidBodysetMassProps(FREContext ctx, void *funcData, uint3
     }
     body->setMassProps(btScalar(mass), inertia);
     body->updateInertiaTensor();
-    return NULL;
-}
-
-extern "C" FREObject RigidBodygetInvInertiaDiagLocal(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
-{
-    FREObject as3_body = argv[0];
-    btRigidBody* body;
-    
-    FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
-    return btVectorToVec3D(body->getInvInertiaDiagLocal());
-}
-
-
-extern "C" FREObject RigidBodyapplyCentralForce(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
-{
-    FREObject as3_body = argv[0];
-    FREObject as3_force = argv[1];
-    btRigidBody* body;
-    
-    FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
-    body->applyCentralForce(vec3DToBtVector(as3_force));
-    return NULL;
-}
-
-extern "C" FREObject RigidBodyapplyTorque(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
-{
-    FREObject as3_body = argv[0];
-    FREObject as3_torque = argv[1];
-    btRigidBody* body;
-    
-    FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
-    body->applyTorque(vec3DToBtVector(as3_torque));
-    return NULL;
-}
-
-extern "C" FREObject RigidBodyapplyTorqueImpulse(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
-{
-    FREObject as3_body = argv[0];
-    FREObject as3_impulse = argv[1];
-    btRigidBody* body;
-    
-    FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
-    body->applyTorqueImpulse(vec3DToBtVector(as3_impulse));
     return NULL;
 }
 
@@ -261,27 +227,6 @@ extern "C" FREObject RigidBodygetNumConstraintRefs(FREContext ctx, void *funcDat
     FREObject as3num;
     FRENewObjectFromUint32(num, &as3num);
     return as3num;
-}
-
-extern "C" FREObject RigidBodygetGravity(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
-{
-    FREObject as3_body = argv[0];
-    btRigidBody* body;
-    
-    FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
-    
-    return btVectorToVec3D(body->getGravity());
-}
-
-extern "C" FREObject RigidBodysetGravity(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
-{
-    FREObject as3_body = argv[0];
-    FREObject as3_grav = argv[1];
-    btRigidBody* body;
-    
-    FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
-    body->setGravity(vec3DToBtVector(as3_grav));
-    return NULL;
 }
 
 extern "C" FREObject RigidBodygetLinearDamping(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
