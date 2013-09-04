@@ -4,6 +4,7 @@ package
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	
+	[SWF(frameRate="60")]
 	public class aneBulletTester extends Sprite
 	{
 		public function aneBulletTester()
@@ -14,11 +15,12 @@ package
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			
-//			addChild(new AneTest());
+			addChild(new AneTest());
 //			addChild(new AwayPhysTest());
+//			addChild(new AnePhysicalUnitsTest());
 //			addChild(new AneCompoundShapeTest());
 //			addChild(new AwayCompoundShapeTest());
-			addChild(new AneGravityTest());
+//			addChild(new AneGravityTest());
 //			addChild(new AwayGravityTest());
 //			addChild(new AneBangStuffTogetherTest());
 //			addChild(new AwayBangStuffTogetherTest());

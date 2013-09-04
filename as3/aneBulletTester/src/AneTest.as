@@ -26,8 +26,6 @@ package
 	import away3d.primitives.PlaneGeometry;
 	import away3d.primitives.SphereGeometry;
 	
-	import awayphysics.dynamics.AWPRigidBody;
-	
 	public class AneTest extends Sprite
 	{
 		private var _view: View3D;
@@ -65,7 +63,6 @@ package
 			
 			// init the physics world
 			_physicsWorld = new DiscreteDynamicsWorld();
-			
 			
 //			debugDraw = new AWPDebugDraw(_view, _physicsWorld);
 //			debugDraw.debugMode |= AWPDebugDraw.DBG_DrawTransform;
@@ -119,9 +116,6 @@ package
 						body.ccdMotionThreshold = 1;
 						body.position = new Vector3D(-1000 + i * 200, 100 + k * 200+1300, j * 200);
 						_physicsWorld.addRigidBody(body);
-						
-						bod = body;
-						m = mesh;
 						
 						// create cylinders
 						mesh = new Mesh(new CylinderGeometry(100, 100, 200),material);
@@ -182,14 +176,13 @@ package
 			body.applyCentralImpulse(impulse);
 		}
 		
-		private var bod:RigidBody;
-		private var m:Mesh;
 		private var ticks: uint;
 		
 		private function handleEnterFrame(e : Event) : void {
 			const newTick: uint = getTimer();
 			const step: Number = Number(newTick - ticks) / 1000.0;
-			_physicsWorld.stepSimulation(step, 2, _timeStep);
+//			_physicsWorld.stepSimulation(step, 2, _timeStep);
+			_physicsWorld.stepSimulation(_timeStep, 2, _timeStep/2);
 			ticks = newTick;
 			
 			//debugDraw.debugDrawWorld();

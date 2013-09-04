@@ -6,7 +6,8 @@ package ane.bulletphysics
 	{
 		/**
 		 * 1 visual unit equals _scaling Bullet units.
-		 * Away3D uses centimeters by convention, and Bullet uses meters, so the default _scaling is 0.01
+		 * Away3D uses centimeters by convention (uhm, perhaps more accurately, *I* use centimeters by
+		 * convention with my own models), and Bullet uses meters, so the default _scaling is 0.01
 		 * refer to http://www.bulletphysics.org/mediawiki-1.5.8/index.php?title=Scaling_The_World
 		 */
 		protected static var _scaling : Number = 0.01;

@@ -1,6 +1,5 @@
 package ane.bulletphysics.dynamics
 {
-	import flash.geom.Matrix;
 	import flash.geom.Matrix3D;
 	import flash.geom.Vector3D;
 	
@@ -37,8 +36,6 @@ package ane.bulletphysics.dynamics
 		public function setMassProps(mass:Number, inertia:Vector3D=null): void {
 			awpBody.mass = mass;
 			if (inertia) {
-				inertia = inertia.clone();
-				inertia.scaleBy(_scaling);
 				awpBody.invInertiaLocal = new Vector3D(
 					inertia.x ? 1.0 / inertia.x : 0.0,
 					inertia.y ? 1.0 / inertia.y : 0.0,
@@ -48,7 +45,7 @@ package ane.bulletphysics.dynamics
 				// to confirm that this is still the correct pointer offset.
 				// Note also that the following mess is not well tested, and may very well be wrong.  Sorry about that.
 				var invInertiaTensorWorld: AWPMatrix3x3 = new AWPMatrix3x3(awpBody.pointer + 260);
-				// Native method: m_invInertiaTensorWorld = m_worldTransform.getBasis().scaled(m_invInertiaLocal) * m_worldTransform.getBasis().transpose();
+				// Native method body: m_invInertiaTensorWorld = m_worldTransform.getBasis().scaled(m_invInertiaLocal) * m_worldTransform.getBasis().transpose();
 				var worldTransBasis: Matrix3D = awpBody.worldTransform.basis.m3d.clone();
 				var worldTransBasisTranspose: Matrix3D = worldTransBasis.clone();
 				worldTransBasisTranspose.transpose();
@@ -70,7 +67,6 @@ package ane.bulletphysics.dynamics
 				invInert.x ? 1.0 / invInert.x : 0.0,
 				invInert.y ? 1.0 / invInert.y : 0.0,
 				invInert.z ? 1.0 / invInert.z : 0.0);
-			inert.scaleBy(1.0 / _scaling);
 			return inert;
 		}
 		

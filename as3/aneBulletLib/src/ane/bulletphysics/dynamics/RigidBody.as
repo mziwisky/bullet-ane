@@ -3,7 +3,6 @@ package ane.bulletphysics.dynamics
 	import flash.geom.Matrix3D;
 	import flash.geom.Vector3D;
 	
-	import ane.bulletphysics.BulletMath;
 	import ane.bulletphysics.collision.dispatch.CollisionObject;
 	import ane.bulletphysics.collision.shapes.CollisionShape;
 	import ane.bulletphysics.dynamics.constraintsolver.TypedConstraint;
@@ -18,10 +17,6 @@ package ane.bulletphysics.dynamics
 		private const _constraintRefs: Vector.<TypedConstraint> = new Vector.<TypedConstraint>();
 		
 		public function RigidBody(shape:CollisionShape, skin:ObjectContainer3D, mass:Number, inertia:Vector3D=null) {
-			if (inertia) {
-				inertia = inertia.clone();
-				inertia.scaleBy(_scaling);
-			}
 			super(shape, skin, extContext.call("createRigidBody", shape.pointer, mass, inertia) as uint);
 			_mass = mass;
 		}
@@ -47,10 +42,10 @@ package ane.bulletphysics.dynamics
 		}
 		
 		public function setMassProps(mass:Number, inertia:Vector3D=null): void {
-			if (inertia) {
-				inertia = inertia.clone();
-				inertia.scaleBy(_scaling);
-			}
+//			if (inertia) {
+//				inertia = inertia.clone();
+//				inertia.scaleBy(_scaling);
+//			}
 			extContext.call("RigidBody::setMassProps", pointer, mass, inertia);
 			_mass = mass;
 		}
@@ -61,7 +56,7 @@ package ane.bulletphysics.dynamics
 				invInert.x ? 1.0 / invInert.x : 0.0,
 				invInert.y ? 1.0 / invInert.y : 0.0,
 				invInert.z ? 1.0 / invInert.z : 0.0);
-			inert.scaleBy(1.0 / _scaling);
+//			inert.scaleBy(1.0 / _scaling);
 			return inert;
 		}
 		
@@ -84,33 +79,23 @@ package ane.bulletphysics.dynamics
 		}
 		
 		public function applyCentralImpulse(impulse:Vector3D): void {
-			const scaled: Vector3D = impulse.clone();
-			scaled.scaleBy(_scaling);
-			extContext.call("RigidBody::applyCentralImpulse", pointer, scaled);
+			extContext.call("RigidBody::applyCentralImpulse", pointer, impulse);
 		}
 		
 		public function get linearVelocity(): Vector3D {
-			const vel: Vector3D = extContext.call("RigidBody::getLinearVelocity", pointer) as Vector3D;
-			vel.scaleBy(1/_scaling);
-			return vel;
+			return extContext.call("RigidBody::getLinearVelocity", pointer) as Vector3D;
 		}
 		
 		public function set linearVelocity(val:Vector3D): void {
-			const linvel: Vector3D = val.clone();
-			linvel.scaleBy(_scaling);
-			extContext.call("RigidBody::setLinearVelocity", pointer, linvel);
+			extContext.call("RigidBody::setLinearVelocity", pointer, val);
 		}
 		
 		public function get angularVelocity(): Vector3D {
-			const vel: Vector3D = extContext.call("RigidBody::getAngularVelocity", pointer) as Vector3D;
-			vel.scaleBy(1/_scaling);
-			return vel;
+			return extContext.call("RigidBody::getAngularVelocity", pointer) as Vector3D;
 		}
 		
 		public function set angularVelocity(val:Vector3D): void {
-			const angvel: Vector3D = val.clone();
-			angvel.scaleBy(_scaling);
-			extContext.call("RigidBody::setAngularVelocity", pointer, angvel);
+			extContext.call("RigidBody::setAngularVelocity", pointer, val);
 		}
 		
 		public function applyCentralForce(force:Vector3D): void {
@@ -154,8 +139,8 @@ package ane.bulletphysics.dynamics
 			return extContext.call("RigidBody::getGravity", pointer) as Vector3D;
 		}
 		
-		public function set gravity(val:Vector3D): void {
-			extContext.call("RigidBody::setGravity", pointer, val);
+		public function set gravity(grav:Vector3D): void {
+			extContext.call("RigidBody::setGravity", pointer, grav);
 		}
 		
 		public function get linearDamping(): Number {

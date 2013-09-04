@@ -1,11 +1,11 @@
 package ane.bulletphysics.dynamics
 {
+	import flash.geom.Vector3D;
+	
 	import ane.bulletphysics.BulletBase;
 	import ane.bulletphysics.collision.CollisionFlags;
 	import ane.bulletphysics.collision.dispatch.CollisionObject;
 	import ane.bulletphysics.dynamics.constraintsolver.TypedConstraint;
-	
-	import flash.geom.Vector3D;
 
 	public class DiscreteDynamicsWorld extends BulletBase
 	{
@@ -14,7 +14,7 @@ package ane.bulletphysics.dynamics
 		private var nonstaticRigidBodies: Vector.<RigidBody> = new Vector.<RigidBody>();
 		private var rigidBodies: Vector.<RigidBody> = new Vector.<RigidBody>();
 		
-		public function DiscreteDynamicsWorld(broadphase:String=BROADPHASE_DBVT, scaling=0.01, expectNestedMeshes:Boolean=false) {
+		public function DiscreteDynamicsWorld(broadphase:String=BROADPHASE_DBVT, scaling:Number=0.01, expectNestedMeshes:Boolean=false) {
 			pointer = extContext.call("createDiscreteDynamicsWorldWithDbvt") as uint;
 			if (scaling) _scaling = scaling;
 			nestedMeshes = expectNestedMeshes;
@@ -61,10 +61,17 @@ package ane.bulletphysics.dynamics
 			extContext.call("DiscreteDynamicsWorld::removeConstraint", pointer, constraint.pointer);
 		}
 		
+		/**
+		 * Set acceleration due to gravity in units of meters per squared second.  Note that this is not
+		 * equivalent to visual units per squared second unless you set 'scaling' to 1.0 in the
+		 * DiscreteDynamicsWorld constructor.
+		 */
 		public function set gravity(grav:Vector3D): void {
-			var scaledGrav:Vector3D = grav.clone();
-			scaledGrav.scaleBy(_scaling);
-			extContext.call("DiscreteDynamicsWorld::setGravity", pointer, scaledGrav);
+			extContext.call("DiscreteDynamicsWorld::setGravity", pointer, grav);
+		}
+		
+		public function get scaling(): Number {
+			return _scaling;
 		}
 		
 		public function stepSimulation(timestep:Number, maxsubsteps:int=1, fixedstep:Number=1.0/60.0): void {
