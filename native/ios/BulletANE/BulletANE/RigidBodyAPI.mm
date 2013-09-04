@@ -39,53 +39,6 @@ extern "C" FREObject createRigidBody(FREContext ctx, void *funcData, uint32_t ar
     return ptr;
 }
 
-FREObject setScalar(FREObject argv[], void (btRigidBody::*setter)(btScalar))
-{
-    FREObject as3_body = argv[0];
-    FREObject as3_val = argv[1];
-    btRigidBody* body;
-    double val;
-    
-    FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
-    FREGetObjectAsDouble(as3_val, &val);
-    
-    (body->*setter)(btScalar(val));
-    return NULL;
-}
-
-FREObject getScalarConst(FREObject as3_obj, btScalar (btRigidBody::*getter)(void) const)
-{
-    btRigidBody* body;
-    FREObject as3_val;
-    btScalar val;
-    
-    FREGetObjectAsUint32(as3_obj, (uint32_t*)&body);
-    val = (body->*getter)();
-    
-    FRENewObjectFromDouble(double(val), &as3_val);
-    return as3_val;
-}
-
-FREObject setVector3(FREObject argv[], void (btRigidBody::*setter)(const btVector3&))
-{
-    FREObject as3_body = argv[0];
-    FREObject as3_val = argv[1];
-    btRigidBody* body;
-    
-    FREGetObjectAsUint32(as3_body, (uint32_t*)&body);
-    
-    (body->*setter)(vec3DToBtVector(as3_val));
-    return NULL;
-}
-
-FREObject getVector3(FREObject as3_obj, const btVector3& (btRigidBody::*getter)(void) const)
-{
-    btRigidBody* body;
-    
-    FREGetObjectAsUint32(as3_obj, (uint32_t*)&body);
-    return btVectorToVec3D((body->*getter)());
-}
-
 extern "C" FREObject RigidBodyapplyCentralImpulse(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
 {
     return setVector3(argv, &btRigidBody::applyCentralImpulse);
@@ -231,7 +184,7 @@ extern "C" FREObject RigidBodygetNumConstraintRefs(FREContext ctx, void *funcDat
 
 extern "C" FREObject RigidBodygetLinearDamping(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
 {
-    return getScalarConst(argv[0], &btRigidBody::getLinearDamping);
+    return getScalar(argv[0], &btRigidBody::getLinearDamping);
 }
 
 extern "C" FREObject RigidBodysetLinearDamping(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
@@ -249,7 +202,7 @@ extern "C" FREObject RigidBodysetLinearDamping(FREContext ctx, void *funcData, u
 
 extern "C" FREObject RigidBodygetAngularDamping(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
 {
-    return getScalarConst(argv[0], &btRigidBody::getAngularDamping);
+    return getScalar(argv[0], &btRigidBody::getAngularDamping);
 }
 
 extern "C" FREObject RigidBodysetAngularDamping(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])

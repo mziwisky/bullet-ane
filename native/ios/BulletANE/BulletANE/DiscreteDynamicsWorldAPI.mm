@@ -176,11 +176,10 @@ extern "C" FREObject DiscreteDynamicsWorldremoveConstraint(FREContext ctx, void 
 
 extern "C" FREObject DiscreteDynamicsWorldsetGravity(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
 {
-    FREObject as3_world = argv[0];
-    FREObject as3_grav = argv[1];
-    btDiscreteDynamicsWorld* dynamicsWorld;
-    
-    FREGetObjectAsUint32(as3_world, (uint32_t*)&dynamicsWorld);
-    dynamicsWorld->setGravity(vec3DToBtVector(as3_grav));
-    return NULL;
+    return setVector3(argv, &btDiscreteDynamicsWorld::setGravity);
+}
+
+extern "C" FREObject DiscreteDynamicsWorldgetGravity(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    return getVector3(argv[0], &btDiscreteDynamicsWorld::getGravity);
 }

@@ -26,6 +26,7 @@ DECLARE_FREFUNC(DiscreteDynamicsWorldstepSimulation);
 DECLARE_FREFUNC(DiscreteDynamicsWorldaddConstraint);
 DECLARE_FREFUNC(DiscreteDynamicsWorldremoveConstraint);
 DECLARE_FREFUNC(DiscreteDynamicsWorldsetGravity);
+DECLARE_FREFUNC(DiscreteDynamicsWorldgetGravity);
 
 // === StaticPlaneShape ===
 DECLARE_FREFUNC(createStaticPlaneShape);
@@ -110,7 +111,7 @@ void BulletExtContextInitializer(void *extData, const uint8_t *ctxType, FREConte
 {
     FRENamedFunction *func;
     
-    *numFunctionsToSet = 66;
+    *numFunctionsToSet = 67;
     
     func = (FRENamedFunction*) malloc(sizeof(FRENamedFunction) * *numFunctionsToSet);
     
@@ -180,6 +181,7 @@ void BulletExtContextInitializer(void *extData, const uint8_t *ctxType, FREConte
     ADD_FREFUNC(63, "RigidBody::setLinearDamping", RigidBodysetLinearDamping);
     ADD_FREFUNC(64, "RigidBody::getAngularDamping", RigidBodygetAngularDamping);
     ADD_FREFUNC(65, "RigidBody::setAngularDamping", RigidBodysetAngularDamping);
+    ADD_FREFUNC(66, "DiscreteDynamicsWorld::getGravity", DiscreteDynamicsWorldgetGravity);
     
     *functionsToSet = func;
 }

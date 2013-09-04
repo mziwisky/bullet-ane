@@ -68,6 +68,10 @@ package ane.bulletphysics.dynamics
 			awpDDWorld.gravity = grav;
 		}
 		
+		public function get gravity(): Vector3D {
+			return awpDDWorld.gravity;
+		}
+		
 		public function get scaling(): Number {
 			return _scaling;
 		}

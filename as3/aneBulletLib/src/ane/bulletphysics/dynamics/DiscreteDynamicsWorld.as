@@ -70,6 +70,10 @@ package ane.bulletphysics.dynamics
 			extContext.call("DiscreteDynamicsWorld::setGravity", pointer, grav);
 		}
 		
+		public function get gravity(): Vector3D {
+			return extContext.call("DiscreteDynamicsWorld::getGravity", pointer) as Vector3D;
+		}
+		
 		public function get scaling(): Number {
 			return _scaling;
 		}
