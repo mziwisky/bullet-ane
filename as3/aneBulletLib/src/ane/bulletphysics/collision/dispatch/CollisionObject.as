@@ -110,11 +110,11 @@ package ane.bulletphysics.collision.dispatch
 		}
 		
 		public function set ccdSweptSphereRadius(val:Number): void {
-			extContext.call("CollisionObject::setCcdSweptSphereRadius", pointer);
+			extContext.call("CollisionObject::setCcdSweptSphereRadius", pointer, val);
 		}
 		
 		public function set ccdMotionThreshold(val:Number): void {
-			extContext.call("CollisionObject::setCcdMotionThreshold", pointer);
+			extContext.call("CollisionObject::setCcdMotionThreshold", pointer, val);
 		}
 	}
 }
