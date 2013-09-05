@@ -6,11 +6,11 @@ package ane.bulletphysics
 	public class BulletMath extends BulletBase
 	{
 		public static function scaleTransformA3DtoBullet(a3dTrans:Matrix3D, output:Matrix3D=null): Matrix3D {
-			return scaleMatrixPosition(a3dTrans, _scaling, output);
+			return scaleMatrixPosition(a3dTrans, 1/_scaling, output);
 		}
 		
 		public static function scaleTransformBulletToA3D(btTrans:Matrix3D, output:Matrix3D=null): Matrix3D {
-			return scaleMatrixPosition(btTrans, 1/_scaling, output);
+			return scaleMatrixPosition(btTrans, _scaling, output);
 		}
 		
 		private static function scaleMatrixPosition(mat:Matrix3D, scale:Number, output:Matrix3D=null): Matrix3D {

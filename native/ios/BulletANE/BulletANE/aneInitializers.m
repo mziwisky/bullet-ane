@@ -3,7 +3,6 @@
 //  BulletANE
 //
 //  Created by Michael Ziwisky on 7/1/13.
-//  Copyright (c) 2013 Glimce. All rights reserved.
 //
 
 #import "FlashRuntimeExtensions.h"

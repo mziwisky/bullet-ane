@@ -17,12 +17,12 @@ package ane.bulletphysics.dynamics
 		
 		awp var awpDDWorld: AWPDynamicsWorld;
 		
-		public function DiscreteDynamicsWorld(broadphase:String=BROADPHASE_DBVT, scaling:Number=0.01, expectNestedMeshes:Boolean=false) {
+		public function DiscreteDynamicsWorld(broadphase:String=BROADPHASE_DBVT, scaling:Number=100, expectNestedMeshes:Boolean=false) {
 			awpDDWorld = AWPDynamicsWorld.getInstance();
 			if (broadphase == BROADPHASE_DBVT) {
 				awpDDWorld.initWithDbvtBroadphase();
 			}
-			awpDDWorld.scaling = 1.0/scaling;
+			awpDDWorld.scaling = scaling;
 			nestedMeshes = expectNestedMeshes;
 			_scaling = scaling;
 		}

@@ -3,7 +3,6 @@
 //  BulletANE
 //
 //  Created by Michael Ziwisky on 7/1/13.
-//  Copyright (c) 2013 Glimce. All rights reserved.
 //
 
 #import "FlashRuntimeExtensions.h"
@@ -115,13 +114,8 @@ extern "C" FREObject DiscreteDynamicsWorldremoveRigidBody(FREContext ctx, void *
 
 // TODO: dispose collision object
 
-// TODO: Set world properties
-
 // TODO: Collision callbacks
 
-// TODO: Create constraints
-
-// Physics step
 extern "C" FREObject DiscreteDynamicsWorldstepSimulation(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
 {
     FREObject as3_world = argv[0];

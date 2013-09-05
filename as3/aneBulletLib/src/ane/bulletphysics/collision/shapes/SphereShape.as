@@ -4,7 +4,7 @@ package ane.bulletphysics.collision.shapes
 	{
 		public function SphereShape(radius:Number=50)
 		{
-			pointer = extContext.call("createSphereShape", radius*_scaling) as uint;
+			pointer = extContext.call("createSphereShape", radius/_scaling) as uint;
 		}
 	}
 }

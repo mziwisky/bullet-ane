@@ -189,7 +189,8 @@ package {
 		private function handleEnterFrame(e : Event) : void {
 			const newTick: uint = getTimer();
 			const step: Number = Number(newTick - ticks) / 1000.0;
-			_physicsWorld.step(step, 2, _timeStep);
+//			_physicsWorld.step(step, 2, _timeStep);
+			_physicsWorld.step(_timeStep, 2, _timeStep/2);
 			ticks = newTick;
 			
 			//debugDraw.debugDrawWorld();

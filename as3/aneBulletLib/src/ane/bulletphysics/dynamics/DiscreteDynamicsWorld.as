@@ -14,7 +14,7 @@ package ane.bulletphysics.dynamics
 		private var nonstaticRigidBodies: Vector.<RigidBody> = new Vector.<RigidBody>();
 		private var rigidBodies: Vector.<RigidBody> = new Vector.<RigidBody>();
 		
-		public function DiscreteDynamicsWorld(broadphase:String=BROADPHASE_DBVT, scaling:Number=0.01, expectNestedMeshes:Boolean=false) {
+		public function DiscreteDynamicsWorld(broadphase:String=BROADPHASE_DBVT, scaling:Number=100, expectNestedMeshes:Boolean=false) {
 			pointer = extContext.call("createDiscreteDynamicsWorldWithDbvt") as uint;
 			if (scaling) _scaling = scaling;
 			nestedMeshes = expectNestedMeshes;

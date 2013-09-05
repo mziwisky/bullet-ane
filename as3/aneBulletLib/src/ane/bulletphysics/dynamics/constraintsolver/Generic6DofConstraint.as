@@ -28,9 +28,9 @@ package ane.bulletphysics.dynamics.constraintsolver
 		
 		public function setLinearLimits(lower:Vector3D, upper:Vector3D): void {
 			var scaledLower:Vector3D = lower.clone();
-			scaledLower.scaleBy(_scaling);
+			scaledLower.scaleBy(1.0/_scaling);
 			var scaledUpper:Vector3D = upper.clone();
-			scaledUpper.scaleBy(_scaling);
+			scaledUpper.scaleBy(1.0/_scaling);
 			extContext.call("Generic6DofConstraint::setLinearLimits", pointer, scaledLower, scaledUpper);
 		}
 		
