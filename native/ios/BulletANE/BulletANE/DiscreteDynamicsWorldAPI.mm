@@ -37,48 +37,6 @@ extern "C" FREObject disposeDynamicsWorld(FREContext ctx, void *funcData, uint32
     return NULL;
 }
 
-// Create CollisionShapes
-// DONE: box, sphere,
-// TODO: cone, cylinder, capsule, convexHull, compound
-
-
-// TODO: Modify CollisionShape properties
-
-// TODO: Dispose CollisionShape
-
-extern "C" FREObject DiscreteDynamicsWorldaddCollisionObject(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
-{
-    FREObject as3_world = argv[0];
-    FREObject as3_object = argv[1];
-    FREObject as3_group = argv[2];
-    FREObject as3_mask = argv[3];
-    btDiscreteDynamicsWorld* dynamicsWorld;
-    btCollisionObject* object;
-    int group, mask;
-    
-    FREGetObjectAsUint32(as3_world, (uint32_t*)&dynamicsWorld);
-    FREGetObjectAsUint32(as3_object, (uint32_t*)&object);
-    FREGetObjectAsInt32(as3_group, &group);
-    FREGetObjectAsInt32(as3_mask, &mask);
-    
-    dynamicsWorld->addCollisionObject(object, group, mask);
-    return NULL;
-}
-
-extern "C" FREObject DiscreteDynamicsWorldremoveCollisionObject(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
-{
-    FREObject as3_world = argv[0];
-    FREObject as3_object = argv[1];
-    btDiscreteDynamicsWorld* dynamicsWorld;
-    btCollisionObject* object;
-    
-    FREGetObjectAsUint32(as3_world, (uint32_t*)&dynamicsWorld);
-    FREGetObjectAsUint32(as3_object, (uint32_t*)&object);
-    
-    dynamicsWorld->removeCollisionObject(object);
-    return NULL;
-}
-
 extern "C" FREObject DiscreteDynamicsWorldaddRigidBody(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
 {
     FREObject as3_world = argv[0];

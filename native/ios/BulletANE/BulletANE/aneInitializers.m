@@ -17,8 +17,6 @@
 // === DiscreteDynamicsWorld ===
 DECLARE_FREFUNC(createDiscreteDynamicsWorldWithDbvt);
 DECLARE_FREFUNC(disposeDynamicsWorld);
-DECLARE_FREFUNC(DiscreteDynamicsWorldaddCollisionObject);
-DECLARE_FREFUNC(DiscreteDynamicsWorldremoveCollisionObject);
 DECLARE_FREFUNC(DiscreteDynamicsWorldaddRigidBody);
 DECLARE_FREFUNC(DiscreteDynamicsWorldremoveRigidBody);
 DECLARE_FREFUNC(DiscreteDynamicsWorldstepSimulation);
@@ -26,6 +24,12 @@ DECLARE_FREFUNC(DiscreteDynamicsWorldaddConstraint);
 DECLARE_FREFUNC(DiscreteDynamicsWorldremoveConstraint);
 DECLARE_FREFUNC(DiscreteDynamicsWorldsetGravity);
 DECLARE_FREFUNC(DiscreteDynamicsWorldgetGravity);
+
+// === CollisionWorld ===
+DECLARE_FREFUNC(createCollisionWorldWithDbvt);
+DECLARE_FREFUNC(CollisionWorldaddCollisionObject);
+DECLARE_FREFUNC(CollisionWorldremoveCollisionObject);
+DECLARE_FREFUNC(CollisionWorldcontactTest);
 
 // === StaticPlaneShape ===
 DECLARE_FREFUNC(createStaticPlaneShape);
@@ -110,14 +114,14 @@ void BulletExtContextInitializer(void *extData, const uint8_t *ctxType, FREConte
 {
     FRENamedFunction *func;
     
-    *numFunctionsToSet = 67;
+    *numFunctionsToSet = 69;
     
     func = (FRENamedFunction*) malloc(sizeof(FRENamedFunction) * *numFunctionsToSet);
     
     ADD_FREFUNC(0, "createDiscreteDynamicsWorldWithDbvt", createDiscreteDynamicsWorldWithDbvt);
     ADD_FREFUNC(1, "disposeDynamicsWorld", disposeDynamicsWorld);
-    ADD_FREFUNC(2, "DiscreteDynamicsWorld::addCollisionObject", DiscreteDynamicsWorldaddCollisionObject);
-    ADD_FREFUNC(3, "DiscreteDynamicsWorld::removeCollisionObject", DiscreteDynamicsWorldremoveCollisionObject);
+    ADD_FREFUNC(2, "CollisionWorld::addCollisionObject", CollisionWorldaddCollisionObject);
+    ADD_FREFUNC(3, "CollisionWorld::removeCollisionObject", CollisionWorldremoveCollisionObject);
     ADD_FREFUNC(4, "DiscreteDynamicsWorld::addRigidBody", DiscreteDynamicsWorldaddRigidBody);
     ADD_FREFUNC(5, "DiscreteDynamicsWorld::removeRigidBody", DiscreteDynamicsWorldremoveRigidBody);
     ADD_FREFUNC(6, "DiscreteDynamicsWorld::stepSimulation", DiscreteDynamicsWorldstepSimulation);
@@ -181,6 +185,8 @@ void BulletExtContextInitializer(void *extData, const uint8_t *ctxType, FREConte
     ADD_FREFUNC(64, "RigidBody::getAngularDamping", RigidBodygetAngularDamping);
     ADD_FREFUNC(65, "RigidBody::setAngularDamping", RigidBodysetAngularDamping);
     ADD_FREFUNC(66, "DiscreteDynamicsWorld::getGravity", DiscreteDynamicsWorldgetGravity);
+    ADD_FREFUNC(67, "createCollisionWorldWithDbvt", createCollisionWorldWithDbvt);
+    ADD_FREFUNC(68, "CollisionWorld::contactTest", CollisionWorldcontactTest);
     
     *functionsToSet = func;
 }

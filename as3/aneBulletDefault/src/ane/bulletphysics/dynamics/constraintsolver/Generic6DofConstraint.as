@@ -27,8 +27,6 @@ package ane.bulletphysics.dynamics.constraintsolver
 		
 		public function setAngularLimits(lower:Vector3D, upper:Vector3D): void {
 			awpSixdof.setAngularLimit(lower, upper);
-			// TODO: AWPGeneric6DofConstraint.setAngularLimits() is a fucker.  It normalizes its parameters, thereby changing the meaning
-			// of the function.
 		}
 	}
 }

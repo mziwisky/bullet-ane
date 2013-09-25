@@ -24,6 +24,7 @@
 		E230C0D01795CDD10013CE13 /* libLinearMath_xcode4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E230C0C71795CDB90013CE13 /* libLinearMath_xcode4.a */; };
 		E2947C2717824F0400C7C6EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2947C2617824F0400C7C6EE /* Foundation.framework */; };
 		E2947C2E17824F0400C7C6EE /* aneInitializers.m in Sources */ = {isa = PBXBuildFile; fileRef = E2947C2D17824F0400C7C6EE /* aneInitializers.m */; };
+		E2AC38D917E36FFD0008A73E /* CollisionWorldAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2AC38D817E36FFD0008A73E /* CollisionWorldAPI.mm */; };
 		E2FDFF8517B18C6300A11C6A /* Generic6DofConstraintAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2FDFF8417B18C6300A11C6A /* Generic6DofConstraintAPI.mm */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +109,7 @@
 		E2947C2B17824F0400C7C6EE /* DiscreteDynamicsWorldAPI.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DiscreteDynamicsWorldAPI.mm; sourceTree = "<group>"; };
 		E2947C2D17824F0400C7C6EE /* aneInitializers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = aneInitializers.m; sourceTree = "<group>"; };
 		E2947C5D1782511B00C7C6EE /* FlashRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlashRuntimeExtensions.h; path = "../../../../../../../../Applications/Adobe Flash Builder 4.7/sdks/4.6.0AIR3.7/include/FlashRuntimeExtensions.h"; sourceTree = "<group>"; };
+		E2AC38D817E36FFD0008A73E /* CollisionWorldAPI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CollisionWorldAPI.mm; sourceTree = "<group>"; };
 		E2FDFF8417B18C6300A11C6A /* Generic6DofConstraintAPI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Generic6DofConstraintAPI.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,14 +188,15 @@
 				E230BD1C178DF6090013CE13 /* debug.mm */,
 				E230BD21178E12CA0013CE13 /* util.h */,
 				E230BD1F178E12910013CE13 /* util.mm */,
-				E2947C2B17824F0400C7C6EE /* DiscreteDynamicsWorldAPI.mm */,
 				E230BD1A178CA30A0013CE13 /* Away3DMotionState.hpp */,
 				E230BCFE1784CCF00013CE13 /* BoxShapeAPI.mm */,
 				E230BD26179092EB0013CE13 /* CapsuleShapeAPI.mm */,
 				E230BD001784CE7F0013CE13 /* CollisionObjectAPI.mm */,
+				E2AC38D817E36FFD0008A73E /* CollisionWorldAPI.mm */,
 				E230BD28179093E10013CE13 /* CompoundShapeAPI.mm */,
 				E230BD24179090270013CE13 /* ConeShapeAPI.mm */,
 				E230BD2217908DF20013CE13 /* CylinderShapeAPI.mm */,
+				E2947C2B17824F0400C7C6EE /* DiscreteDynamicsWorldAPI.mm */,
 				E2FDFF8417B18C6300A11C6A /* Generic6DofConstraintAPI.mm */,
 				E230BD061784CFDB0013CE13 /* RigidBodyAPI.mm */,
 				E230BD021784CF210013CE13 /* SphereShapeAPI.mm */,
@@ -318,6 +321,7 @@
 				E230BD27179092EB0013CE13 /* CapsuleShapeAPI.mm in Sources */,
 				E230BD29179093E10013CE13 /* CompoundShapeAPI.mm in Sources */,
 				E2FDFF8517B18C6300A11C6A /* Generic6DofConstraintAPI.mm in Sources */,
+				E2AC38D917E36FFD0008A73E /* CollisionWorldAPI.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
