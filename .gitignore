@@ -4,3 +4,5 @@ bin-debug
 bin
 as3/aneBulletTester/ane
 native/ios/Build
+native/ios/bullet-ane.xcworkspace/*
+!native/ios/bullet-ane.xcworkspace/contents.xcworkspacedata
