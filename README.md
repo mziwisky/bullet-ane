@@ -6,7 +6,9 @@ An Adobe AIR Native Extension for the Bullet Physics Simulation Library
 Imbue your AIR mobile and desktop apps with the magic of physics!
 
 Compared with AwayPhysics, Bullet.ane increases performance on mobile apps by 
-an order of magnitude.
+an order of magnitude.  See a video comparison: 
+[http://youtu.be/IH4mrUagA74](http://youtu.be/IH4mrUagA74)
+
 
 Currently written to work with Away3D, but certainly could be made compatible 
 with other Stage3D-based AS3 graphics libraries.
