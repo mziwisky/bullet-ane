@@ -29,24 +29,21 @@ package ane.bulletphysics.collision.dispatch
 		}
 		
 		public function addCollisionObject(obj:CollisionObject, group:int=1, mask:int=-1):void{
-			var awpObj: AWPCollisionObject = obj.awpRigidBody ? obj.awpRigidBody : obj.awpObject;
-			awpWorld.addCollisionObject(awpObj, group, mask);
+			awpWorld.addCollisionObject(obj.awpObject, group, mask);
 			obj.awp::collisionFilterGroup = group;
 			obj.awp::collisionFilterMask = mask;
 			
-			collisionObjects[awpObj] = obj;
+			collisionObjects[obj.awpObject] = obj;
 		}
 		
 		public function removeCollisionObject(obj:CollisionObject, cleanup:Boolean=false) : void {
-			var awpObj: AWPCollisionObject = obj.awpRigidBody ? obj.awpRigidBody : obj.awpObject;
-			awpWorld.removeCollisionObject(awpObj);
+			awpWorld.removeCollisionObject(obj.awpObject);
 			
-			delete collisionObjects[awpObj];
+			delete collisionObjects[obj.awpObject];
 		}
 		
 		public function contactTest(obj:CollisionObject): Vector.<CollisionObject> {
-			var awpObj: AWPCollisionObject = obj.awpRigidBody ? obj.awpRigidBody : obj.awpObject;
-			var hits: Vector.<AWPCollisionObject> = awpWorld.contactTest(awpObj);
+			var hits: Vector.<AWPCollisionObject> = awpWorld.contactTest(obj.awpObject);
 			if (!hits) return null;
 			else {
 				var realhits: Vector.<CollisionObject> = new Vector.<CollisionObject>(hits.length);
