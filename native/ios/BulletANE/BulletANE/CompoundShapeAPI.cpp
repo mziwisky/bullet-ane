@@ -1,5 +1,5 @@
 //
-//  CompoundShapeAPI.mm
+//  CompoundShapeAPI.cpp
 //  BulletANE
 //
 //  Created by Michael Ziwisky on 7/12/13.

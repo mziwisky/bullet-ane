@@ -1,5 +1,5 @@
 //
-//  RigidBodyAPI.mm
+//  RigidBodyAPI.cpp
 //  BulletANE
 //
 //  Created by Michael Ziwisky on 7/3/13.

@@ -7,25 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E230BCFD178371400013CE13 /* DiscreteDynamicsWorldAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2947C2B17824F0400C7C6EE /* DiscreteDynamicsWorldAPI.mm */; };
-		E230BCFF1784CCF00013CE13 /* BoxShapeAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = E230BCFE1784CCF00013CE13 /* BoxShapeAPI.mm */; };
-		E230BD011784CE7F0013CE13 /* CollisionObjectAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = E230BD001784CE7F0013CE13 /* CollisionObjectAPI.mm */; };
-		E230BD031784CF210013CE13 /* SphereShapeAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = E230BD021784CF210013CE13 /* SphereShapeAPI.mm */; };
-		E230BD051784CF9C0013CE13 /* StaticPlaneShapeAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = E230BD041784CF9C0013CE13 /* StaticPlaneShapeAPI.mm */; };
-		E230BD071784CFDB0013CE13 /* RigidBodyAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = E230BD061784CFDB0013CE13 /* RigidBodyAPI.mm */; };
-		E230BD1D178DF60A0013CE13 /* debug.mm in Sources */ = {isa = PBXBuildFile; fileRef = E230BD1C178DF6090013CE13 /* debug.mm */; };
-		E230BD20178E12910013CE13 /* util.mm in Sources */ = {isa = PBXBuildFile; fileRef = E230BD1F178E12910013CE13 /* util.mm */; };
-		E230BD2317908DF20013CE13 /* CylinderShapeAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = E230BD2217908DF20013CE13 /* CylinderShapeAPI.mm */; };
-		E230BD25179090280013CE13 /* ConeShapeAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = E230BD24179090270013CE13 /* ConeShapeAPI.mm */; };
-		E230BD27179092EB0013CE13 /* CapsuleShapeAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = E230BD26179092EB0013CE13 /* CapsuleShapeAPI.mm */; };
-		E230BD29179093E10013CE13 /* CompoundShapeAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = E230BD28179093E10013CE13 /* CompoundShapeAPI.mm */; };
 		E230C0CE1795CDD10013CE13 /* libBulletCollision_xcode4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E230C0BB1795CD820013CE13 /* libBulletCollision_xcode4.a */; };
 		E230C0CF1795CDD10013CE13 /* libBulletDynamics_xcode4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E230C0C11795CDB00013CE13 /* libBulletDynamics_xcode4.a */; };
 		E230C0D01795CDD10013CE13 /* libLinearMath_xcode4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E230C0C71795CDB90013CE13 /* libLinearMath_xcode4.a */; };
+		E26FC1B9180B605400D9C61B /* BoxShapeAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E26FC1AB180B605400D9C61B /* BoxShapeAPI.cpp */; };
+		E26FC1BA180B605400D9C61B /* CapsuleShapeAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E26FC1AC180B605400D9C61B /* CapsuleShapeAPI.cpp */; };
+		E26FC1BB180B605400D9C61B /* CollisionObjectAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E26FC1AD180B605400D9C61B /* CollisionObjectAPI.cpp */; };
+		E26FC1BC180B605400D9C61B /* CollisionWorldAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E26FC1AE180B605400D9C61B /* CollisionWorldAPI.cpp */; };
+		E26FC1BD180B605400D9C61B /* CompoundShapeAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E26FC1AF180B605400D9C61B /* CompoundShapeAPI.cpp */; };
+		E26FC1BE180B605400D9C61B /* ConeShapeAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E26FC1B0180B605400D9C61B /* ConeShapeAPI.cpp */; };
+		E26FC1BF180B605400D9C61B /* CylinderShapeAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E26FC1B1180B605400D9C61B /* CylinderShapeAPI.cpp */; };
+		E26FC1C1180B605400D9C61B /* DiscreteDynamicsWorldAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E26FC1B3180B605400D9C61B /* DiscreteDynamicsWorldAPI.cpp */; };
+		E26FC1C2180B605400D9C61B /* Generic6DofConstraintAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E26FC1B4180B605400D9C61B /* Generic6DofConstraintAPI.cpp */; };
+		E26FC1C3180B605400D9C61B /* RigidBodyAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E26FC1B5180B605400D9C61B /* RigidBodyAPI.cpp */; };
+		E26FC1C4180B605400D9C61B /* SphereShapeAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E26FC1B6180B605400D9C61B /* SphereShapeAPI.cpp */; };
+		E26FC1C5180B605400D9C61B /* StaticPlaneShapeAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E26FC1B7180B605400D9C61B /* StaticPlaneShapeAPI.cpp */; };
+		E26FC1C6180B605400D9C61B /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E26FC1B8180B605400D9C61B /* util.cpp */; };
+		E26FC1C8180B60D000D9C61B /* debug.mm in Sources */ = {isa = PBXBuildFile; fileRef = E26FC1C7180B60D000D9C61B /* debug.mm */; };
 		E2947C2717824F0400C7C6EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2947C2617824F0400C7C6EE /* Foundation.framework */; };
-		E2947C2E17824F0400C7C6EE /* aneInitializers.m in Sources */ = {isa = PBXBuildFile; fileRef = E2947C2D17824F0400C7C6EE /* aneInitializers.m */; };
-		E2AC38D917E36FFD0008A73E /* CollisionWorldAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2AC38D817E36FFD0008A73E /* CollisionWorldAPI.mm */; };
-		E2FDFF8517B18C6300A11C6A /* Generic6DofConstraintAPI.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2FDFF8417B18C6300A11C6A /* Generic6DofConstraintAPI.mm */; };
+		E2947C2E17824F0400C7C6EE /* aneInitializers.c in Sources */ = {isa = PBXBuildFile; fileRef = E2947C2D17824F0400C7C6EE /* aneInitializers.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,31 +86,31 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E230BCFE1784CCF00013CE13 /* BoxShapeAPI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BoxShapeAPI.mm; sourceTree = "<group>"; };
-		E230BD001784CE7F0013CE13 /* CollisionObjectAPI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CollisionObjectAPI.mm; sourceTree = "<group>"; };
-		E230BD021784CF210013CE13 /* SphereShapeAPI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SphereShapeAPI.mm; sourceTree = "<group>"; };
-		E230BD041784CF9C0013CE13 /* StaticPlaneShapeAPI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = StaticPlaneShapeAPI.mm; sourceTree = "<group>"; };
-		E230BD061784CFDB0013CE13 /* RigidBodyAPI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RigidBodyAPI.mm; sourceTree = "<group>"; };
 		E230BD1A178CA30A0013CE13 /* Away3DMotionState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Away3DMotionState.hpp; sourceTree = "<group>"; };
-		E230BD1C178DF6090013CE13 /* debug.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = debug.mm; sourceTree = "<group>"; };
 		E230BD1E178DF6750013CE13 /* debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
-		E230BD1F178E12910013CE13 /* util.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = util.mm; sourceTree = "<group>"; };
 		E230BD21178E12CA0013CE13 /* util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
-		E230BD2217908DF20013CE13 /* CylinderShapeAPI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CylinderShapeAPI.mm; sourceTree = "<group>"; };
-		E230BD24179090270013CE13 /* ConeShapeAPI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ConeShapeAPI.mm; sourceTree = "<group>"; };
-		E230BD26179092EB0013CE13 /* CapsuleShapeAPI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CapsuleShapeAPI.mm; sourceTree = "<group>"; };
-		E230BD28179093E10013CE13 /* CompoundShapeAPI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CompoundShapeAPI.mm; sourceTree = "<group>"; };
 		E230C0B61795CD820013CE13 /* BulletCollision.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BulletCollision.xcodeproj; path = "/Users/mziwisky/repos/bullet-ane/native/ios/../bullet-itself/bullet-read-only/build/xcode4ios/BulletCollision.xcodeproj"; sourceTree = "<absolute>"; };
 		E230C0BC1795CDB00013CE13 /* BulletDynamics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BulletDynamics.xcodeproj; path = "/Users/mziwisky/repos/bullet-ane/native/ios/../bullet-itself/bullet-read-only/build/xcode4ios/BulletDynamics.xcodeproj"; sourceTree = "<absolute>"; };
 		E230C0C21795CDB90013CE13 /* LinearMath.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LinearMath.xcodeproj; path = "/Users/mziwisky/repos/bullet-ane/native/ios/../bullet-itself/bullet-read-only/build/xcode4ios/LinearMath.xcodeproj"; sourceTree = "<absolute>"; };
+		E26FC1AB180B605400D9C61B /* BoxShapeAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoxShapeAPI.cpp; sourceTree = "<group>"; };
+		E26FC1AC180B605400D9C61B /* CapsuleShapeAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CapsuleShapeAPI.cpp; sourceTree = "<group>"; };
+		E26FC1AD180B605400D9C61B /* CollisionObjectAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CollisionObjectAPI.cpp; sourceTree = "<group>"; };
+		E26FC1AE180B605400D9C61B /* CollisionWorldAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CollisionWorldAPI.cpp; sourceTree = "<group>"; };
+		E26FC1AF180B605400D9C61B /* CompoundShapeAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CompoundShapeAPI.cpp; sourceTree = "<group>"; };
+		E26FC1B0180B605400D9C61B /* ConeShapeAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConeShapeAPI.cpp; sourceTree = "<group>"; };
+		E26FC1B1180B605400D9C61B /* CylinderShapeAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CylinderShapeAPI.cpp; sourceTree = "<group>"; };
+		E26FC1B3180B605400D9C61B /* DiscreteDynamicsWorldAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DiscreteDynamicsWorldAPI.cpp; sourceTree = "<group>"; };
+		E26FC1B4180B605400D9C61B /* Generic6DofConstraintAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Generic6DofConstraintAPI.cpp; sourceTree = "<group>"; };
+		E26FC1B5180B605400D9C61B /* RigidBodyAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RigidBodyAPI.cpp; sourceTree = "<group>"; };
+		E26FC1B6180B605400D9C61B /* SphereShapeAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SphereShapeAPI.cpp; sourceTree = "<group>"; };
+		E26FC1B7180B605400D9C61B /* StaticPlaneShapeAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StaticPlaneShapeAPI.cpp; sourceTree = "<group>"; };
+		E26FC1B8180B605400D9C61B /* util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = util.cpp; sourceTree = "<group>"; };
+		E26FC1C7180B60D000D9C61B /* debug.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = debug.mm; sourceTree = "<group>"; };
 		E2947C2317824F0400C7C6EE /* libBulletANE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBulletANE.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2947C2617824F0400C7C6EE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E2947C2A17824F0400C7C6EE /* BulletANE-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BulletANE-Prefix.pch"; sourceTree = "<group>"; };
-		E2947C2B17824F0400C7C6EE /* DiscreteDynamicsWorldAPI.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DiscreteDynamicsWorldAPI.mm; sourceTree = "<group>"; };
-		E2947C2D17824F0400C7C6EE /* aneInitializers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = aneInitializers.m; sourceTree = "<group>"; };
+		E2947C2D17824F0400C7C6EE /* aneInitializers.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = aneInitializers.c; sourceTree = "<group>"; };
 		E2947C5D1782511B00C7C6EE /* FlashRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlashRuntimeExtensions.h; path = "../../../../../../../../Applications/Adobe Flash Builder 4.7/sdks/4.6.0AIR3.7/include/FlashRuntimeExtensions.h"; sourceTree = "<group>"; };
-		E2AC38D817E36FFD0008A73E /* CollisionWorldAPI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CollisionWorldAPI.mm; sourceTree = "<group>"; };
-		E2FDFF8417B18C6300A11C6A /* Generic6DofConstraintAPI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Generic6DofConstraintAPI.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,24 +183,24 @@
 		E2947C2817824F0400C7C6EE /* BulletANE */ = {
 			isa = PBXGroup;
 			children = (
-				E2947C2D17824F0400C7C6EE /* aneInitializers.m */,
+				E2947C2D17824F0400C7C6EE /* aneInitializers.c */,
 				E230BD1E178DF6750013CE13 /* debug.h */,
-				E230BD1C178DF6090013CE13 /* debug.mm */,
+				E26FC1C7180B60D000D9C61B /* debug.mm */,
 				E230BD21178E12CA0013CE13 /* util.h */,
-				E230BD1F178E12910013CE13 /* util.mm */,
+				E26FC1B8180B605400D9C61B /* util.cpp */,
 				E230BD1A178CA30A0013CE13 /* Away3DMotionState.hpp */,
-				E230BCFE1784CCF00013CE13 /* BoxShapeAPI.mm */,
-				E230BD26179092EB0013CE13 /* CapsuleShapeAPI.mm */,
-				E230BD001784CE7F0013CE13 /* CollisionObjectAPI.mm */,
-				E2AC38D817E36FFD0008A73E /* CollisionWorldAPI.mm */,
-				E230BD28179093E10013CE13 /* CompoundShapeAPI.mm */,
-				E230BD24179090270013CE13 /* ConeShapeAPI.mm */,
-				E230BD2217908DF20013CE13 /* CylinderShapeAPI.mm */,
-				E2947C2B17824F0400C7C6EE /* DiscreteDynamicsWorldAPI.mm */,
-				E2FDFF8417B18C6300A11C6A /* Generic6DofConstraintAPI.mm */,
-				E230BD061784CFDB0013CE13 /* RigidBodyAPI.mm */,
-				E230BD021784CF210013CE13 /* SphereShapeAPI.mm */,
-				E230BD041784CF9C0013CE13 /* StaticPlaneShapeAPI.mm */,
+				E26FC1AB180B605400D9C61B /* BoxShapeAPI.cpp */,
+				E26FC1AC180B605400D9C61B /* CapsuleShapeAPI.cpp */,
+				E26FC1AD180B605400D9C61B /* CollisionObjectAPI.cpp */,
+				E26FC1AE180B605400D9C61B /* CollisionWorldAPI.cpp */,
+				E26FC1AF180B605400D9C61B /* CompoundShapeAPI.cpp */,
+				E26FC1B0180B605400D9C61B /* ConeShapeAPI.cpp */,
+				E26FC1B1180B605400D9C61B /* CylinderShapeAPI.cpp */,
+				E26FC1B3180B605400D9C61B /* DiscreteDynamicsWorldAPI.cpp */,
+				E26FC1B4180B605400D9C61B /* Generic6DofConstraintAPI.cpp */,
+				E26FC1B5180B605400D9C61B /* RigidBodyAPI.cpp */,
+				E26FC1B6180B605400D9C61B /* SphereShapeAPI.cpp */,
+				E26FC1B7180B605400D9C61B /* StaticPlaneShapeAPI.cpp */,
 				E2947C2917824F0400C7C6EE /* Supporting Files */,
 			);
 			path = BulletANE;
@@ -307,21 +307,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2947C2E17824F0400C7C6EE /* aneInitializers.m in Sources */,
-				E230BCFD178371400013CE13 /* DiscreteDynamicsWorldAPI.mm in Sources */,
-				E230BCFF1784CCF00013CE13 /* BoxShapeAPI.mm in Sources */,
-				E230BD011784CE7F0013CE13 /* CollisionObjectAPI.mm in Sources */,
-				E230BD031784CF210013CE13 /* SphereShapeAPI.mm in Sources */,
-				E230BD051784CF9C0013CE13 /* StaticPlaneShapeAPI.mm in Sources */,
-				E230BD071784CFDB0013CE13 /* RigidBodyAPI.mm in Sources */,
-				E230BD1D178DF60A0013CE13 /* debug.mm in Sources */,
-				E230BD20178E12910013CE13 /* util.mm in Sources */,
-				E230BD2317908DF20013CE13 /* CylinderShapeAPI.mm in Sources */,
-				E230BD25179090280013CE13 /* ConeShapeAPI.mm in Sources */,
-				E230BD27179092EB0013CE13 /* CapsuleShapeAPI.mm in Sources */,
-				E230BD29179093E10013CE13 /* CompoundShapeAPI.mm in Sources */,
-				E2FDFF8517B18C6300A11C6A /* Generic6DofConstraintAPI.mm in Sources */,
-				E2AC38D917E36FFD0008A73E /* CollisionWorldAPI.mm in Sources */,
+				E26FC1C1180B605400D9C61B /* DiscreteDynamicsWorldAPI.cpp in Sources */,
+				E26FC1BB180B605400D9C61B /* CollisionObjectAPI.cpp in Sources */,
+				E26FC1BC180B605400D9C61B /* CollisionWorldAPI.cpp in Sources */,
+				E26FC1BF180B605400D9C61B /* CylinderShapeAPI.cpp in Sources */,
+				E26FC1C3180B605400D9C61B /* RigidBodyAPI.cpp in Sources */,
+				E26FC1BA180B605400D9C61B /* CapsuleShapeAPI.cpp in Sources */,
+				E26FC1BD180B605400D9C61B /* CompoundShapeAPI.cpp in Sources */,
+				E26FC1BE180B605400D9C61B /* ConeShapeAPI.cpp in Sources */,
+				E26FC1C6180B605400D9C61B /* util.cpp in Sources */,
+				E26FC1B9180B605400D9C61B /* BoxShapeAPI.cpp in Sources */,
+				E26FC1C5180B605400D9C61B /* StaticPlaneShapeAPI.cpp in Sources */,
+				E26FC1C4180B605400D9C61B /* SphereShapeAPI.cpp in Sources */,
+				E2947C2E17824F0400C7C6EE /* aneInitializers.c in Sources */,
+				E26FC1C8180B60D000D9C61B /* debug.mm in Sources */,
+				E26FC1C2180B605400D9C61B /* Generic6DofConstraintAPI.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

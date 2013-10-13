@@ -1,11 +1,11 @@
 //
-//  CollisionWorldAPI.mm
+//  CollisionWorldAPI.cpp
 //  BulletANE
 //
 //  Created by Michael Ziwisky on 9/13/13.
 //
 
-#import "FlashRuntimeExtensions.h"
+#include "FlashRuntimeExtensions.h"
 #include "BulletCollision/CollisionDispatch/btGhostObject.h"
 #include "util.h"
 

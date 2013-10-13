@@ -1,11 +1,12 @@
 //
-//  aneInitializers.m
+//  aneInitializers.c
 //  BulletANE
 //
 //  Created by Michael Ziwisky on 7/1/13.
 //
 
-#import "FlashRuntimeExtensions.h"
+#include "FlashRuntimeExtensions.h"
+#include <stdlib.h>
 
 #define DECLARE_FREFUNC(name) FREObject name (FREContext, void*, uint32_t, FREObject[])
 
@@ -199,7 +200,6 @@ void BulletExtContextFinalizer(FREContext ctx)
 // This initializes the ANE.  It's only called by the runtime, and only one time, when the ANE is loaded.
 void BulletExtensionInitializer(void** extDataToSet, FREContextInitializer* ctxInitializerToSet, FREContextFinalizer* ctxFinalizerToSet)
 {
-    NSLog(@"Initializing BulletPhysics extension...");
     *extDataToSet = NULL;
     *ctxInitializerToSet = &BulletExtContextInitializer;
     *ctxFinalizerToSet = &BulletExtContextFinalizer;

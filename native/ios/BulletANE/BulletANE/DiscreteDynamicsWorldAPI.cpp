@@ -1,11 +1,11 @@
 //
-//  DiscreteDynamicsWorldAPI.mm
+//  DiscreteDynamicsWorldAPI.cpp
 //  BulletANE
 //
 //  Created by Michael Ziwisky on 7/1/13.
 //
 
-#import "FlashRuntimeExtensions.h"
+#include "FlashRuntimeExtensions.h"
 #include "btBulletDynamicsCommon.h"
 #include "BulletCollision/CollisionDispatch/btGhostObject.h"
 #include "util.h"

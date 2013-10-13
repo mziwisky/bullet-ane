@@ -1,5 +1,5 @@
 //
-//  Generic6DofConstraintAPI.mm
+//  Generic6DofConstraintAPI.cpp
 //  BulletANE
 //
 //  Created by Michael Ziwisky on 8/6/13.
