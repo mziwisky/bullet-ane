@@ -3,6 +3,8 @@ native/bullet-itself/*
 bin-debug
 bin
 as3/aneBulletTester/ane
-native/ios/Build
-native/ios/bullet-ane.xcworkspace/*
-!native/ios/bullet-ane.xcworkspace/contents.xcworkspacedata
+native/ios/BulletANE/build
+native/ios/BulletANE/BulletANE.xcodeproj/project.xcworkspace
+!native/ios/BulletANE/BulletANE.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+native/android/obj
+native/android/libs
