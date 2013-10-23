@@ -13,11 +13,12 @@ an order of magnitude.  See a video comparison:
 Currently written to work with Away3D, but certainly could be made compatible 
 with other Stage3D-based AS3 graphics libraries.
 
-True native implementations are built for iOS (6.0 SDK) and iOS Simulator.  
-All other platforms fall back on 
+True native implementations are built for iOS (7.0 SDK), iOS Simulator, and 
+Android.  All other platforms (which I think is only desktops now that Android 
+is supported, right?) fall back on 
 [AwayPhysics](https://github.com/away3d/awayphysics-core-fp11), a pure-AS3 
 implementation of Bullet, meaning the extension will work on all platforms AIR 
-supports, but will have native performance only on iOS (so far).
+supports.
 
 ---
 
@@ -52,26 +53,40 @@ then `Add ANE...`
 Finally, ensure the extension gets packaged with your debug and release 
 builds; from the `Properties` window, twist open `ActionScript Build 
 Packaging` on the left and select `Apple iOS`, then click `Native Extensions` 
-across the top and ensure that the `Package` checkbox is checked.
+across the top and ensure that the `Package` checkbox is checked.  Do the same 
+with the `Android` platform.
 
 
 Building the ANE
 -----
 
 If you're the type that's going to build `Bullet.ane` from source, this 
-section should help.
+section should help.  It might not be very complete, so I apologize -- ask on 
+GitHub if you need help (github.com/mziwisky/bullet-ane).
 
 First off, if you don't have a Mac, I can't help you (yet), because I'm 
-building the native iOS library with Xcode.
+building the native iOS library with Xcode.  Also, I rely on Flash Builder for 
+the ActionScript compilation, so I can't help with other IDEs.
 
 OK, you'll need to acquire the following AS3 dependencies:
 
 * [Away3D](https://github.com/away3d/away3d-core-fp11)
 * [AwayPhysics](https://github.com/away3d/awayphysics-core-fp11)
 
-**TODO:** finish this section.  Talk about aneBulletLib, aneBulletDefault, 
-build.xml, fetch script for bullet-itself, Xcode build products location... 
-anything else?
+`as3/aneBulletLib` depends on Away3D and `as3/aneBulletDefault` depends on 
+both.  Build those two `aneBullet*` projects.
+
+Then, `cd` to `native/bullet-itself` and run 
+`./fetchSourceAndMakeXcodeProjects.bash`.
+
+Then, `cd` back to the top directory and edit the properties in `build.xml` to 
+accomodate your system.  Most of it should be alright, but you may need to 
+change `airsdk.dir` and `iossdk.dir`.
+
+Finally, run `ant` in the top directory.
+
+Again, if anything goes wrong here that you can't figure out on your own, feel 
+free to contact me on GitHub.
 
 
 Comparison to AwayPhysics and Bullet C++ Lib
@@ -193,14 +208,14 @@ To-do
 An abbreviated list of things on the to-do list for the ANE.  Feel free to 
 contribute!
 
-* Native Android lib.  Native Desktop lib.  Right now they both fall back on 
-  AwayPhysics, which is awesome, but performs significantly worse than native 
-code.
+* Native Desktop lib.  Right now it falls back on AwayPhysics, which is 
+  awesome, but performs significantly worse than native code.
 * Add support for other Stage3D-based graphics libraries.
 * Maybe make a big start-to-finish build script if enough people are 
   interested in such a thing.
 * Add collision callbacks.
 * More and more API exposure.
+
 
 Links
 -----

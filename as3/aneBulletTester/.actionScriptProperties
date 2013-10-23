@@ -50,7 +50,7 @@
   <buildCSSFiles/>
   <flashCatalyst validateFlashCatalystCompatibility="false"/>
   <buildTargets>
-    <buildTarget buildTargetName="device" iosSettingsVersion="2" isCurrent="true" platformId="com.adobe.flexide.multiplatform.ios.platform" provisioningFile="/Users/mziwisky/Dropbox/VizAR Internal/Tech Mishegoss/iPad Provisioning/Updated_Test_Profile.mobileprovision" releasePackageType="">
+    <buildTarget buildTargetName="device" iosSettingsVersion="2" isCurrent="false" platformId="com.adobe.flexide.multiplatform.ios.platform" provisioningFile="/Users/mziwisky/Dropbox/VizAR Internal/Tech Mishegoss/iPad Provisioning/Updated_Test_Profile.mobileprovision" releasePackageType="">
       <multiPlatformSettings enabled="true" hideAneLibSymbols="0" includePlatformLibs="false" nativeSDKPathString="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk" platformID="com.adobe.flexide.multiplatform.ios.platform" reducedSizePackaging="false" version="1"/>
       <airSettings airCertificatePath="/Users/mziwisky/Dropbox/VizAR Internal/Tech Mishegoss/iPad Provisioning/iosDevCertMZ.p12" airTimestamp="true" anePathSet="true" version="1">
         <airExcludes/>
@@ -76,8 +76,8 @@
       </airSettings>
       <actionScriptSettings version="1"/>
     </buildTarget>
-    <buildTarget buildTargetName="devicesimulator" iosSettingsVersion="2" isCurrent="false" platformId="com.adobe.flexide.multiplatform.ios.platform" provisioningFile="/Users/mziwisky/Dropbox/VizAR Internal/Tech Mishegoss/iPad Provisioning/Updated_Test_Profile.mobileprovision" releasePackageType="">
-      <multiPlatformSettings enabled="true" hideAneLibSymbols="0" includePlatformLibs="false" nativeSDKPathString="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk" platformID="com.adobe.flexide.multiplatform.ios.platform" reducedSizePackaging="false" version="1"/>
+    <buildTarget buildTargetName="devicesimulator" iosSettingsVersion="2" isCurrent="true" platformId="com.adobe.flexide.multiplatform.ios.platform" provisioningFile="/Users/mziwisky/Dropbox/VizAR Internal/Tech Mishegoss/iPad Provisioning/Updated_Test_Profile.mobileprovision" releasePackageType="">
+      <multiPlatformSettings enabled="true" hideAneLibSymbols="0" includePlatformLibs="false" nativeSDKPathString="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk" platformID="com.adobe.flexide.multiplatform.ios.platform" reducedSizePackaging="false" version="1"/>
       <airSettings airCertificatePath="/Users/mziwisky/Dropbox/VizAR Internal/Tech Mishegoss/iPad Provisioning/iosDevCertMZ.p12" airTimestamp="true" anePathSet="true" version="1">
         <airExcludes/>
         <anePaths>

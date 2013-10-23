@@ -3,7 +3,6 @@ package ane.bulletphysics.dynamics
 	import flash.geom.Vector3D;
 	
 	import ane.bulletphysics.collision.CollisionFlags;
-	import ane.bulletphysics.collision.dispatch.CollisionObject;
 	import ane.bulletphysics.collision.dispatch.CollisionWorld;
 	import ane.bulletphysics.dynamics.constraintsolver.TypedConstraint;
 
