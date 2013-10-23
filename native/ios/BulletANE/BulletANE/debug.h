@@ -12,8 +12,8 @@
 #include "FlashRuntimeExtensions.h"
 #include "btBulletDynamicsCommon.h"
 
-void printShit(char*);
-void print16scalars(btScalar*);
-void printResult(FREResult, char*, boolean_t);
+extern "C" void printShit(char*);
+extern "C" void print16scalars(btScalar*);
+extern "C" void printResult(FREResult, char*, boolean_t);
 
 #endif

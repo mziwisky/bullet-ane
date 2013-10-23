@@ -34,6 +34,7 @@ package
 		private var _physicsWorld : DiscreteDynamicsWorld;
 		private var _sphereShape : SphereShape;
 		private var _timeStep : Number = 1.0 / 60;
+		private var scale: Number = .1;
 		
 		public function AneTest()
 		{
@@ -50,13 +51,14 @@ package
 			this.addChild(new AwayStats(_view));
 			
 			_light = new PointLight();
-			_light.y = 2500;
-			_light.z = -4000;
+			_light.y = 2500*scale;
+			_light.z = -4000*scale;
 			_view.scene.addChild(_light);
 			
 			lightPicker = new StaticLightPicker([_light]);
 			
-			_view.camera.lens.far = 10000;
+			_view.camera.lens.near = 100*scale;
+			_view.camera.lens.far = 10000*scale;
 			_view.camera.y = _light.y;
 			_view.camera.z = _light.z;
 			_view.camera.rotationX = 25;
@@ -70,7 +72,7 @@ package
 			// create ground mesh
 			var material : ColorMaterial = new ColorMaterial(0x252525);
 			material.lightPicker = lightPicker;
-			var mesh:Mesh=new Mesh(new PlaneGeometry(50000, 50000),material);
+			var mesh:Mesh=new Mesh(new PlaneGeometry(50000*scale, 50000*scale),material);
 			mesh.mouseEnabled = true;
 			mesh.addEventListener(MouseEvent3D.MOUSE_UP, onMouseUp);
 			_view.scene.addChild(mesh);
@@ -81,60 +83,61 @@ package
 			_physicsWorld.addRigidBody(groundRigidbody);
 			
 			// create a wall
-			mesh = new Mesh(new CubeGeometry(20000, 2000, 100),material);
+			mesh = new Mesh(new CubeGeometry(20000*scale, 2000*scale, 100*scale),material);
 			_view.scene.addChild(mesh);
 			
-			var wallShape : BoxShape = new BoxShape(20000, 2000, 100);
+			var wallShape : BoxShape = new BoxShape(20000*scale, 2000*scale, 100*scale);
 			var wallRigidbody : RigidBody = new RigidBody(wallShape, mesh, 0);
 			_physicsWorld.addRigidBody(wallRigidbody);
 			
-			wallRigidbody.position = new Vector3D(0, 1000, 2000);
+			wallRigidbody.position = new Vector3D(0, 1000*scale, 2000*scale);
 			
 			material = new ColorMaterial(0xfc6a11);
 			material.lightPicker = lightPicker;
 			
 			// create rigidbody shapes
-			_sphereShape = new SphereShape(100);
-			var boxShape : BoxShape = new BoxShape(200, 200, 200);
-			var cylinderShape : CylinderShape = new CylinderShape(100, 200);
-			var coneShape : ConeShape = new ConeShape(100, 200);
+			_sphereShape = new SphereShape(100*scale);
+			var boxShape : BoxShape = new BoxShape(200*scale, 200*scale, 200*scale);
+			var cylinderShape : CylinderShape = new CylinderShape(100*scale, 200*scale);
+			var coneShape : ConeShape = new ConeShape(100*scale, 200*scale); trace("cone height: " + 200*scale);
 			
 			// create rigidbodies
 			var body : RigidBody;
-			var numx : int = 2;
+			var numx : int = 1;
 			var numy : int = 8;
 			var numz : int = 1;
 			for (var i : int = 0; i < numx; i++ ) {
 				for (var j : int = 0; j < numz; j++ ) {
 					for (var k : int = 0; k < numy; k++ ) {
 						// create boxes
-						mesh = new Mesh(new CubeGeometry(200, 200, 200),material);
+						mesh = new Mesh(new CubeGeometry(200*scale, 200*scale, 200*scale),material);
 						_view.scene.addChild(mesh);
 						body = new RigidBody(boxShape, mesh, 1);
 						body.friction = .9;
-						body.ccdSweptSphereRadius = 0.5;
-						body.ccdMotionThreshold = 1;
-						body.position = new Vector3D(-1000 + i * 200, 100 + k * 200+1300, j * 200);
+						body.ccdSweptSphereRadius = 0.5*scale;
+						body.ccdMotionThreshold = 1*scale;
+						body.position = new Vector3D(-1000*scale + i * 200*scale, 100*scale + k * 200*scale+1300*scale, j * 200*scale);
 						_physicsWorld.addRigidBody(body);
 						
 						// create cylinders
-						mesh = new Mesh(new CylinderGeometry(100, 100, 200),material);
+						mesh = new Mesh(new CylinderGeometry(100*scale, 100*scale, 200*scale),material);
 						_view.scene.addChild(mesh);
 						body = new RigidBody(cylinderShape, mesh, 1);
 						body.friction = .9;
-						body.ccdSweptSphereRadius = 0.5;
-						body.ccdMotionThreshold = 1;
-						body.position = new Vector3D(1000 + i * 200, 100 + k * 200, j * 200);
+						body.ccdSweptSphereRadius = 0.5*scale;
+						body.ccdMotionThreshold = 1*scale;
+						body.position = new Vector3D(1000*scale + i * 200*scale, 100*scale + k * 200*scale, j * 200*scale);
 						_physicsWorld.addRigidBody(body);
 						
 						// create the Cones
-						mesh = new Mesh(new ConeGeometry(100, 200),material);
+						mesh = new Mesh(new ConeGeometry(100*scale, 200*scale),material);
 						_view.scene.addChild(mesh);
 						body = new RigidBody(coneShape, mesh, 1);
 						body.friction = .9;
-						body.ccdSweptSphereRadius = 0.5;
-						body.ccdMotionThreshold = 1;
-						body.position = new Vector3D(i * 200, 100 + k * 230, j * 200);
+						body.ccdSweptSphereRadius = 0.5*scale;
+						body.ccdMotionThreshold = 1*scale;
+						body.position = new Vector3D(i * 200*scale, 100*scale + k * 230*scale, j * 200*scale);
+						trace (body.position.y);
 						_physicsWorld.addRigidBody(body);
 					}
 				}
@@ -158,19 +161,19 @@ package
 			
 			var impulse : Vector3D = mpos.subtract(pos);
 			impulse.normalize();
-			impulse.scaleBy(2000);
+			impulse.scaleBy(2000*scale);
 			
 			// shoot a sphere
 			var material : ColorMaterial = new ColorMaterial(0xb35b11);
 			material.lightPicker = lightPicker;
 			
-			var sphere : Mesh = new Mesh(new SphereGeometry(100),material);
+			var sphere : Mesh = new Mesh(new SphereGeometry(100*scale),material);
 			_view.scene.addChild(sphere);
 			
 			var body : RigidBody = new RigidBody(_sphereShape, sphere, 2);
 			body.position = pos;
-			body.ccdSweptSphereRadius = 0.5;
-			body.ccdMotionThreshold = 1;
+			body.ccdSweptSphereRadius = 0.5*scale;
+			body.ccdMotionThreshold = 1*scale;
 			_physicsWorld.addRigidBody(body);
 			
 			body.applyCentralImpulse(impulse);
@@ -181,8 +184,8 @@ package
 		private function handleEnterFrame(e : Event) : void {
 			const newTick: uint = getTimer();
 			const step: Number = Number(newTick - ticks) / 1000.0;
-//			_physicsWorld.stepSimulation(step, 2, _timeStep);
-			_physicsWorld.stepSimulation(_timeStep, 2, _timeStep/2);
+			_physicsWorld.stepSimulation(step, 6, _timeStep/2);
+//			_physicsWorld.stepSimulation(_timeStep, 2, _timeStep/2);
 			ticks = newTick;
 			
 			//debugDraw.debugDrawWorld();

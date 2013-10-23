@@ -2,19 +2,17 @@ package ane.bulletphysics.dynamics
 {
 	import flash.geom.Vector3D;
 	
-	import ane.bulletphysics.BulletBase;
 	import ane.bulletphysics.awp;
-	import ane.bulletphysics.collision.dispatch.CollisionObject;
+	import ane.bulletphysics.collision.dispatch.CollisionWorld;
 	import ane.bulletphysics.dynamics.constraintsolver.TypedConstraint;
 	
 	import awayphysics.dynamics.AWPDynamicsWorld;
+	import awayphysics.dynamics.AWPRigidBody;
 	
 	use namespace awp;
 	
-	public class DiscreteDynamicsWorld extends BulletBase
-	{
-		public static const BROADPHASE_DBVT: String = "dbvt";
-		
+	public class DiscreteDynamicsWorld extends CollisionWorld
+	{	
 		awp var awpDDWorld: AWPDynamicsWorld;
 		
 		public function DiscreteDynamicsWorld(broadphase:String=BROADPHASE_DBVT, scaling:Number=100, expectNestedMeshes:Boolean=false) {
@@ -25,28 +23,21 @@ package ane.bulletphysics.dynamics
 			awpDDWorld.scaling = scaling;
 			nestedMeshes = expectNestedMeshes;
 			_scaling = scaling;
+			super(broadphase, this);
 		}
 		
 		// TODO: dispose
-		
-		public function addCollisionObject(obj:CollisionObject, group:int=1, mask:int=-1): void {
-			awpDDWorld.addCollisionObject(obj.awpObject, group, mask);
-			obj.awp::collisionFilterGroup = group;
-			obj.awp::collisionFilterMask = mask;
-		}
-		
-		public function removeCollisionObject(obj:CollisionObject): void {
-			awpDDWorld.removeCollisionObject(obj.awpObject);
-		}
 		
 		public function addRigidBody(body:RigidBody, group:int=1, mask:int=-1): void {
 			awpDDWorld.addRigidBodyWithGroup(body.awpBody, group, mask);
 			body.awp::collisionFilterGroup = group;
 			body.awp::collisionFilterMask = mask;
+			collisionObjects[body.awpBody] = body;
 		}
 		
 		public function removeRigidBody(body:RigidBody): void {
 			awpDDWorld.removeRigidBody(body.awpBody);
+			delete collisionObjects[body.awpBody];
 		}
 		
 		public function addConstraint(constraint:TypedConstraint, disableCollisionsBetweenLinkedBodies:Boolean=false): void {
@@ -63,9 +54,21 @@ package ane.bulletphysics.dynamics
 		 * DiscreteDynamicsWorld constructor.
 		 */
 		public function set gravity(grav:Vector3D): void {
-			// annoyingly, this call also sets all nonstaticRigidBodies in the world's gravity too,
-			// a behavior that is different from both Bullet itself and the ANE wrapper of Bullet.
+			// Annoyingly, this call in AwayPhysics also sets the gravity of all nonstaticRigidBodies
+			// in the world, a behavior that is different from both Bullet itself and the ANE wrapper.
+			// So, I'll undo this behavior here.
+			const bodies: Vector.<AWPRigidBody> = awpDDWorld.nonStaticRigidBodies;
+			const gravities: Vector.<Vector3D> = new Vector.<Vector3D>(bodies.length, true);
+			var i: int;
+			for (i = 0; i < bodies.length; i++) {
+				gravities[i] = bodies[i].gravity.clone();
+			}
+			
 			awpDDWorld.gravity = grav;
+			
+			for (i = 0; i < bodies.length; i++) {
+				bodies[i].gravity = gravities[i];
+			}
 		}
 		
 		public function get gravity(): Vector3D {

@@ -2,33 +2,31 @@ package ane.bulletphysics.dynamics
 {
 	import flash.geom.Vector3D;
 	
-	import ane.bulletphysics.BulletBase;
 	import ane.bulletphysics.collision.CollisionFlags;
-	import ane.bulletphysics.collision.dispatch.CollisionObject;
+	import ane.bulletphysics.collision.dispatch.CollisionWorld;
 	import ane.bulletphysics.dynamics.constraintsolver.TypedConstraint;
 
-	public class DiscreteDynamicsWorld extends BulletBase
-	{
-		public static const BROADPHASE_DBVT: String = "dbvt";
-		
+	public class DiscreteDynamicsWorld extends CollisionWorld
+	{	
 		private var nonstaticRigidBodies: Vector.<RigidBody> = new Vector.<RigidBody>();
 		private var rigidBodies: Vector.<RigidBody> = new Vector.<RigidBody>();
 		
 		public function DiscreteDynamicsWorld(broadphase:String=BROADPHASE_DBVT, scaling:Number=100, expectNestedMeshes:Boolean=false) {
-			pointer = extContext.call("createDiscreteDynamicsWorldWithDbvt") as uint;
+			switch (broadphase) {
+				case BROADPHASE_DBVT:
+					pointer = extContext.call("createDiscreteDynamicsWorldWithDbvt") as uint;
+					break;
+				default:
+					trace("WARNING: broadphase \"" + broadphase + "\" not recognized. Defaulting to DBVT.");
+					pointer = extContext.call("createDiscreteDynamicsWorldWithDbvt") as uint;
+					break;
+			}
 			if (scaling) _scaling = scaling;
 			nestedMeshes = expectNestedMeshes;
+			super(broadphase, pointer);
 		}
 		
 		// TODO: dispose
-		
-		public function addCollisionObject(obj:CollisionObject, group:int=1, mask:int=-1): void {
-			extContext.call("DiscreteDynamicsWorld::addCollisionObject", pointer, obj.pointer, group, mask);
-		}
-		
-		public function removeCollisionObject(obj:CollisionObject): void {
-			extContext.call("DiscreteDynamicsWorld::removeCollisionObject", pointer, obj.pointer);
-		}
 		
 		public function addRigidBody(body:RigidBody, group:int=1, mask:int=-1): void {
 			if (rigidBodies.indexOf(body) != -1) {
@@ -38,6 +36,9 @@ package ane.bulletphysics.dynamics
 			rigidBodies.push(body);
 			if (!(body.collisionFlags & (CollisionFlags.STATIC_OBJECT | CollisionFlags.KINEMATIC_OBJECT))) {
 				nonstaticRigidBodies.push(body);
+			}
+			if(!collisionObjects.hasOwnProperty(body.pointer.toString())){
+				collisionObjects[body.pointer.toString()] = body;
 			}
 		}
 		
@@ -49,6 +50,9 @@ package ane.bulletphysics.dynamics
 			rigidBodies.splice(index, 1);
 			if ((index = nonstaticRigidBodies.indexOf(body)) != -1) {
 				nonstaticRigidBodies.splice(index, 1);
+			}
+			if(collisionObjects.hasOwnProperty(body.pointer.toString())) {
+				delete collisionObjects[body.pointer.toString()];
 			}
 			extContext.call("DiscreteDynamicsWorld::removeRigidBody", pointer, body.pointer);
 		}
