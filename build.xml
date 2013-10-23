@@ -22,8 +22,8 @@
     <property name="iossdk.dir" value="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk"/>
 	
 	<!-- Derived locations -->
-	<property name="ioslib.dir" value="${iossrc.dir}/build/Release-iphoneos"/>
-	<property name="iossimlib.dir" value="${iossrc.dir}/build/Release-iphonesimulator"/>
+	<property name="ioslib.dir" value="${iossrc.dir}/build/Products/Release-iphoneos"/>
+	<property name="iossimlib.dir" value="${iossrc.dir}/build/Products/Release-iphonesimulator"/>
 	<property name="androidlib.dir" value="${androidsrc.dir}/libs/armeabi"/>
 	<property name="jni.dir" value="${androidsrc.dir}/jni"/>
 
@@ -44,12 +44,14 @@
 
 
 	<target name="ios" depends="bullet-download" description="iOS native lib">
+		<!-- The following isn't working yet, but I think it's on the right track.  For now, just build in Xcode.
 		<exec executable="xcodebuild" dir="${iossrc.dir}" failonerror="true">
-			<arg line="ARCHS=i386 VALID_ARCHS=i386 -sdk iphonesimulator"/>
+			<arg line="ARCHS=i386 VALID_ARCHS=i386 -sdk iphonesimulator -configuration Release"/>
 		</exec>
 		<exec executable="xcodebuild" dir="${iossrc.dir}" failonerror="true">
-			<arg value="ARCHS=armv7 VALID_ARCHS=armv7 -sdk iphoneos"/>
+			<arg value="ARCHS=armv7 VALID_ARCHS=armv7 -sdk iphoneos -configuration Release"/>
 		</exec>
+		-->
 	</target>
 
 

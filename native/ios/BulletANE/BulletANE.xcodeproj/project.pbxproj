@@ -50,6 +50,27 @@
 			remoteGlobalIDString = 1A8A087E376E2E4407E57341;
 			remoteInfo = LinearMath;
 		};
+		E26FC1CF18182C0600D9C61B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E230C0B61795CD820013CE13 /* BulletCollision.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5B980C7F705B174B5CE81AAF;
+			remoteInfo = BulletCollision;
+		};
+		E26FC1D118182C0600D9C61B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E230C0BC1795CDB00013CE13 /* BulletDynamics.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 32484C610C5A0B105F29157D;
+			remoteInfo = BulletDynamics;
+		};
+		E26FC1D318182C0600D9C61B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E230C0C21795CDB90013CE13 /* LinearMath.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 6BBA1ED42E6C4AE878505FAE;
+			remoteInfo = LinearMath;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -208,6 +229,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				E26FC1D018182C0600D9C61B /* PBXTargetDependency */,
+				E26FC1D218182C0600D9C61B /* PBXTargetDependency */,
+				E26FC1D418182C0600D9C61B /* PBXTargetDependency */,
 			);
 			name = BulletANE;
 			productName = BulletANE;
@@ -302,6 +326,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E26FC1D018182C0600D9C61B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = BulletCollision;
+			targetProxy = E26FC1CF18182C0600D9C61B /* PBXContainerItemProxy */;
+		};
+		E26FC1D218182C0600D9C61B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = BulletDynamics;
+			targetProxy = E26FC1D118182C0600D9C61B /* PBXContainerItemProxy */;
+		};
+		E26FC1D418182C0600D9C61B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LinearMath;
+			targetProxy = E26FC1D318182C0600D9C61B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		E2947C2F17824F0400C7C6EE /* Debug */ = {

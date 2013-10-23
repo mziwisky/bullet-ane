@@ -79,6 +79,9 @@ both.  Build those two `aneBullet*` projects.
 Then, `cd` to `native/bullet-itself` and run 
 `./fetchSourceAndMakeXcodeProjects.bash`.
 
+Then, open `native/ios/BulletANE/BulletANE.xcodeproj` in Xcode and build it 
+for both iOS Device and iPad Simulator.
+
 Then, `cd` back to the top directory and edit the properties in `build.xml` to 
 accomodate your system.  Most of it should be alright, but you may need to 
 change `airsdk.dir` and `iossdk.dir`.
