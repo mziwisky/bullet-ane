@@ -34,7 +34,7 @@ package
 		private var _physicsWorld : DiscreteDynamicsWorld;
 		private var _sphereShape : SphereShape;
 		private var _timeStep : Number = 1.0 / 60;
-		private var scale: Number = .1;
+		private var scale: Number = 1;
 		
 		public function AneTest()
 		{
@@ -99,11 +99,11 @@ package
 			_sphereShape = new SphereShape(100*scale);
 			var boxShape : BoxShape = new BoxShape(200*scale, 200*scale, 200*scale);
 			var cylinderShape : CylinderShape = new CylinderShape(100*scale, 200*scale);
-			var coneShape : ConeShape = new ConeShape(100*scale, 200*scale); trace("cone height: " + 200*scale);
+			var coneShape : ConeShape = new ConeShape(100*scale, 200*scale);
 			
 			// create rigidbodies
 			var body : RigidBody;
-			var numx : int = 1;
+			var numx : int = 2;
 			var numy : int = 8;
 			var numz : int = 1;
 			for (var i : int = 0; i < numx; i++ ) {
@@ -137,7 +137,6 @@ package
 						body.ccdSweptSphereRadius = 0.5*scale;
 						body.ccdMotionThreshold = 1*scale;
 						body.position = new Vector3D(i * 200*scale, 100*scale + k * 230*scale, j * 200*scale);
-						trace (body.position.y);
 						_physicsWorld.addRigidBody(body);
 					}
 				}
