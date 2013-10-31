@@ -4,7 +4,7 @@ bin-debug
 bin
 as3/aneBulletTester/ane
 native/ios/BulletANE/build
-native/ios/BulletANE/BulletANE.xcodeproj/project.xcworkspace
+native/ios/BulletANE/BulletANE.xcodeproj/project.xcworkspace/*
 !native/ios/BulletANE/BulletANE.xcodeproj/project.xcworkspace/contents.xcworkspacedata
 native/android/obj
 native/android/libs

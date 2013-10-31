@@ -11,7 +11,7 @@
 	<property name="anelib.dir" value="as3/aneBulletLib/bin"/>
 	<property name="anedefault.file" value="aneBulletDefault.swc"/>
 	<property name="anedefault.dir" value="as3/aneBulletDefault/bin"/>
-    <property name="extention.init" value="BulletExtensionInitializer"/>
+    <property name="extension.init" value="BulletExtensionInitializer"/>
 	<property name="iossrc.dir" value="native/ios/BulletANE"/>
     <property name="ioslib.file" value="libBulletANE.a"/>
 	<property name="androidsrc.dir" value="native/android"/>
@@ -109,19 +109,19 @@
                     <platform name="iPhone-ARM">
                         <applicationDeployment>
                             <nativeLibrary>${ioslib.file}</nativeLibrary>
-                            <initializer>${extention.init}</initializer>
+                            <initializer>${extension.init}</initializer>
                         </applicationDeployment>
 					</platform>
 					<platform name="iPhone-x86">
 						<applicationDeployment>
 							<nativeLibrary>${ioslib.file}</nativeLibrary>
-							<initializer>${extention.init}</initializer>
+							<initializer>${extension.init}</initializer>
 						</applicationDeployment>
 					</platform>
 					<platform name="Android-ARM">
 						<applicationDeployment>
 							<nativeLibrary>${androidlib.file}</nativeLibrary>
-							<initializer>${extention.init}</initializer>
+							<initializer>${extension.init}</initializer>
 						</applicationDeployment>
 					</platform>
 					<platform name="default">
