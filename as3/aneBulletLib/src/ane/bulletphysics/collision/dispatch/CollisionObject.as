@@ -1,20 +1,26 @@
 package ane.bulletphysics.collision.dispatch
 {
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	import flash.events.IEventDispatcher;
 	import flash.geom.Matrix3D;
 	import flash.geom.Vector3D;
 	
 	import ane.bulletphysics.BulletBase;
 	import ane.bulletphysics.BulletMath;
+	import ane.bulletphysics.collision.CollisionFlags;
 	import ane.bulletphysics.collision.shapes.CollisionShape;
 	
 	import away3d.containers.ObjectContainer3D;
 	
-	public class CollisionObject extends BulletBase
+	public class CollisionObject extends BulletBase implements IEventDispatcher
 	{
 		private var _skin: ObjectContainer3D;
+		private var _dispatcher: EventDispatcher;
 		
 		public function CollisionObject(shape:CollisionShape, skin:ObjectContainer3D, pointer:uint=0) {
 			_skin = skin;
+			_dispatcher = new EventDispatcher(this);
 			if (!pointer) {
 				this.pointer = extContext.call("createCollisionObject", shape.pointer) as uint;
 				if (skin) {
@@ -115,6 +121,29 @@ package ane.bulletphysics.collision.dispatch
 		
 		public function set ccdMotionThreshold(val:Number): void {
 			extContext.call("CollisionObject::setCcdMotionThreshold", pointer, val);
+		}
+		
+		private var numListeners: int;
+		public function addEventListener(type:String, listener:Function, useCapture:Boolean=false, priority:int=0, useWeakReference:Boolean=false): void {
+			if (!numListeners++) this.collisionFlags |= CollisionFlags.CUSTOM_MATERIAL_CALLBACK;
+			_dispatcher.addEventListener(type, listener, useCapture, priority, useWeakReference);
+		}
+		
+		public function dispatchEvent(evt:Event): Boolean {
+			return _dispatcher.dispatchEvent(evt);
+		}
+		
+		public function hasEventListener(type:String): Boolean {
+			return _dispatcher.hasEventListener(type);
+		}
+		
+		public function removeEventListener(type:String, listener:Function, useCapture:Boolean=false): void {
+			if (!--numListeners) this.collisionFlags &= (~CollisionFlags.CUSTOM_MATERIAL_CALLBACK);
+			_dispatcher.removeEventListener(type, listener, useCapture);
+		}
+		
+		public function willTrigger(type:String): Boolean {
+			return _dispatcher.willTrigger(type);
 		}
 	}
 }

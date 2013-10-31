@@ -26,6 +26,45 @@ extern "C" FREObject createDiscreteDynamicsWorldWithDbvt(FREContext ctx, void *f
     return ptr;
 }
 
+void tickCallback(btDynamicsWorld *world, btScalar timeStep) {
+    FREContext ctx = world->getWorldUserInfo();
+    char strA[12], strB[12];
+    // This is based on the tickCallback in AwayPhysics, but simplified.  It only reports
+    // collisiont pairs, nothing about the contact manifold.  The idea is to dispatch
+    // a status event with code=(objA ptr as String) and level=(objB ptr as String).
+    
+    int numManifolds = world->getDispatcher()->getNumManifolds();
+    for (int i = 0; i < numManifolds; i++) {
+        btPersistentManifold* contactManifold = world->getDispatcher()->getManifoldByIndexInternal(i);
+        const btCollisionObject* obA = contactManifold->getBody0();
+        const btCollisionObject* obB = contactManifold->getBody1();
+        sprintf(strA, "%d", (unsigned int)obA);
+        sprintf(strB, "%d", (unsigned int)obB);
+        
+        if (obA->getCollisionFlags() & btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK) {
+            FREDispatchStatusEventAsync(ctx, (uint8_t*)strA, (uint8_t*)strB);
+        }
+        if (obB->getCollisionFlags() & btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK) {
+            FREDispatchStatusEventAsync(ctx, (uint8_t*)strB, (uint8_t*)strA);
+        }
+    }
+}
+
+extern "C" FREObject DiscreteDynamicsWorldsetCollisionCallback(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
+{
+    FREObject as3_world = argv[0];
+    FREObject as3_turnon = argv[1];
+    btDiscreteDynamicsWorld* dynamicsWorld;
+    uint32_t turnon;
+    
+    FREGetObjectAsUint32(as3_world, (uint32_t*)&dynamicsWorld);
+    FREGetObjectAsBool(as3_turnon, &turnon);
+    
+    if (turnon) dynamicsWorld->setInternalTickCallback(tickCallback, ctx, true);
+    else dynamicsWorld->setInternalTickCallback(NULL, NULL, true);
+    return NULL;
+}
+
 extern "C" FREObject disposeDynamicsWorld(FREContext ctx, void *funcData, uint32_t argc, FREObject argv[])
 {
     FREObject as3_world = argv[0];

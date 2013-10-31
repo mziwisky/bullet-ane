@@ -1,15 +1,19 @@
 package ane.bulletphysics.dynamics
 {
+	import flash.events.StatusEvent;
 	import flash.geom.Vector3D;
 	
 	import ane.bulletphysics.collision.CollisionFlags;
+	import ane.bulletphysics.collision.dispatch.CollisionObject;
 	import ane.bulletphysics.collision.dispatch.CollisionWorld;
 	import ane.bulletphysics.dynamics.constraintsolver.TypedConstraint;
+	import ane.bulletphysics.events.BulletEvent;
 
 	public class DiscreteDynamicsWorld extends CollisionWorld
 	{	
 		private var nonstaticRigidBodies: Vector.<RigidBody> = new Vector.<RigidBody>();
 		private var rigidBodies: Vector.<RigidBody> = new Vector.<RigidBody>();
+		private var _collisionCallbackOn: Boolean;
 		
 		public function DiscreteDynamicsWorld(broadphase:String=BROADPHASE_DBVT, scaling:Number=100, expectNestedMeshes:Boolean=false) {
 			switch (broadphase) {
@@ -23,6 +27,7 @@ package ane.bulletphysics.dynamics
 			}
 			if (scaling) _scaling = scaling;
 			nestedMeshes = expectNestedMeshes;
+			extContext.addEventListener(StatusEvent.STATUS, onStatusEvent);
 			super(broadphase, pointer);
 		}
 		
@@ -80,6 +85,24 @@ package ane.bulletphysics.dynamics
 		
 		public function get scaling(): Number {
 			return _scaling;
+		}
+		
+		public function get collisionCallbackOn(): Boolean {
+			return _collisionCallbackOn;
+		}
+		
+		public function set collisionCallbackOn(val:Boolean): void {
+			if (_collisionCallbackOn == val) return;
+			_collisionCallbackOn = val;
+			extContext.call("DiscreteDynamicsWorld::setCollisionCallback", pointer, val);
+		}
+		
+		private function onStatusEvent(e:StatusEvent): void {
+			var objA: CollisionObject = collisionObjects[e.code];
+			var objB: CollisionObject = collisionObjects[e.level];
+			if (objA && objB) {
+				objA.dispatchEvent(new BulletEvent(BulletEvent.COLLIDING, objB));
+			}
 		}
 		
 		public function stepSimulation(timestep:Number, maxsubsteps:int=1, fixedstep:Number=1.0/60.0): void {

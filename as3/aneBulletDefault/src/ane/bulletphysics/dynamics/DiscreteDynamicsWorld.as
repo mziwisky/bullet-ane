@@ -79,6 +79,14 @@ package ane.bulletphysics.dynamics
 			return _scaling;
 		}
 		
+		public function get collisionCallbackOn(): Boolean {
+			return awpDDWorld.collisionCallbackOn;
+		}
+		
+		public function set collisionCallbackOn(val:Boolean): void {
+			awpDDWorld.collisionCallbackOn = val;
+		}
+		
 		public function stepSimulation(timestep:Number, maxsubsteps:int=1, fixedstep:Number=1.0/60.0): void {
 			awpDDWorld.step(timestep, maxsubsteps, fixedstep);
 		}

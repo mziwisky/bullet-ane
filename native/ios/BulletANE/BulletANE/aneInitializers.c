@@ -25,6 +25,7 @@ DECLARE_FREFUNC(DiscreteDynamicsWorldaddConstraint);
 DECLARE_FREFUNC(DiscreteDynamicsWorldremoveConstraint);
 DECLARE_FREFUNC(DiscreteDynamicsWorldsetGravity);
 DECLARE_FREFUNC(DiscreteDynamicsWorldgetGravity);
+DECLARE_FREFUNC(DiscreteDynamicsWorldsetCollisionCallback);
 
 // === CollisionWorld ===
 DECLARE_FREFUNC(createCollisionWorldWithDbvt);
@@ -115,7 +116,7 @@ void BulletExtContextInitializer(void *extData, const uint8_t *ctxType, FREConte
 {
     FRENamedFunction *func;
     
-    *numFunctionsToSet = 69;
+    *numFunctionsToSet = 70;
     
     func = (FRENamedFunction*) malloc(sizeof(FRENamedFunction) * *numFunctionsToSet);
     
@@ -188,6 +189,7 @@ void BulletExtContextInitializer(void *extData, const uint8_t *ctxType, FREConte
     ADD_FREFUNC(66, "DiscreteDynamicsWorld::getGravity", DiscreteDynamicsWorldgetGravity);
     ADD_FREFUNC(67, "createCollisionWorldWithDbvt", createCollisionWorldWithDbvt);
     ADD_FREFUNC(68, "CollisionWorld::contactTest", CollisionWorldcontactTest);
+    ADD_FREFUNC(69, "DiscreteDynamicsWorld::setCollisionCallback", DiscreteDynamicsWorldsetCollisionCallback);
     
     *functionsToSet = func;
 }

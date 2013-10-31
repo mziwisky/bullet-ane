@@ -33,12 +33,14 @@ package ane.bulletphysics.collision.dispatch
 			obj.awp::collisionFilterGroup = group;
 			obj.awp::collisionFilterMask = mask;
 			
+			obj.parentWorld = this;
 			collisionObjects[obj.awpObject] = obj;
 		}
 		
 		public function removeCollisionObject(obj:CollisionObject, cleanup:Boolean=false) : void {
 			awpWorld.removeCollisionObject(obj.awpObject);
 			
+			obj.parentWorld = null;
 			delete collisionObjects[obj.awpObject];
 		}
 		
