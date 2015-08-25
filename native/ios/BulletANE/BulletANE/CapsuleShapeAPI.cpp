@@ -20,7 +20,7 @@ extern "C" FREObject createCapsuleShape(FREContext ctx, void *funcData, uint32_t
     btCollisionShape* shape = new btCapsuleShape(btScalar(rad), btScalar(height));
     
     FREObject ptr;
-    FRENewObjectFromUint32((uint32_t)shape, &ptr);
+    FRENewObjectFromUint32((uint32_t)(size_t)shape, &ptr);
     return ptr;
 }
 

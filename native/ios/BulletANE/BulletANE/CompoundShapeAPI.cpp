@@ -14,7 +14,7 @@ extern "C" FREObject createCompoundShape(FREContext ctx, void *funcData, uint32_
     btCollisionShape* shape = new btCompoundShape();
     
     FREObject ptr;
-    FRENewObjectFromUint32((uint32_t)shape, &ptr);
+    FRENewObjectFromUint32((uint32_t)(size_t)shape, &ptr);
     return ptr;
 }
 

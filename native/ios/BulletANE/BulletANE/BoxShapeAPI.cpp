@@ -24,7 +24,7 @@ extern "C" FREObject createBoxShape(FREContext ctx, void *funcData, uint32_t arg
     btCollisionShape* shape = new btBoxShape(halfExtents);
     
     FREObject ptr;
-    FRENewObjectFromUint32((uint32_t)shape, &ptr);
+    FRENewObjectFromUint32((uint32_t)(size_t)shape, &ptr);
     return ptr;
 }
 

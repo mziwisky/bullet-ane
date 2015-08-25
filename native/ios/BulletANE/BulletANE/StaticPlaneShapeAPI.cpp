@@ -27,6 +27,6 @@ extern "C" FREObject createStaticPlaneShape(FREContext ctx, void *funcData, uint
     btCollisionShape* shape = new btStaticPlaneShape(normal, constant);
     
     FREObject ptr;
-    FRENewObjectFromUint32((uint32_t)shape, &ptr);
+    FRENewObjectFromUint32((uint32_t)(size_t)shape, &ptr);
     return ptr;
 }

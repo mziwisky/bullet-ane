@@ -20,7 +20,7 @@ extern "C" FREObject createCollisionObject(FREContext ctx, void *funcData, uint3
     obj->setCollisionShape((btCollisionShape*)shapePtr);
     
     FREObject ptr;
-    FRENewObjectFromUint32((uint32_t)obj, &ptr);
+    FRENewObjectFromUint32((uint32_t)(size_t)obj, &ptr);
     return ptr;
 }
 

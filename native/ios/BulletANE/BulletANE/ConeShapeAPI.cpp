@@ -20,7 +20,7 @@ extern "C" FREObject createConeShape(FREContext ctx, void *funcData, uint32_t ar
     btCollisionShape* shape = new btConeShape(btScalar(rad), btScalar(height));
     
     FREObject ptr;
-    FRENewObjectFromUint32((uint32_t)shape, &ptr);
+    FRENewObjectFromUint32((uint32_t)(size_t)shape, &ptr);
     return ptr;
 }
 

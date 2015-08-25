@@ -54,21 +54,21 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = E230C0B61795CD820013CE13 /* BulletCollision.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 5B980C7F705B174B5CE81AAF;
+			remoteGlobalIDString = 40E134643F2A020000DD6E54;
 			remoteInfo = BulletCollision;
 		};
 		E26FC1D118182C0600D9C61B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E230C0BC1795CDB00013CE13 /* BulletDynamics.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 32484C610C5A0B105F29157D;
+			remoteGlobalIDString = 58750F383BA55EE5105D7FFA;
 			remoteInfo = BulletDynamics;
 		};
 		E26FC1D318182C0600D9C61B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E230C0C21795CDB90013CE13 /* LinearMath.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 6BBA1ED42E6C4AE878505FAE;
+			remoteGlobalIDString = 104A240E288E3B5A23E13614;
 			remoteInfo = LinearMath;
 		};
 /* End PBXContainerItemProxy section */
@@ -110,7 +110,7 @@
 		E2947C2617824F0400C7C6EE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E2947C2A17824F0400C7C6EE /* BulletANE-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BulletANE-Prefix.pch"; sourceTree = "<group>"; };
 		E2947C2D17824F0400C7C6EE /* aneInitializers.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = aneInitializers.c; sourceTree = "<group>"; };
-		E2947C5D1782511B00C7C6EE /* FlashRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlashRuntimeExtensions.h; path = "../../../../../../../../Applications/Adobe Flash Builder 4.7/sdks/4.6.0AIR3.7/include/FlashRuntimeExtensions.h"; sourceTree = "<group>"; };
+		E2947C5D1782511B00C7C6EE /* FlashRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlashRuntimeExtensions.h; path = "../../../../../../../../Applications/Adobe Flash Builder 4.7/sdks/4.9.1AIR4.0/include/FlashRuntimeExtensions.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -402,6 +402,7 @@
 		E2947C3217824F0400C7C6EE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				DSTROOT = /tmp/BulletANE.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BulletANE/BulletANE-Prefix.pch";
@@ -416,6 +417,7 @@
 		E2947C3317824F0400C7C6EE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				DSTROOT = /tmp/BulletANE.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BulletANE/BulletANE-Prefix.pch";

@@ -34,7 +34,7 @@ extern "C" FREObject createRigidBody(FREContext ctx, void *funcData, uint32_t ar
     btRigidBody* body = new btRigidBody(rbInfo);
     
     FREObject ptr;
-    FRENewObjectFromUint32((uint32_t)body, &ptr);
+    FRENewObjectFromUint32((uint32_t)(size_t)body, &ptr);
     return ptr;
 }
 
@@ -164,7 +164,7 @@ extern "C" FREObject RigidBodygetConstraintRef(FREContext ctx, void *funcData, u
     btTypedConstraint* ref = body->getConstraintRef(index);
     
     FREObject as3ref;
-    FRENewObjectFromUint32((uint32_t)ref, &as3ref);
+    FRENewObjectFromUint32((uint32_t)(size_t)ref, &as3ref);
     return as3ref;
 }
 

@@ -19,7 +19,7 @@ extern "C" FREObject createCollisionWorldWithDbvt(FREContext ctx, void *funcData
     btCollisionWorld* world = new btCollisionWorld(dispatcher, overlappingPairCache, collisionConfiguration);
     
     FREObject ptr;
-    FRENewObjectFromUint32((uint32_t)world, &ptr);
+    FRENewObjectFromUint32((uint32_t)(size_t)world, &ptr);
     return ptr;
 }
 
@@ -102,7 +102,7 @@ extern "C" FREObject CollisionWorldcontactTest(FREContext ctx, void *funcData, u
         FRESetArrayLength(result, numCol);
         for (int i=0; i < numCol; i++) {
             FREObject objptr;
-            FRENewObjectFromUint32(uint32_t(cb.otherObjs[i]), &objptr);
+            FRENewObjectFromUint32((uint32_t)(size_t)(cb.otherObjs[i]), &objptr);
             FRESetArrayElementAt(result, i, objptr);
         }
         return result;

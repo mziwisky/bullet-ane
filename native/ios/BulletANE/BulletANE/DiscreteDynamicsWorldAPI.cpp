@@ -22,7 +22,7 @@ extern "C" FREObject createDiscreteDynamicsWorldWithDbvt(FREContext ctx, void *f
     btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
     
     FREObject ptr;
-    FRENewObjectFromUint32((uint32_t)dynamicsWorld, &ptr);
+    FRENewObjectFromUint32((uint32_t)(size_t)dynamicsWorld, &ptr);
     return ptr;
 }
 

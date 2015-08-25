@@ -28,7 +28,7 @@ extern "C" FREObject createGeneric6DofConstraint(FREContext ctx, void *funcData,
     btGeneric6DofConstraint* sixdof = new btGeneric6DofConstraint(*rbA, *rbB, frameInA, frameInB, useLinearReferenceFrameA);
     
     FREObject ptr;
-    FRENewObjectFromUint32((uint32_t)sixdof, &ptr);
+    FRENewObjectFromUint32((uint32_t)(size_t)sixdof, &ptr);
     return ptr;
 }
 
